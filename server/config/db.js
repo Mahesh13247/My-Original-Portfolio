@@ -4,7 +4,7 @@ const path = require('path');
 let sequelize;
 
 if (process.env.DATABASE_URL) {
-  // Production: PostgreSQL (Render, Railway, etc.)
+  console.log('🚀 Production Mode: Connecting to PostgreSQL...');
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     protocol: 'postgres',
@@ -17,7 +17,10 @@ if (process.env.DATABASE_URL) {
     logging: false
   });
 } else {
-  // Local Development: SQLite
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('❌ CRITICAL ERROR: DATABASE_URL is missing in production environment!');
+  }
+  console.log('💻 Development Mode: Connecting to SQLite...');
   sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: path.join(__dirname, 'database.sqlite'),
