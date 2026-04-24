@@ -36,6 +36,35 @@ const Dashboard = () => {
     .filter(p => p.status === 'completed')
     .reduce((sum, p) => sum + p.amount, 0);
 
+  const downloadInvoices = () => {
+    const completedPayments = payments.filter(p => p.status === 'completed');
+    if (completedPayments.length === 0) {
+      alert('No successful invoices found to download.');
+      return;
+    }
+
+    const headers = ['Project Name', 'Date', 'Amount (INR)', 'Order ID', 'Payment ID'];
+    const rows = completedPayments.map(p => [
+      `"${p.Project?.title || 'Unknown'}"`,
+      new Date(p.createdAt).toLocaleDateString(),
+      p.amount,
+      p.orderId,
+      p.paymentId || 'N/A'
+    ]);
+
+    const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `invoices_${user.name.replace(/\s+/g, '_')}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="flex h-[calc(100vh-80px)] overflow-hidden bg-slate-900 w-full max-w-[1200px] mx-auto">
       {/* Sidebar */}
@@ -127,12 +156,14 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-700/50">
-                  {payments.length > 0 ? (
-                    payments.map(payment => (
+                  {payments.filter(p => p.status === 'completed').length > 0 ? (
+                    payments
+                      .filter(p => p.status === 'completed')
+                      .map(payment => (
                       <tr key={payment.id} className="hover:bg-slate-800/30 transition-colors">
                         <td className="px-6 py-4">
                           <div className="font-medium text-slate-50">{payment.Project?.title || 'Unknown Project'}</div>
-                          <div className="text-xs text-slate-500 font-mono">{payment.orderId}</div>
+                          <div className="text-xs text-slate-500 font-mono">{payment.paymentId || payment.orderId}</div>
                         </td>
                         <td className="px-6 py-4 text-sm text-slate-400">
                           {new Date(payment.createdAt).toLocaleDateString()}
@@ -141,11 +172,9 @@ const Dashboard = () => {
                           ₹{payment.amount}
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
-                            payment.status === 'completed' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
-                          }`}>
-                            {payment.status === 'completed' ? <CheckCircle2 size={12} /> : <Clock size={12} />}
-                            {payment.status.toUpperCase()}
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-green-500/10 text-green-400">
+                            <CheckCircle2 size={12} />
+                            SUCCESSFUL
                           </span>
                         </td>
                       </tr>
@@ -153,62 +182,122 @@ const Dashboard = () => {
                   ) : (
                     <tr>
                       <td colSpan="4" className="px-6 py-12 text-center text-slate-500 italic">
-                        No transactions found
+                        No successful transactions found
                       </td>
                     </tr>
                   )}
                 </tbody>
               </table>
             </div>
+            
+            {payments.filter(p => p.status === 'pending').length > 0 && (
+              <div className="space-y-4 pt-8">
+                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Incomplete Attempts</h3>
+                <div className="grid grid-cols-1 gap-3 opacity-60">
+                  {payments.filter(p => p.status === 'pending').slice(0, 3).map(payment => (
+                    <div key={payment.id} className="flex justify-between items-center p-4 rounded-xl border border-dashed border-slate-700">
+                      <div className="text-sm text-slate-300">{payment.Project?.title}</div>
+                      <div className="text-xs text-slate-500">{new Date(payment.createdAt).toLocaleDateString()}</div>
+                    </div>
+                  ))}
+                  {payments.filter(p => p.status === 'pending').length > 3 && (
+                    <p className="text-xs text-slate-600 text-center italic">... and {payments.filter(p => p.status === 'pending').length - 3} other attempts</p>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         {activeTab === 'billing' && (
           <div className="space-y-8">
-            <h1 className="text-3xl font-bold">Billing Overview</h1>
+            <h1 className="text-3xl font-bold">Billing & Subscription</h1>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="glass-panel p-6 rounded-2xl border border-slate-700/50 space-y-2">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Invested</p>
-                <h2 className="text-4xl font-bold text-slate-50">₹{totalSpent}</h2>
-                <p className="text-xs text-green-400 flex items-center gap-1 italic">
-                  <CheckCircle2 size={12} /> Lifetime access secured
-                </p>
-              </div>
-              
-              <div className="glass-panel p-6 rounded-2xl border border-slate-700/50 space-y-2">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Plan Status</p>
-                <h2 className="text-2xl font-bold text-slate-50">Premium Member</h2>
-                <p className="text-xs text-slate-400 italic">Active since {new Date(user.createdAt).toLocaleDateString()}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Wallet Card */}
+              <div className="relative overflow-hidden group p-8 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-2xl shadow-blue-500/20">
+                <div className="relative z-10 space-y-6">
+                  <div className="flex justify-between items-start">
+                    <div className="bg-white/20 p-2 rounded-lg backdrop-blur-md">
+                      <CreditCard className="text-white" size={24} />
+                    </div>
+                    <span className="text-xs font-bold text-white/60 tracking-widest uppercase">Premium Card</span>
+                  </div>
+                  <div>
+                    <p className="text-xs text-white/60 uppercase tracking-wider mb-1">Total Lifetime Investment</p>
+                    <h2 className="text-5xl font-black text-white tracking-tighter">₹{totalSpent}</h2>
+                  </div>
+                  <div className="flex justify-between items-end">
+                    <div className="space-y-1">
+                      <p className="text-[10px] text-white/40 uppercase font-bold">Card Holder</p>
+                      <p className="text-sm font-bold text-white uppercase tracking-widest">{user.name}</p>
+                    </div>
+                    <div className="flex -space-x-2">
+                       <div className="w-8 h-8 rounded-full bg-red-500/80 border border-white/20"></div>
+                       <div className="w-8 h-8 rounded-full bg-yellow-500/80 border border-white/20"></div>
+                    </div>
+                  </div>
+                </div>
+                {/* Decorative circles */}
+                <div className="absolute -top-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
               </div>
 
-              <div className="glass-panel p-6 rounded-2xl border border-slate-700/50 space-y-2">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Next Steps</p>
-                <button className="w-full btn-primary text-xs py-2 mt-2">Manage Account</button>
+              {/* Stats Card */}
+              <div className="glass-panel p-8 rounded-3xl border border-slate-700/50 flex flex-col justify-between">
+                <div className="space-y-4">
+                  <h3 className="font-bold text-slate-50">Membership Overview</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Account Type</span>
+                      <span className="text-blue-400 font-bold uppercase tracking-tighter">Premium</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Join Date</span>
+                      <span className="text-slate-50 font-medium">
+                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Active Member'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Total Unlocks</span>
+                      <span className="text-slate-50 font-medium">{unlockedProjects.length} Projects</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="pt-6 border-t border-slate-700/50 mt-6">
+                   <button 
+                    onClick={downloadInvoices}
+                    className="w-full py-3 bg-slate-50 text-slate-950 font-bold rounded-xl text-sm hover:bg-slate-200 transition-all"
+                   >
+                      Download All Invoices
+                   </button>
+                </div>
               </div>
             </div>
 
             <div className="glass-panel p-8 rounded-3xl border border-slate-700/50 space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400">
-                  <CreditCard size={24} />
+                  <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-50 text-lg">Billing Support</h3>
-                  <p className="text-sm text-slate-400 italic">Need help with an invoice or refund?</p>
+                  <h3 className="font-bold text-slate-50 text-lg">Billing Confidence</h3>
+                  <p className="text-sm text-slate-400 italic">Your security is our priority.</p>
                 </div>
               </div>
               <p className="text-slate-400 text-sm max-w-2xl leading-relaxed">
-                If you have any issues with your premium project purchases, please contact our support team. 
-                All premium projects come with lifetime updates and full source code access as per our service agreement.
+                All transactions are processed through encrypted gateways. If you notice any discrepancy 
+                in your billing or if a project fails to unlock after payment, our dedicated 
+                billing team is available 24/7.
               </p>
-              <div className="flex gap-4">
-                <button className="px-6 py-2 bg-slate-800 hover:bg-slate-700 text-slate-50 rounded-xl text-sm font-bold transition-all border border-slate-700">
-                  Email Support
-                </button>
-                <button className="flex items-center gap-2 px-6 py-2 text-blue-400 hover:text-blue-300 text-sm font-bold transition-all underline decoration-blue-500/30 underline-offset-4">
-                  Terms of Service <ExternalLink size={14} />
-                </button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-slate-800/50 border border-slate-700/50">
+                   <p className="text-xs font-bold text-slate-500 uppercase mb-1">Email Support</p>
+                   <p className="text-sm text-slate-300">support@kmahesh.com</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-slate-800/50 border border-slate-700/50">
+                   <p className="text-xs font-bold text-slate-500 uppercase mb-1">Response Time</p>
+                   <p className="text-sm text-slate-300">Typically under 2 hours</p>
+                </div>
               </div>
             </div>
           </div>
