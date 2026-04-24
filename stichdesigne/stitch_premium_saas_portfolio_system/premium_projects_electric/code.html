@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Electric Portfolio - Premium Projects</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#490080",
+                        "surface-container-high": "#242b2d",
+                        "secondary-fixed": "#f0dbff",
+                        "surface-container-lowest": "#090f11",
+                        "on-background": "#dde4e5",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "inverse-surface": "#dde4e5",
+                        "surface-container": "#1a2122",
+                        "on-secondary-container": "#d6a9ff",
+                        "on-tertiary-container": "#6e4600",
+                        "inverse-on-surface": "#2b3233",
+                        "on-error": "#690005",
+                        "on-tertiary": "#462b00",
+                        "surface-bright": "#343a3c",
+                        "surface-dim": "#0e1416",
+                        "background": "#0e1416",
+                        "surface-tint": "#2fd9f4",
+                        "on-tertiary-fixed-variant": "#643f00",
+                        "tertiary-container": "#ffb13b",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#2c0051",
+                        "error": "#ffb4ab",
+                        "primary-container": "#22d3ee",
+                        "on-surface-variant": "#bbc9cd",
+                        "on-primary-container": "#005763",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "outline-variant": "#3c494c",
+                        "tertiary-fixed-dim": "#ffb957",
+                        "primary": "#8aebff",
+                        "surface-container-highest": "#2f3638",
+                        "secondary": "#ddb7ff",
+                        "on-tertiary-fixed": "#2a1800",
+                        "surface-variant": "#2f3638",
+                        "surface-container-low": "#161d1e",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "on-primary-fixed": "#001f25",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "error-container": "#93000a",
+                        "secondary-container": "#6f00be",
+                        "inverse-primary": "#006877",
+                        "outline": "#859397",
+                        "on-surface": "#dde4e5",
+                        "primary-fixed": "#a2eeff",
+                        "on-primary": "#00363e",
+                        "surface": "#0e1416",
+                        "tertiary-fixed": "#ffddb5",
+                        "tertiary": "#ffd6a3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "section-gap": "120px",
+                        "container-max": "1280px",
+                        "margin-page": "48px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "display-xl": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #020617;
+            background-image: linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-slate-950/70 backdrop-blur-md text-cyan-400 font-manrope antialiased tracking-tight docked full-width top-0 sticky border-b border-cyan-500/20 shadow-none z-50 flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-cyan-500/50">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="professional headshot of a young man with glasses against a dark background with subtle blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-ma3KBn9RP03Z7eh3K94C7CSVVVKzNRfglHiob1L6mz9MKJ6_Z2gYhZYM-caAQPotvvaAX-6rh3k1l6Xt-_aT_FG9invZGiyar3GqZqbsW7KwUmpljhlMuD98kI_wMhvUbaeNsuSMiqRjFPR10pTHckswtdFLEmXx4RMek1lQnpe3elrO6HwHU96vajvbLqDrep0Mq2Drfb1beklujsb_yenM-YcswfCEWKjbjci_pkfqT_Pv_AdCpSznkMFSg2x5r8wIYo8kan9R"/>
+</div>
+<span class="text-xl font-black text-cyan-400 drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]">Vortex Pro</span>
+</div>
+<nav class="hidden md:flex gap-8">
+<!-- Suppressed nav items for focus, only active item shown as per logic -->
+<a class="text-cyan-400 font-bold hover:text-cyan-300 hover:bg-white/5 transition-colors active:scale-95 duration-200 px-3 py-1 rounded" href="#">Portfolio</a>
+</nav>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/5 hover:text-cyan-300 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<div class="flex flex-1">
+<!-- NavigationDrawer (Hidden on Mobile, Visible on Desktop) -->
+<aside class="hidden md:flex bg-slate-950 border-r border-white/5 text-cyan-400 font-manrope text-sm font-medium h-screen w-72 flex-col divide-y divide-white/5 shadow-2xl flex flex-col h-full py-8 sticky top-[73px] z-40">
+<div class="px-6 pb-6 left_align">
+<div class="flex items-center gap-4 mb-4">
+<img alt="Creator Avatar" class="w-12 h-12 rounded-full border border-cyan-500/30" data-alt="professional headshot of a young man with glasses against a dark background with subtle blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9ITv6qzkIDSaJdD7AloDBnLk5miy6w4fZatedvAy-UB-3xZdxa6HWCs2YTsN_BJ4ZYB2L6a4uiGYsGpucU-d5gGhR6242GSyIwyDJtkjLKXD5_X4QXK6MSv3wWr3uw2d1yx3go0JVc3qNTBLHt5U2rA7gRbcJHO7wGRmg9RDHoq_qF8a-htaNwHmgNgZpKD8puUFcXkgvg0ZbfqYi9VB2aDdpjfkAiiAQ5ItNV0GAbv4y3_G5Gjk824aNPinerTM8X4WfGnrbhqgR"/>
+<div>
+<h3 class="text-cyan-400 font-black">Alex Rivera</h3>
+<p class="text-slate-400 text-xs">Elite Tier</p>
+</div>
+</div>
+<div class="text-xs text-slate-500">v2.4.0</div>
+</div>
+<nav class="flex-1 pt-4 space-y-2">
+<a class="flex items-center gap-3 text-slate-400 px-6 py-3 hover:bg-white/5 hover:text-white transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 bg-gradient-to-r from-cyan-500/10 to-transparent text-cyan-400 border-l-2 border-cyan-400 px-6 py-3 hover:bg-white/5 hover:text-white transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="folder_special">folder_special</span>
+<span>Portfolio</span>
+</a>
+<a class="flex items-center gap-3 text-slate-400 px-6 py-3 hover:bg-white/5 hover:text-white transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 text-slate-400 px-6 py-3 hover:bg-white/5 hover:text-white transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Clients</span>
+</a>
+<a class="flex items-center gap-3 text-slate-400 px-6 py-3 hover:bg-white/5 hover:text-white transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 pb-24 md:pb-0">
+<div class="max-w-[1280px] mx-auto px-6 py-12 space-y-12">
+<!-- Page Header -->
+<div class="space-y-4">
+<h1 class="font-display-xl text-display-xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Premium Vault</h1>
+<p class="font-body-lg text-body-lg text-slate-400 max-w-2xl">Exclusive, high-fidelity projects reserved for elite tier access. Unlock the potential of midnight cyber aesthetics.</p>
+</div>
+<!-- Bento Grid for Projects -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Unlocked Project Card -->
+<div class="group relative rounded-xl overflow-hidden bg-[#0f172a]/80 backdrop-blur-xl border border-cyan-500/20 hover:border-cyan-400/80 transition-all duration-300">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f172a] z-10 pointer-events-none"></div>
+<img alt="Cyberpunk Cityscape" class="w-full h-64 object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="futuristic neon-lit cityscape at night with glowing blue and pink signs reflecting on wet streets" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBevcALAtqAWSLmXNF_e0ILTIj2fonue-DhVc2e9UY4MmJYQcpyewusfImeolNUdw3mJ8gbhweRm2O-OFeTdnZ7zz1DozdP3sT1OPBhhTSmvCJ327VBsImsQAr9naEx3h3iF2b5FGGAT8-BOmQI4cch2gsBt3TDOMgmUPzov71HyS-giDPL0KqN09hCVsP37BxV24YencL8_q91up5_3iqkBJWOGd6eqQ7T5-KMad3lZCXpJRDGkwgial41GViw7yoU-Gh4Gaj9Gs-P"/>
+<div class="absolute bottom-0 left-0 w-full p-6 z-20">
+<div class="flex gap-2 mb-3">
+<span class="px-2 py-1 bg-purple-500/20 border border-purple-500/50 rounded text-purple-400 font-label-sm text-label-sm uppercase tracking-wider">UI/UX</span>
+<span class="px-2 py-1 bg-cyan-500/20 border border-cyan-500/50 rounded text-cyan-400 font-label-sm text-label-sm uppercase tracking-wider">Web3</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-white mb-2">Neon Nexus</h3>
+<p class="font-body-md text-body-md text-slate-300 line-clamp-2">A decentralized exchange interface focusing on high-speed transactions and deep liquidity visualization.</p>
+</div>
+</div>
+<!-- Locked Premium Project 1 -->
+<div class="group relative rounded-xl overflow-hidden bg-[#0f172a]/80 backdrop-blur-xl border border-purple-500/20">
+<img alt="Abstract Data Visualization" class="w-full h-64 object-cover opacity-40 blur-sm" data-alt="abstract glowing data streams in dark space with intense purple and cyan hues creating a sense of deep technology" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOfu4jTUciwoBYUV_ecbXaFKVkpk60SepoZcZQb756mO38P9M8SLLxFWm_c5cQaRHuEfipXPswWYEgwqgT5vAiNq_MxHPPDk4-3rzNWd_2P9TrKgkSJN9j_UF5-GNCBku3FM8sVsLw_qrluMO6EPbXxfUpLwsPlITLatGxXqzTS5jS1CKLBGGGVNi62zgIaC61idhIzL7Eaih5nnb2PCtSjo4I118orEwf6hWliBsfDanRa2cHgrIzbfArWsZJ5u6V-iCxuJVMjLNF"/>
+<!-- Locked Overlay -->
+<div class="absolute inset-0 flex flex-col items-center justify-center bg-[#020617]/60 backdrop-blur-md z-20 p-6 text-center">
+<div class="w-16 h-16 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-4 drop-shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+<span class="material-symbols-outlined text-3xl text-purple-400" data-icon="lock" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-white mb-2">Quantum Analytics</h4>
+<p class="font-body-md text-body-md text-slate-400 mb-6">Premium financial dashboard.</p>
+<button class="px-6 py-3 bg-cyan-400 text-[#020617] font-bold rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all">
+                                Unlock Now
+                            </button>
+</div>
+</div>
+<!-- Locked Premium Project 2 -->
+<div class="group relative rounded-xl overflow-hidden bg-[#0f172a]/80 backdrop-blur-xl border border-purple-500/20">
+<img alt="Cryptocurrency Concept" class="w-full h-64 object-cover opacity-40 blur-sm" data-alt="floating glowing geometric shapes representing cryptocurrency tokens in a dark digital void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYZLxoatZ5gYhWuHhbYm3H37gdEVlbtjtuLrEjBjVjHdpWOmoi3GE3cetRcNUEmpvCK_eXc2zU9vNGMZlTfavQnCsQdfGUa2xjQ86yFJQvkN5QAzDv5mGFNQO1dnuNUMbQ2jtvoT8laBbNngPDSS7SXzbbN2jhYOCxQyANXRuHgiAh6ancGTVkrNbTVs7i4gMpldQ9M5gsBecXGhk7cP-oWN1_CUl5vT7QbLpme8593j7zUcUPHch4ReEPa_44VLRq9_h8RZsGnWak"/>
+<!-- Locked Overlay -->
+<div class="absolute inset-0 flex flex-col items-center justify-center bg-[#020617]/60 backdrop-blur-md z-20 p-6 text-center">
+<div class="w-16 h-16 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-4 drop-shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+<span class="material-symbols-outlined text-3xl text-purple-400" data-icon="lock" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-white mb-2">Aether Protocol</h4>
+<p class="font-body-md text-body-md text-slate-400 mb-6">Zero-knowledge proof identity system.</p>
+<button class="px-6 py-3 bg-cyan-400 text-[#020617] font-bold rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all">
+                                Unlock Now
+                            </button>
+</div>
+</div>
+<!-- Locked Premium Project 3 (Large Span) -->
+<div class="group relative rounded-xl overflow-hidden bg-[#0f172a]/80 backdrop-blur-xl border border-purple-500/20 md:col-span-2 lg:col-span-3">
+<img alt="Server Room" class="w-full h-80 object-cover opacity-30 blur-md" data-alt="endless corridor of glowing server racks in dark blue and purple ambient light conveying massive data processing power" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjkDVD0Z32pamVfgmX7sDUJzeu1rsYUH6Z_dYDbP-pCt7cZdSJumsepnekfGqvLnLv8zlD92cINB7dhqSmtK_300vaxa9sqUNmazBNbXqPgxtpblFl-h0WGftZQSbsJ0ychQOxjYSIEIIYWUnOCye9Bb4BABEd_XY55zlvhYEQsWk5y-hHoh-ZYcDzf0oKCqurU9Gg5K-tCPIZXjvDdOVXw6mFmV3L4AlYWDlzyxGmuWm6BEwJ4t9STMoiUiQJzEH1tocLQkqpyyQZ"/>
+<!-- Locked Overlay -->
+<div class="absolute inset-0 flex flex-col items-center justify-center bg-[#020617]/70 backdrop-blur-lg z-20 p-8 text-center">
+<div class="w-20 h-20 rounded-full bg-purple-500/10 border border-purple-500/40 flex items-center justify-center mb-6 drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]">
+<span class="material-symbols-outlined text-4xl text-purple-400" data-icon="lock" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<h4 class="font-display-xl text-display-xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-4">Vortex Engine Pro</h4>
+<p class="font-body-lg text-body-lg text-slate-300 max-w-xl mx-auto mb-8">The ultimate architectural blueprint for high-frequency trading platforms. Includes complete source files, figma designs, and deployment scripts.</p>
+<button class="px-8 py-4 bg-transparent border-2 border-cyan-400 text-cyan-400 font-bold rounded-lg hover:bg-cyan-400 hover:text-[#020617] shadow-[0_0_15px_rgba(34,211,238,0.2)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] transition-all uppercase tracking-widest">
+                                Unlock Masterpiece
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Visible only on Mobile) -->
+<nav class="md:hidden bg-slate-950/80 backdrop-blur-lg text-cyan-400 text-[10px] font-bold uppercase tracking-widest font-manrope fixed bottom-0 w-full z-50 rounded-t-2xl border-t border-purple-500/20 shadow-[0_-4px_20px_rgba(168,85,247,0.1)] fixed bottom-0 left-0 w-full flex justify-around items-center h-20 pb-4">
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-purple-400 transition-all transform active:scale-110" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="grid_view">grid_view</span>
+<span>Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)] hover:text-purple-400 transition-all transform active:scale-110" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="layers">layers</span>
+<span>Work</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-purple-400 transition-all transform active:scale-110" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="auto_graph">auto_graph</span>
+<span>Insight</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-purple-400 transition-all transform active:scale-110" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lumina Portfolio - Pricing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-primary-fixed": "#001a42",
+                    "outline": "#8c909f",
+                    "on-secondary-fixed": "#23005c",
+                    "on-secondary-container": "#c4abff",
+                    "primary-fixed-dim": "#adc6ff",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "surface-container-lowest": "#010f1f",
+                    "secondary-container": "#571bc1",
+                    "on-surface": "#d4e4fa",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "surface-bright": "#2c3a4c",
+                    "error-container": "#93000a",
+                    "background": "#051424",
+                    "tertiary": "#ffb786",
+                    "secondary-fixed": "#e9ddff",
+                    "on-primary-fixed-variant": "#004395",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-container": "#df7412",
+                    "surface-container-low": "#0d1c2d",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-secondary": "#3c0091",
+                    "on-primary-container": "#00285d",
+                    "primary": "#adc6ff",
+                    "inverse-on-surface": "#233143",
+                    "surface": "#051424",
+                    "surface-container-high": "#1c2b3c",
+                    "on-surface-variant": "#c2c6d6",
+                    "surface-container-highest": "#273647",
+                    "on-tertiary-fixed": "#311400",
+                    "on-error": "#690005",
+                    "inverse-surface": "#d4e4fa",
+                    "on-tertiary-container": "#461f00",
+                    "secondary": "#d0bcff",
+                    "surface-tint": "#adc6ff",
+                    "surface-container": "#122131",
+                    "primary-container": "#4d8eff",
+                    "error": "#ffb4ab",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "on-background": "#d4e4fa",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-variant": "#273647",
+                    "on-primary": "#002e6a",
+                    "surface-dim": "#051424",
+                    "on-tertiary": "#502400",
+                    "inverse-primary": "#005ac2",
+                    "outline-variant": "#424754"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-xl": "96px",
+                    "stack-md": "24px",
+                    "stack-lg": "48px",
+                    "stack-sm": "12px",
+                    "margin-page": "64px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Manrope"
+                    ],
+                    "headline-lg": [
+                            "Manrope"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "display-xl": [
+                            "Manrope"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "letterSpacing": "0",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-xl": [
+                            "72px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.04em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "letterSpacing": "0",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- TopAppBar (Web) -->
+<header class="hidden md:flex justify-between items-center px-6 py-4 w-full max-w-7xl mx-auto bg-slate-900/60 backdrop-blur-xl docked full-width top-0 sticky z-50 shadow-2xl shadow-black/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-500">grid_view</span>
+<span class="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-manrope antialiased tracking-tight">Lumina Portfolio</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- NavigationDrawer (Web) -->
+<nav class="hidden lg:flex fixed left-0 top-0 h-full flex flex-col h-screen w-64 border-r border-slate-800 bg-slate-900 z-40 pt-20">
+<div class="px-6 py-8 flex flex-col items-start gap-4">
+<div class="flex items-center gap-3 w-full">
+<div class="w-10 h-10 rounded-full bg-slate-800 overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-blue-500 font-manrope text-sm">Alex Rivera</span>
+<span class="text-xs text-slate-400">Pro Plan</span>
+</div>
+</div>
+</div>
+<ul class="flex flex-col gap-2 px-4 flex-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:bg-slate-800/50 hover:text-slate-200 duration-200 ease-in-out font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:bg-slate-800/50 hover:text-slate-200 duration-200 ease-in-out font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:bg-slate-800/50 hover:text-slate-200 duration-200 ease-in-out font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span>Journal</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-500/10 text-blue-400 border-r-2 border-blue-500 hover:bg-slate-800/50 hover:text-slate-200 duration-200 ease-in-out font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Subscription</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:bg-slate-800/50 hover:text-slate-200 duration-200 ease-in-out font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</li>
+</ul>
+<div class="px-6 py-4 mt-auto border-t border-slate-800">
+<span class="text-xs text-slate-500 font-manrope text-sm">v2.4.0</span>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 w-full lg:ml-64 relative pb-32 lg:pb-0 overflow-y-auto">
+<div class="max-w-[1200px] mx-auto px-6 py-margin-page md:py-stack-xl flex flex-col gap-stack-lg">
+<!-- Header Section -->
+<div class="text-center max-w-2xl mx-auto flex flex-col gap-stack-md">
+<h1 class="font-headline-lg text-headline-lg text-on-background">Simple, transparent pricing</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Elevate your portfolio with powerful features designed for professional creators.</p>
+</div>
+<!-- Pricing Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md lg:gap-gutter relative z-10">
+<!-- Free Tier -->
+<div class="bg-surface-container rounded-2xl border border-surface-container-highest p-8 flex flex-col gap-6 hover:border-outline-variant transition-colors">
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Free</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Perfect for getting started and building your presence.</p>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-display-xl text-display-xl text-on-surface">$0</span>
+<span class="font-body-md text-body-md text-on-surface-variant">/mo</span>
+</div>
+<button class="w-full py-4 px-8 rounded-full border border-surface-container-highest text-on-surface font-label-caps text-label-caps hover:bg-surface-container-high transition-colors mt-4">Current Plan</button>
+<div class="w-full h-px bg-surface-container-highest my-2"></div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Up to 3 Projects</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Basic Analytics</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Community Support</span>
+</li>
+</ul>
+</div>
+<!-- Pro Tier (Highlighted) -->
+<div class="bg-surface-container-high rounded-2xl border border-primary-container p-8 flex flex-col gap-6 relative shadow-[0_20px_40px_-15px_rgba(77,142,255,0.15)] transform md:-translate-y-4">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-full font-label-caps text-label-caps">
+                            Best Value
+                        </div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-primary">Pro</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">For serious creators who need advanced tools.</p>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-display-xl text-display-xl text-on-surface">$15</span>
+<span class="font-body-md text-body-md text-on-surface-variant">/mo</span>
+</div>
+<button class="w-full py-4 px-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-label-caps text-label-caps hover:opacity-90 transition-opacity mt-4 shadow-lg shadow-blue-500/20">Upgrade Now</button>
+<div class="w-full h-px bg-surface-container-highest my-2"></div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Unlimited Premium Projects</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Advanced Analytics</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Custom Domain</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Priority Support</span>
+</li>
+</ul>
+</div>
+<!-- Enterprise Tier -->
+<div class="bg-surface-container rounded-2xl border border-surface-container-highest p-8 flex flex-col gap-6 hover:border-outline-variant transition-colors">
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Enterprise</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Custom solutions for teams and agencies.</p>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-display-xl text-display-xl text-on-surface">$49</span>
+<span class="font-body-md text-body-md text-on-surface-variant">/mo</span>
+</div>
+<button class="w-full py-4 px-8 rounded-full border border-surface-container-highest text-on-surface font-label-caps text-label-caps hover:bg-surface-container-high transition-colors mt-4">Contact Sales</button>
+<div class="w-full h-px bg-surface-container-highest my-2"></div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Everything in Pro</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Team Collaboration</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">API Access</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Dedicated Account Manager</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- FAQ Teaser -->
+<div class="mt-stack-lg text-center p-8 bg-surface-container-lowest rounded-2xl border border-surface-container border-dashed">
+<p class="font-body-lg text-body-lg text-on-surface-variant">Have questions? Check out our <a class="text-primary hover:underline" href="#">FAQ section</a> or <a class="text-primary hover:underline" href="#">contact support</a>.</p>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center gap-4 border-t border-slate-900 mt-24 full-width py-12 bg-slate-950">
+<div class="font-bold text-slate-300 font-manrope text-xs text-slate-500">Lumina Portfolio</div>
+<div class="flex gap-4">
+<a class="text-slate-500 hover:text-slate-200 transition-colors font-manrope text-xs text-slate-500" href="#">Privacy</a>
+<a class="text-slate-500 hover:text-slate-200 transition-colors font-manrope text-xs text-slate-500" href="#">Terms</a>
+<a class="text-slate-500 hover:text-slate-200 transition-colors font-manrope text-xs text-slate-500" href="#">API Status</a>
+<a class="text-slate-500 hover:text-slate-200 transition-colors font-manrope text-xs text-slate-500" href="#">Support</a>
+</div>
+<div class="font-manrope text-xs text-slate-500">© 2024 Lumina Systems. Built for creators.</div>
+</footer>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center pt-3 pb-6 px-4 bg-slate-900/80 backdrop-blur-lg docked full-width bottom-0 rounded-t-2xl shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<a class="text-slate-500 flex flex-col items-center gap-1 active:bg-slate-800 tap-highlight-transparent font-manrope text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">home</span>
+<span>Home</span>
+</a>
+<a class="text-slate-500 flex flex-col items-center gap-1 active:bg-slate-800 tap-highlight-transparent font-manrope text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span>Insights</span>
+</a>
+<a class="text-slate-500 flex flex-col items-center gap-1 active:bg-slate-800 tap-highlight-transparent font-manrope text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">article</span>
+<span>Blog</span>
+</a>
+<a class="text-blue-400 flex flex-col items-center gap-1 active:bg-slate-800 tap-highlight-transparent font-manrope text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>User</span>
+</a>
+</nav>
+</body></html>

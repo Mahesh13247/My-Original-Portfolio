@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Activity Log &amp; Notifications - PortfolioPro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#051424",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "on-error": "#690005",
+                    "on-tertiary": "#502400",
+                    "on-tertiary-fixed": "#311400",
+                    "error": "#ffb4ab",
+                    "on-secondary-container": "#c4abff",
+                    "surface-tint": "#adc6ff",
+                    "surface-container-high": "#1c2b3c",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-tertiary-container": "#461f00",
+                    "on-primary-fixed-variant": "#004395",
+                    "secondary-container": "#571bc1",
+                    "inverse-primary": "#005ac2",
+                    "secondary-fixed": "#e9ddff",
+                    "secondary": "#d0bcff",
+                    "surface-bright": "#2c3a4c",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-error-container": "#ffdad6",
+                    "on-background": "#d4e4fa",
+                    "on-primary-container": "#00285d",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "on-surface-variant": "#c2c6d6",
+                    "surface-container-low": "#0d1c2d",
+                    "outline": "#8c909f",
+                    "surface-container-lowest": "#010f1f",
+                    "outline-variant": "#424754",
+                    "on-primary-fixed": "#001a42",
+                    "error-container": "#93000a",
+                    "on-surface": "#d4e4fa",
+                    "primary": "#adc6ff",
+                    "inverse-on-surface": "#233143",
+                    "surface-variant": "#273647",
+                    "tertiary": "#ffb786",
+                    "tertiary-container": "#df7412",
+                    "background": "#051424",
+                    "inverse-surface": "#d4e4fa",
+                    "on-secondary-fixed": "#23005c",
+                    "on-primary": "#002e6a",
+                    "surface-container": "#122131",
+                    "surface": "#051424",
+                    "on-secondary": "#3c0091",
+                    "tertiary-fixed": "#ffdcc6",
+                    "primary-container": "#4d8eff",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-highest": "#273647"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "48px",
+                    "stack-sm": "12px",
+                    "stack-xl": "96px",
+                    "margin-page": "64px",
+                    "unit": "4px",
+                    "container-max": "1200px",
+                    "stack-md": "24px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Manrope"
+                    ],
+                    "display-xl": [
+                            "Manrope"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Manrope"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-xl": [
+                            "72px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.04em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "letterSpacing": "0",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "letterSpacing": "0",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0f172a;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- NavigationDrawer (Hidden on Mobile, Flex on Desktop) -->
+<nav class="hidden md:flex flex-col bg-slate-900 text-blue-500 font-manrope text-sm h-full w-72 rounded-r-2xl border-r border-slate-800 shadow-2xl fixed left-0 top-0 z-40 p-6">
+<div class="flex items-center gap-4 mb-8">
+<img alt="Admin user" class="w-12 h-12 rounded-full border-2 border-surface-container-highest" data-alt="Portrait of a smiling young professional man with short hair wearing a dark jacket against a blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyUUdx45LTWtrEdzwLVBApqQbjFY2fgvVODpY9X310vtCduCdOzOb2N3A0f9D-oYYdIQxS6Pc2JcC_3vx7gp_B7E5O0caZSyiGU3zTh1lyC11ZjCnGdRCWnR-wdbY-PFUqPYP2LeD-GxQSTx0QSTinT6gef-c5I_aUFcpGuyAu7yiTvPJ5XR1dbXn2jaXwTmi2soYc1_XPA5LJ38A9tUdrhKB9WYYdGcrj5Ib_59iSbDvYmdSyfcP0PHc6tWqdOF8FLly5hvTUPl5e"/>
+<div class="flex flex-col">
+<span class="text-blue-500 font-bold font-body-md text-body-md">Alex Rivera</span>
+<span class="text-slate-400 font-body-sm text-xs">Premium Plan</span>
+</div>
+<div class="ml-auto text-xs text-slate-500 bg-surface-container px-2 py-1 rounded-md">v2.4.0</div>
+</div>
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Community</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span>API Management</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">map</span>
+<span>Roadmap</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</li>
+<!-- Semantic Intent Fallback: "Activity" is closest to "Notifications" / "Activity Log" -->
+<li class="mt-4">
+<div class="text-xs font-label-caps text-label-caps text-slate-500 mb-2 uppercase tracking-wider pl-3">Current Area</div>
+<a class="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-blue-600/20 to-purple-600/10 text-blue-400 border-l-4 border-blue-500 font-bold tap-highlight-transparent hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span>Activity</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-72 flex flex-col min-h-screen">
+<!-- TopAppBar (Web & Mobile header) -->
+<header class="sticky top-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-slate-950/60 backdrop-blur-xl border-b border-slate-800/50 shadow-none text-blue-500 font-manrope text-slate-50">
+<div class="flex items-center gap-4">
+<img alt="User profile avatar" class="w-10 h-10 rounded-full border-2 border-slate-700 md:hidden" data-alt="Portrait of a smiling young professional man with short hair wearing a dark jacket against a blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWvrPWDb8lyaNyE5Ki_WcCOWx37wm3VDQP7KeXI_5JiLZNJAMy2UlTRkefzalyU4xfA05nxT7YDH2YW0IQh8INrYilzH69cdspDQOpWKJ6ES_Mza1Lnxu699iN0SDwM0-Gv8g_w-GJyYelW3sA2hpLHgeglpRHJFm-fIKs5aALJkmTe8bmdGwYZhNNFY5VFQ4-t-nM0uHpZ6cP5jcyPHiYRTi9cbZ3IhSzFRuvdBZoflr4ewSKuPE_KZ5qxA2RsOtEcTv4n-u6fc3s"/>
+<h1 class="text-xl font-bold tracking-tight text-slate-50">PortfolioPro</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-surface-variant transition-colors active:scale-95 duration-200 text-slate-400 hover:text-blue-400">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Page Content -->
+<div class="px-6 py-margin-page max-w-container-max mx-auto w-full">
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-stack-lg gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Activity Log</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Track your recent system events and notifications.</p>
+</div>
+<button class="bg-surface-container border border-outline-variant text-on-surface font-body-md text-body-md px-6 py-3 rounded-lg hover:bg-surface-variant hover:border-primary hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 max-w-fit shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">done_all</span>
+                    Mark all as read
+                </button>
+</div>
+<!-- Bento/Glassmorphism Activity Feed -->
+<div class="grid grid-cols-1 gap-6 relative before:absolute before:inset-0 before:ml-8 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-outline-variant before:to-transparent">
+<!-- Activity Item 1 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+<!-- Timeline Node -->
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-background bg-primary-container text-on-primary-container absolute left-8 -translate-x-1/2 md:left-1/2 shadow-[0_0_20px_rgba(77,142,255,0.4)] z-10">
+<span class="material-symbols-outlined text-sm">edit_document</span>
+</div>
+<!-- Content Card -->
+<div class="w-full md:w-[calc(50%-2.5rem)] ml-20 md:ml-0 bg-[#1e293b] border border-outline-variant rounded-2xl p-6 hover:border-primary/50 hover:shadow-[0_10px_40px_-10px_rgba(77,142,255,0.15)] transition-all duration-300 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-bl-full -mr-4 -mt-4 blur-2xl"></div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-lg text-on-surface">Project 'Fintech OS' updated</h3>
+<span class="font-label-caps text-label-caps text-primary">Just now</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">You pushed 3 new commits to the main branch, including updates to the payment gateway integration.</p>
+<div class="flex gap-2">
+<span class="bg-surface-dim px-3 py-1 rounded-full font-label-caps text-label-caps text-on-surface-variant border border-surface-container-highest">Commit: a1b2c3d</span>
+</div>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<!-- Timeline Node -->
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-background bg-tertiary-container text-on-tertiary-container absolute left-8 -translate-x-1/2 md:left-1/2 z-10">
+<span class="material-symbols-outlined text-sm">person_add</span>
+</div>
+<!-- Content Card -->
+<div class="w-full md:w-[calc(50%-2.5rem)] ml-20 md:ml-0 bg-[#1e293b] border border-surface-container-highest rounded-2xl p-6 hover:border-outline-variant transition-all duration-300">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-lg text-on-surface opacity-80">New subscriber joined</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant">2 hours ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Sarah Jenkins has subscribed to your Pro Plan via the landing page portal.</p>
+<div class="flex items-center gap-3">
+<img alt="Sarah Jenkins" class="w-8 h-8 rounded-full border border-surface-container-highest" data-alt="Portrait of a smiling young woman with long blonde hair wearing a white top against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK6WslyJikjZ8xAvgEhXsPUftPDnXABGesX1aPd8_YY-k7-Pw6anXIa92poAKNZj5EE48CD0JLJrkxWfaIH_fM_cTzm70SP-3EwhE4Ys493F1pK6OvUlIPDHfJeY2Bjw7fEsYeDj5vqyD7bcnH7xA9LIrFAEXgsiiNXJTa3BVUKVLeLTDHLMc0fJDCaKD-Nq_SrzLbiSUNRz5DchpDwCijKDxqbHJyA2AKuAorEk2GOgSa4xkjE9w9M6exdDlm0TsukPFyVgz2rHW7"/>
+<span class="font-body-md text-sm text-on-surface-variant">sarah.j@example.com</span>
+</div>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<!-- Timeline Node -->
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-background bg-error-container text-on-error-container absolute left-8 -translate-x-1/2 md:left-1/2 z-10">
+<span class="material-symbols-outlined text-sm">key</span>
+</div>
+<!-- Content Card -->
+<div class="w-full md:w-[calc(50%-2.5rem)] ml-20 md:ml-0 bg-[#1e293b] border border-surface-container-highest rounded-2xl p-6 hover:border-outline-variant transition-all duration-300">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-lg text-on-surface opacity-80">API Key rotated</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Yesterday, 14:30</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">The production API key for 'Client Dashboard' was automatically rotated according to the 90-day policy.</p>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<!-- Timeline Node -->
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-background bg-secondary-container text-on-secondary-container absolute left-8 -translate-x-1/2 md:left-1/2 z-10">
+<span class="material-symbols-outlined text-sm">payments</span>
+</div>
+<!-- Content Card -->
+<div class="w-full md:w-[calc(50%-2.5rem)] ml-20 md:ml-0 bg-[#1e293b] border border-surface-container-highest rounded-2xl p-6 hover:border-outline-variant transition-all duration-300">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-lg text-on-surface opacity-80">Payment received</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Oct 12, 09:15</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Invoice #INV-2023-089 has been paid in full via Stripe.</p>
+<div class="font-headline-md text-xl text-secondary">$1,250.00</div>
+</div>
+</div>
+</div>
+<div class="mt-stack-lg flex justify-center pb-24 md:pb-0">
+<button class="font-body-md text-body-md text-primary hover:text-inverse-primary transition-colors flex items-center gap-2">
+                    Load more activity
+                    <span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Hidden on Web, Flex on Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-slate-900/80 backdrop-blur-lg rounded-t-2xl border-t border-slate-800 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">rebase_edit</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">view_kanban</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider">Roadmap</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">api</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider">API</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-500 bg-blue-500/10 rounded-xl px-3 py-1 hover:bg-slate-800/50 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">notifications_active</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider">Activity</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#311400",
+                    "surface-dim": "#051424",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-error-container": "#ffdad6",
+                    "primary-container": "#4d8eff",
+                    "surface-container-high": "#1c2b3c",
+                    "on-primary-fixed": "#001a42",
+                    "surface-container": "#122131",
+                    "inverse-on-surface": "#233143",
+                    "on-tertiary-container": "#461f00",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "on-primary-fixed-variant": "#004395",
+                    "tertiary-container": "#df7412",
+                    "on-primary-container": "#00285d",
+                    "on-secondary-container": "#c4abff",
+                    "tertiary": "#ffb786",
+                    "background": "#051424",
+                    "on-secondary-fixed": "#23005c",
+                    "error": "#ffb4ab",
+                    "on-background": "#d4e4fa",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-variant": "#273647",
+                    "surface-tint": "#adc6ff",
+                    "surface-container-low": "#0d1c2d",
+                    "outline": "#8c909f",
+                    "on-surface": "#d4e4fa",
+                    "error-container": "#93000a",
+                    "secondary": "#d0bcff",
+                    "surface-container-highest": "#273647",
+                    "inverse-surface": "#d4e4fa",
+                    "secondary-fixed": "#e9ddff",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-surface-variant": "#c2c6d6",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-error": "#690005",
+                    "inverse-primary": "#005ac2",
+                    "on-primary": "#002e6a",
+                    "surface-bright": "#2c3a4c",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "surface-container-lowest": "#010f1f",
+                    "outline-variant": "#424754",
+                    "primary": "#adc6ff",
+                    "on-secondary": "#3c0091",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "secondary-container": "#571bc1",
+                    "surface": "#051424",
+                    "on-tertiary": "#502400"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1200px",
+                    "stack-md": "24px",
+                    "stack-xl": "96px",
+                    "margin-page": "64px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "stack-sm": "12px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Manrope"],
+                    "body-md": ["Inter"],
+                    "display-xl": ["Manrope"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Manrope"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                    "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                    "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                    "headline-md": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation (Suppressed - Contextual Focus Mode) -->
+<!-- NavigationDrawer (Suppressed - Contextual Focus Mode) -->
+<!-- Main Content Area - Project Modal/Screen -->
+<main class="min-h-screen py-stack-xl px-gutter max-w-container-max mx-auto relative flex flex-col gap-stack-lg">
+<!-- Back Action -->
+<div class="flex items-center">
+<button class="flex items-center gap-2 text-surface-tint hover:text-primary transition-colors font-body-md text-body-md">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+<span>Back to Projects</span>
+</button>
+</div>
+<!-- Project Hero Card -->
+<article class="glass-panel rounded-xl overflow-hidden shadow-2xl shadow-black/40">
+<!-- Hero Image -->
+<div class="h-96 w-full relative">
+<img alt="Project Hero Image" class="absolute inset-0 w-full h-full object-cover" data-alt="high contrast macro shot of abstract dark blue and purple digital data flow visualization with glowing nodes and sleek modern technology aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcHh0MY4GitGjfYG9cKgyXZ13pSXl8PCs9tRz3G58NHGE-A1RueU4WybFHK1Ay1S_4CNfx4GLYeBuxCzerf9MgIC8-WkpQgkP7X8MT5maVv1lcrL-cLv2OwsDnrWWaL2xksXRHDMCyk3SR3D-0fpWUvHKcZOB1Yu-xupEIRw_ggmv-GtS2ETV-3HUredRA19Qw1w5N8RsMbDxj4H8jELeixhVzwsRTywm3ZTJd_IH-UhLvWuJ6Yvh48bZTVjETJLcUD5c-ukdlw14S"/>
+<!-- Overlay gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-high to-transparent"></div>
+</div>
+<!-- Content Container -->
+<div class="p-8 md:p-12 relative z-10 -mt-20">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-stack-md mb-stack-md">
+<div>
+<div class="flex gap-2 mb-4">
+<span class="bg-primary/20 text-primary font-label-caps text-label-caps px-3 py-1 rounded-full uppercase tracking-widest border border-primary/30">Case Study</span>
+<span class="bg-secondary/20 text-secondary font-label-caps text-label-caps px-3 py-1 rounded-full uppercase tracking-widest border border-secondary/30">2024</span>
+</div>
+<h1 class="font-display-xl text-display-xl text-inverse-surface mb-2">Nexus Analytics OS</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">A high-performance enterprise dashboard unifying fragmented data streams into a singular, real-time command center.</p>
+</div>
+<!-- Actions -->
+<div class="flex gap-4 shrink-0">
+<a class="inline-flex items-center gap-2 bg-surface-variant border border-outline-variant hover:border-surface-tint hover:text-inverse-surface text-on-surface px-8 py-3 rounded-lg font-label-caps text-label-caps uppercase tracking-widest transition-all duration-300 shadow-lg shadow-black/20" href="#">
+<span class="material-symbols-outlined text-[18px]">code</span>
+                            GitHub
+                        </a>
+<a class="inline-flex items-center gap-2 bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container px-8 py-3 rounded-lg font-label-caps text-label-caps uppercase tracking-widest transition-all duration-300 hover:opacity-90 shadow-lg shadow-primary-container/20" href="#">
+<span class="material-symbols-outlined text-[18px]">launch</span>
+                            Live Demo
+                        </a>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant/30 my-stack-md"></div>
+<!-- Main Details Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-stack-lg">
+<!-- Left Column: Description & Features -->
+<div class="lg:col-span-2 space-y-stack-md">
+<section>
+<h2 class="font-headline-md text-headline-md text-inverse-surface mb-4">Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Nexus Analytics OS was conceived to solve a critical bottleneck for data science teams: cognitive overload. By aggregating disparate telemetry tools into a unified, glassmorphic interface, we reduced mean-time-to-resolution (MTTR) by 40%.</p>
+<p class="font-body-md text-body-md text-on-surface-variant">The architecture prioritizes render speed, utilizing WebGL for complex data visualizations and a highly optimized virtual DOM approach to handle thousands of live data points without frame drops.</p>
+</section>
+<section>
+<h2 class="font-headline-md text-headline-md text-inverse-surface mb-4">Key Features</h2>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Real-time bi-directional data synchronization via WebSocket.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Custom WebGL rendering engine for heavy scatter plots.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Role-based access control (RBAC) with granular permissions.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Automated anomaly detection utilizing TensorFlow.js.</span>
+</li>
+</ul>
+</section>
+</div>
+<!-- Right Column: Meta & Tech Stack -->
+<div class="space-y-stack-md">
+<!-- Role / Timeline -->
+<div class="glass-panel p-6 rounded-lg">
+<h3 class="font-label-caps text-label-caps text-outline uppercase mb-4">Project Details</h3>
+<dl class="space-y-4">
+<div>
+<dt class="font-label-caps text-label-caps text-outline uppercase mb-1">Role</dt>
+<dd class="font-body-md text-body-md text-inverse-surface">Lead Frontend Engineer</dd>
+</div>
+<div>
+<dt class="font-label-caps text-label-caps text-outline uppercase mb-1">Timeline</dt>
+<dd class="font-body-md text-body-md text-inverse-surface">Jan 2024 - Apr 2024</dd>
+</div>
+<div>
+<dt class="font-label-caps text-label-caps text-outline uppercase mb-1">Client</dt>
+<dd class="font-body-md text-body-md text-inverse-surface">Acme Data Corp</dd>
+</div>
+</dl>
+</div>
+<!-- Tech Stack -->
+<div class="glass-panel p-6 rounded-lg">
+<h3 class="font-label-caps text-label-caps text-outline uppercase mb-4">Technology Stack</h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-variant text-on-surface px-3 py-1.5 rounded-md font-body-md text-sm border border-outline-variant">React</span>
+<span class="bg-surface-variant text-on-surface px-3 py-1.5 rounded-md font-body-md text-sm border border-outline-variant">TypeScript</span>
+<span class="bg-surface-variant text-on-surface px-3 py-1.5 rounded-md font-body-md text-sm border border-outline-variant">Node.js</span>
+<span class="bg-surface-variant text-on-surface px-3 py-1.5 rounded-md font-body-md text-sm border border-outline-variant">GraphQL</span>
+<span class="bg-surface-variant text-on-surface px-3 py-1.5 rounded-md font-body-md text-sm border border-outline-variant">Tailwind CSS</span>
+<span class="bg-surface-variant text-on-surface px-3 py-1.5 rounded-md font-body-md text-sm border border-outline-variant">Three.js</span>
+<span class="bg-surface-variant text-on-surface px-3 py-1.5 rounded-md font-body-md text-sm border border-outline-variant">PostgreSQL</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-900 bg-slate-950 dark:bg-slate-950">
+<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-7xl mx-auto w-full gap-8">
+<div class="text-sm font-bold text-slate-200">PORTFOLIO OS</div>
+<div class="text-slate-500 font-manrope text-xs uppercase tracking-widest">© 2024 Portfolio OS. All rights reserved.</div>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-blue-400 font-manrope text-xs uppercase tracking-widest hover:opacity-80 transition-opacity" href="#">Twitter</a>
+<a class="text-slate-500 hover:text-blue-400 font-manrope text-xs uppercase tracking-widest hover:opacity-80 transition-opacity" href="#">GitHub</a>
+<a class="text-slate-500 hover:text-blue-400 font-manrope text-xs uppercase tracking-widest hover:opacity-80 transition-opacity" href="#">LinkedIn</a>
+</div>
+</div>
+</footer>
+</body></html>

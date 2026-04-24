@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tech Journal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-primary-fixed": "#001a42",
+                        "outline": "#8c909f",
+                        "on-secondary-fixed": "#23005c",
+                        "on-secondary-container": "#c4abff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "surface-container-lowest": "#010f1f",
+                        "secondary-container": "#571bc1",
+                        "on-surface": "#d4e4fa",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "surface-bright": "#2c3a4c",
+                        "error-container": "#93000a",
+                        "background": "#051424",
+                        "tertiary": "#ffb786",
+                        "secondary-fixed": "#e9ddff",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#df7412",
+                        "surface-container-low": "#0d1c2d",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-secondary": "#3c0091",
+                        "on-primary-container": "#00285d",
+                        "primary": "#adc6ff",
+                        "inverse-on-surface": "#233143",
+                        "surface": "#051424",
+                        "surface-container-high": "#1c2b3c",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-container-highest": "#273647",
+                        "on-tertiary-fixed": "#311400",
+                        "on-error": "#690005",
+                        "inverse-surface": "#d4e4fa",
+                        "on-tertiary-container": "#461f00",
+                        "secondary": "#d0bcff",
+                        "surface-tint": "#adc6ff",
+                        "surface-container": "#122131",
+                        "primary-container": "#4d8eff",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "on-background": "#d4e4fa",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-variant": "#273647",
+                        "on-primary": "#002e6a",
+                        "surface-dim": "#051424",
+                        "on-tertiary": "#502400",
+                        "inverse-primary": "#005ac2",
+                        "outline-variant": "#424754"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-xl": "96px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "stack-sm": "12px",
+                        "margin-page": "64px",
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "display-xl": ["Manrope"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col md:flex-row">
+<!-- Navigation Drawer (Desktop) / Bottom Nav (Mobile) will go here in a real app based on logic, keeping it simple for the layout -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-screen w-64 border-r border-surface-container-high bg-surface-container-lowest font-body-md z-40">
+<div class="p-6">
+<span class="font-headline-md text-headline-md text-primary font-bold">Lumina</span>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-2 px-4">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container/10 text-primary border-r-2 border-primary" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-semibold">Journal</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Subscription</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="p-6 border-t border-surface-container-high flex items-center gap-3">
+<img alt="Alex Rivera" class="w-10 h-10 rounded-full" data-alt="Portrait of Alex Rivera, professional headshot in dark studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx-c7wamGUcIlrcnMBloH8Xw0leulqIMYIUbZqWr8I-tASFREkfFbR0LpT5jlr2kr6RI4yl_S9vO8sauKuhqbI5oE_E7zhUedgnF2M4wneRes-KOecXQozB15YbsM9u--yto7IRMJSt_QS9mRqV-2wSLIV2oA8yRuK_3gekkPC4CGIrDq_w-vBtJ3NjkY09NygM7EYAGNhCoLSfgxRr6-R9IfbnusAdhvwHeS-mFiu5PpoUhfcUbPmzppsKDPdEowH2bIlOFQKX05l"/>
+<div>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Alex Rivera</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Pro Plan</p>
+</div>
+</div>
+</nav>
+<!-- Top App Bar (Mobile) -->
+<header class="md:hidden flex justify-between items-center px-6 py-4 w-full bg-surface-container-lowest/80 backdrop-blur-xl sticky top-0 z-50 border-b border-surface-container-high">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="grid_view">grid_view</span>
+<h1 class="font-headline-md text-headline-md text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Lumina Portfolio</h1>
+</div>
+<img alt="User Profile" class="w-8 h-8 rounded-full" data-alt="Portrait of Alex Rivera, professional headshot in dark studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR2mkYbKAtSjOl23uxz7A0PHhmJUnK1r6cJVkF_gYr3zKm1InEMOFuU7zUokUnseTzS29PQXex-0VHLa8kTLU3Mr6Sw1Msg8HWsdA6asKRqf2bA7bxsr5yjLdsDqnMOnirMcKnMnMDpIH4LWvIpA-XM6oh67LPjZR4M7sdyL6hrk26vknNOAkKc8v5WoxBR_IzMWJzwsPRapiFKpfnotZJByM4HRpeIgEDw67eJ3kOCV00BgvPqapk3ycSmbzm09TcMCIM8DOzLNK5"/>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 w-full max-w-container-max mx-auto px-6 py-12 md:py-margin-page">
+<!-- Header Section -->
+<div class="mb-stack-lg">
+<h1 class="font-display-xl text-display-xl text-on-surface mb-stack-sm">Tech Journal</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Exploring the intersection of design systems, modern frontend architecture, and the quiet art of building robust software.</p>
+</div>
+<!-- Filter/Search Bar -->
+<div class="flex flex-col sm:flex-row gap-4 mb-stack-lg">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border border-surface-container-high rounded-xl py-3 pl-12 pr-4 text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all" placeholder="Search articles..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 sm:pb-0 hide-scrollbar">
+<button class="px-6 py-2 rounded-full bg-primary/20 text-primary font-label-caps text-label-caps whitespace-nowrap border border-primary/30">All</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-surface-container-high text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps whitespace-nowrap transition-colors">Design Systems</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-surface-container-high text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps whitespace-nowrap transition-colors">React</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-surface-container-high text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps whitespace-nowrap transition-colors">Architecture</button>
+</div>
+</div>
+<!-- Bento Grid Layout for Articles -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Featured Article (Span 12 or 8 depending on screen) -->
+<article class="md:col-span-12 lg:col-span-8 group rounded-2xl bg-surface-container-low border border-surface-container-high overflow-hidden hover:border-primary/50 transition-colors duration-300 relative flex flex-col sm:flex-row">
+<div class="sm:w-1/2 h-64 sm:h-auto relative overflow-hidden bg-surface-container-high">
+<img alt="Code on screen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of glowing react code on a dark monitor screen with soft blue ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa97skaRsNS26d5LyLPlPfTsvAsyV7CN55-BrbHN5mGmJgzyHA5bw64eK38TzVIN9DpsqrWsTHkCUsHVTLQaobXtujfxKUmqn2wwlnS_5Hbj8rLraCgnrl-D63YrTebE0cHOAPeumjBevwEq9oDyu22m3vFS4XGEy9616EGAWg-fXJhgQH-cIISBS27F559Tv_T5WPA5nSyzvBsPrinQgS1_DprPR8WKqKFPYHMwcgQO3vq19ajAfpHNgBH3RrzWXNIRLQa2eM4fF0"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-low via-surface-container-low/50 to-transparent sm:block hidden"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/50 to-transparent sm:hidden block"></div>
+</div>
+<div class="sm:w-1/2 p-6 sm:p-8 flex flex-col justify-center relative z-10">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label-caps text-label-caps uppercase">Design Systems</span>
+<span class="text-on-surface-variant font-body-md text-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span> Oct 12, 2024</span>
+</div>
+<h2 class="font-headline-lg text-headline-md sm:text-headline-lg text-on-surface mb-4 group-hover:text-primary transition-colors">Architecting Scalable Design Systems in 2024</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-3">A deep dive into moving beyond component libraries. We explore semantic tokens, headless UI patterns, and how to bridge the eternal gap between Figma and production code seamlessly.</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="text-on-surface-variant font-body-md text-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 8 min read</span>
+<span class="material-symbols-outlined text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Standard Article Cards -->
+<article class="md:col-span-6 lg:col-span-4 group rounded-2xl bg-surface-container-low border border-surface-container-high overflow-hidden hover:border-primary/50 transition-colors duration-300 flex flex-col">
+<div class="h-48 relative overflow-hidden bg-surface-container-high">
+<img alt="React Logo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Abstract 3D rendering of the React logo glowing in neon blue against a dark futuristic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0NHskAi-pUQfNHq5J-MC8IwqTSxNh1cT0FzVcxKNrHbN2BboVBVkGdBCE5w4EVaQjMjWwlKd5bBkzlkxKsJnDPUBNpfQmJ84-hFOb6KJPM1VScseZXrb2DDyxPmTUV5uYiFWNEMAX957LHeOwpccB-qrY-g3AfCyMu_SLDQ0FIZ8xLnHoG7jp0_O0G0a80XUW1m_Rjo3PlMB19PJXmuxZ_SiKlGQ9pbcCoY4czGH12xRic7DddARWXDpJ3h3QZZ_bHEZCEId11UiL"/>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 rounded-full bg-secondary-container/20 text-secondary font-label-caps text-label-caps uppercase">React</span>
+</div>
+<h2 class="font-headline-md text-xl text-on-surface mb-3 group-hover:text-primary transition-colors font-bold">The Quiet Power of React Server Components</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">Rethinking data fetching and rendering. Why moving logic back to the server is the step forward we didn't know we needed.</p>
+<div class="mt-auto flex items-center justify-between text-on-surface-variant font-body-md text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span> Oct 05</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 5 min read</span>
+</div>
+</div>
+</article>
+<article class="md:col-span-6 lg:col-span-4 group rounded-2xl bg-surface-container-low border border-surface-container-high overflow-hidden hover:border-primary/50 transition-colors duration-300 flex flex-col">
+<div class="h-48 relative overflow-hidden bg-surface-container-high">
+<img alt="Cyber Security" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Dark moody shot of a server room with glowing green lights and optical cables" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvmAmNkscju6FtRa8OPj1YHWjU93EjxMAuftT1f2UjSfvBtL5xiuJ_lXo5l4PILH09fqWkDfLtCDnwEqLWlEDAdLddUT4hfrS0M1KsgTuobCxGNWyLZSaKUtR1JAr4NTqVUDtkFI8I2xsWokvy8K_jDOSdqnrRNx4Cu1QCejh-0TZGZIWQK-FEFUmGkd9GkJcdPDOghlmoXEwBIaSq-V0Q1QxBU-NplQi4tY4BcVH6nMRMkqbJQ3YI2BtXzx0wn-wjGYM7QY7JTfZq"/>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 rounded-full bg-tertiary-container/20 text-tertiary font-label-caps text-label-caps uppercase">Architecture</span>
+</div>
+<h2 class="font-headline-md text-xl text-on-surface mb-3 group-hover:text-primary transition-colors font-bold">Micro-frontends: When to say no</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">They solve organizational scaling issues, but introduce significant technical overhead. A pragmatic guide on when to avoid them.</p>
+<div class="mt-auto flex items-center justify-between text-on-surface-variant font-body-md text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span> Sep 28</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 12 min read</span>
+</div>
+</div>
+</article>
+<article class="md:col-span-6 lg:col-span-4 group rounded-2xl bg-surface-container-low border border-surface-container-high overflow-hidden hover:border-primary/50 transition-colors duration-300 flex flex-col">
+<div class="h-48 relative overflow-hidden bg-surface-container-high">
+<img alt="UI Design" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Minimalist abstract composition of glass panels and soft gradient lighting in shades of purple and blue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh-hqjnSOiAFVwG4x3PX2N6YcRupe9xVD4W7_HeWMPEk2ROhxPbPUShxy_MjNWhNORm1q-8zlHuhRAuOoecoPEfs874jdsY2f6U1JQ_O3sl2dL9z7oVQiJU6Lr5_NtsVP5iHo9wKHPojdOMd3okQNyk6mNOJQJENSsDJF-EVhBMMfzrFpK5X5onch3m-P6_zuBWlYYuHc-ZyQGUhUvPf6Uh2S-nrVFT9Tsct65Hy4-ud8iKN5oKc7_BoD3Ulj9v0gsjzzwcaYX-4Vu"/>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label-caps text-label-caps uppercase">Design Systems</span>
+</div>
+<h2 class="font-headline-md text-xl text-on-surface mb-3 group-hover:text-primary transition-colors font-bold">The Case for Semantic Tokens</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">Stop naming your colors 'blue-500'. Why semantic abstraction is the key to maintainable dark modes and white-labeling.</p>
+<div class="mt-auto flex items-center justify-between text-on-surface-variant font-body-md text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span> Sep 15</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 6 min read</span>
+</div>
+</div>
+</article>
+<article class="md:col-span-6 lg:col-span-4 group rounded-2xl bg-surface-container-low border border-surface-container-high overflow-hidden hover:border-primary/50 transition-colors duration-300 flex flex-col">
+<div class="h-48 relative overflow-hidden bg-surface-container-high">
+<img alt="Data Analytics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Dark sleek dashboard interface displayed on a tablet with glowing blue data visualization charts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiWWzAUROvq2RdfWwwMK-Ba14OsY3jZVdNbFnEOsVWrhVWz-nE-rwo2SFTZ8LAKXN8GKl8LwINxrQihQgQeiv3P1Kj8twWPVl1gg9cFZzIC_btbR7Fs-ncr0ge8Lnp_W45tuUVn8KrWO1I9y8HtBdm2OjcusrD20iDCcK_w1ErK_wQA8Pa3bnArK8bIHFwAG7VYwDkYi8Y4-0fEsRrVIc1nkmQTCSShEz0G7wOO3Gs2h9V2E6tcQwWFaavqswb60uSDhW2lwzXL-8c"/>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 rounded-full bg-secondary-container/20 text-secondary font-label-caps text-label-caps uppercase">Performance</span>
+</div>
+<h2 class="font-headline-md text-xl text-on-surface mb-3 group-hover:text-primary transition-colors font-bold">Optimizing the Critical Rendering Path</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">A practical look at reducing time-to-interactive for content-heavy React applications.</p>
+<div class="mt-auto flex items-center justify-between text-on-surface-variant font-body-md text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span> Sep 02</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 9 min read</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination / Load More -->
+<div class="mt-stack-xl flex justify-center">
+<button class="px-8 py-4 rounded-xl border border-surface-container-high text-on-surface hover:border-primary hover:text-primary font-body-md text-body-md transition-all duration-300 flex items-center gap-2 group">
+                Load More Articles
+                <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center pt-3 pb-6 px-4 bg-surface-container-lowest/80 backdrop-blur-lg rounded-t-2xl border-t border-surface-container-high shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<a class="text-on-surface-variant flex flex-col items-center gap-1 active:bg-surface-container-high p-2 rounded-lg tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest">Home</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center gap-1 active:bg-surface-container-high p-2 rounded-lg tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest">Insights</span>
+</a>
+<a class="text-primary flex flex-col items-center gap-1 active:bg-surface-container-high p-2 rounded-lg tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="article" data-weight="fill" style="font-variation-settings: 'FILL' 1;">article</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest font-semibold">Blog</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center gap-1 active:bg-surface-container-high p-2 rounded-lg tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest">User</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center gap-4 border-t border-surface-container-highest mt-24 py-12 bg-background md:ml-64 relative z-10 pb-24 md:pb-12">
+<div class="flex gap-6 font-body-md text-xs text-on-surface-variant">
+<a class="hover:text-on-surface transition-colors" href="#">Privacy</a>
+<a class="hover:text-on-surface transition-colors" href="#">Terms</a>
+<a class="hover:text-on-surface transition-colors" href="#">API Status</a>
+<a class="hover:text-on-surface transition-colors" href="#">Support</a>
+</div>
+<p class="font-body-md text-xs text-on-surface-variant">© 2024 Lumina Systems. Built for creators.</p>
+</footer>
+</body></html>

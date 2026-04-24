@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>API Management &amp; Webhooks</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#051424",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "on-error": "#690005",
+                        "on-tertiary": "#502400",
+                        "on-tertiary-fixed": "#311400",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#c4abff",
+                        "surface-tint": "#adc6ff",
+                        "surface-container-high": "#1c2b3c",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary-container": "#461f00",
+                        "on-primary-fixed-variant": "#004395",
+                        "secondary-container": "#571bc1",
+                        "inverse-primary": "#005ac2",
+                        "secondary-fixed": "#e9ddff",
+                        "secondary": "#d0bcff",
+                        "surface-bright": "#2c3a4c",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d4e4fa",
+                        "on-primary-container": "#00285d",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-container-low": "#0d1c2d",
+                        "outline": "#8c909f",
+                        "surface-container-lowest": "#010f1f",
+                        "outline-variant": "#424754",
+                        "on-primary-fixed": "#001a42",
+                        "error-container": "#93000a",
+                        "on-surface": "#d4e4fa",
+                        "primary": "#adc6ff",
+                        "inverse-on-surface": "#233143",
+                        "surface-variant": "#273647",
+                        "tertiary": "#ffb786",
+                        "tertiary-container": "#df7412",
+                        "background": "#051424",
+                        "inverse-surface": "#d4e4fa",
+                        "on-secondary-fixed": "#23005c",
+                        "on-primary": "#002e6a",
+                        "surface-container": "#122131",
+                        "surface": "#051424",
+                        "on-secondary": "#3c0091",
+                        "tertiary-fixed": "#ffdcc6",
+                        "primary-container": "#4d8eff",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-highest": "#273647"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "stack-sm": "12px",
+                        "stack-xl": "96px",
+                        "margin-page": "64px",
+                        "unit": "4px",
+                        "container-max": "1200px",
+                        "stack-md": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "display-xl": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex">
+<!-- NavigationDrawer (Web) -->
+<nav class="hidden md:flex flex-col h-full w-72 rounded-r-2xl border-r border-slate-800 bg-slate-900 shadow-2xl fixed left-0 top-0 z-40 p-6">
+<div class="flex items-center gap-4 mb-stack-lg">
+<img alt="Admin user" class="w-12 h-12 rounded-full object-cover" data-alt="close-up portrait of young man with short dark hair wearing a casual grey t-shirt against a clean light background, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBegMVauXnag5ZXzpOD1KeEspGcXXhR_K8c9ltCvmZnxFqsmbgZuv4xadSdCR7AL6NCtdNnjHQ7YKaHzl29MZDZ-_pNVmVozXmT0i_hkDxQDx9W7kugzciR2u8JwqCXcM-llE0IlJwhSiDBxznTK5aAOsQGPC_uiUHiVkL5qS1aoUOJTa51aeIe5-kpdWGRwKePhZ4_eZ7SoGZ1uxzdfZlVX4ooXpsdRGRgEGPK65pYq_Pk2r7CDP80Kv1Xji081KWxUozMuoTQk5OV"/>
+<div class="flex flex-col">
+<span class="font-headline-md text-body-lg text-blue-500 font-bold">Alex Rivera</span>
+<span class="font-body-md text-label-caps text-slate-400">Premium Plan</span>
+<span class="font-body-md text-[10px] text-slate-500">v2.4.0</span>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Overview</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">Community</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-blue-600/20 to-purple-600/10 text-blue-400 border-l-4 border-blue-500 font-bold hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-body-md text-body-md">API Management</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-body-md text-body-md">Roadmap</span>
+</a>
+</li>
+<li class="mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden sticky top-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-slate-950/60 backdrop-blur-xl border-b border-slate-800/50 shadow-none font-manrope text-slate-50">
+<div class="flex items-center gap-3">
+<img alt="User profile avatar" class="w-8 h-8 rounded-full object-cover" data-alt="close-up portrait of young man with short dark hair wearing a casual grey t-shirt against a clean light background, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJqmqUqdS4ocx6PeKAkclzcqmo9SeHOi_n4yuxPJ0RQTo90EACHbVvwY3RLWlvvezZpb_eBNZw3-3n8PfdABlLvQ-GCSV406d9A2R49V_xrsj1wpVVerQjx3Yas9YfLF1WUdiOVT_Q2FO-KAV7VtojIfCo41k7MdhB0mHI5vqlRcYin7fdiWHegN90xwOA6oZuleLYeBPVQmTJxBj4eszI8rfJsWqBpxQLAdb6LxHh_RZISgP7CXTmvQtDW-ibQByldh3SGUtf55Ik"/>
+<span class="text-xl font-bold tracking-tight text-slate-50">PortfolioPro</span>
+</div>
+<button class="active:scale-95 duration-200 hover:text-blue-400 transition-colors text-slate-400">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-72 p-6 md:p-margin-page pb-stack-xl md:pb-margin-page max-w-container-max mx-auto w-full">
+<header class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-stack-md border-b border-surface-variant pb-stack-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-unit">API &amp; Webhooks</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Manage your API keys, configure webhook endpoints, and integrate with external services.</p>
+</div>
+<a class="inline-flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors font-body-md text-body-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">menu_book</span>
+                Developer Docs
+            </a>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- API Keys Section (Bento left/top) -->
+<section class="lg:col-span-8 flex flex-col gap-stack-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">Active API Keys</h2>
+<button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-body-md text-body-md font-semibold py-3 px-6 rounded-lg shadow-[0_4px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_6px_25px_rgba(37,99,235,0.4)] transition-all active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Create New Key
+                    </button>
+</div>
+<!-- Glassmorphism Card -->
+<div class="bg-surface-container-high/60 backdrop-blur-md rounded-xl border border-surface-variant p-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)]">
+<ul class="flex flex-col gap-4">
+<!-- Key Item -->
+<li class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-lg bg-surface-dim/50 border border-outline-variant/30 hover:border-outline-variant/60 transition-colors group">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-label-caps text-label-caps text-on-surface">Production Key</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-body-md text-[10px] uppercase tracking-wider">Live</span>
+</div>
+<div class="flex items-center gap-3 font-mono text-sm text-on-surface-variant">
+<span class="tracking-widest">sk_live_••••••••••••••••••••8a9f</span>
+</div>
+<div class="text-[12px] text-outline mt-2 font-body-md">Created: Oct 12, 2023 • Last used: 2 mins ago</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-md text-on-surface-variant hover:text-primary hover:bg-primary/10 transition-colors border border-transparent hover:border-primary/20" title="Copy to clipboard">
+<span class="material-symbols-outlined text-[20px]">content_copy</span>
+</button>
+<button class="p-2 rounded-md text-on-surface-variant hover:text-error hover:bg-error/10 transition-colors border border-transparent hover:border-error/20" title="Revoke key">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</li>
+<!-- Key Item -->
+<li class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-lg bg-surface-dim/50 border border-outline-variant/30 hover:border-outline-variant/60 transition-colors group">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-label-caps text-label-caps text-on-surface">Development Key</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary font-body-md text-[10px] uppercase tracking-wider">Test</span>
+</div>
+<div class="flex items-center gap-3 font-mono text-sm text-on-surface-variant">
+<span class="tracking-widest">sk_test_••••••••••••••••••••2b4c</span>
+</div>
+<div class="text-[12px] text-outline mt-2 font-body-md">Created: Nov 05, 2023 • Last used: 1 day ago</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-md text-on-surface-variant hover:text-primary hover:bg-primary/10 transition-colors border border-transparent hover:border-primary/20" title="Copy to clipboard">
+<span class="material-symbols-outlined text-[20px]">content_copy</span>
+</button>
+<button class="p-2 rounded-md text-on-surface-variant hover:text-error hover:bg-error/10 transition-colors border border-transparent hover:border-error/20" title="Revoke key">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<!-- Webhooks Section (Bento right/bottom) -->
+<section class="lg:col-span-4 flex flex-col gap-stack-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">Webhooks</h2>
+<button class="p-2 rounded-md text-on-surface-variant hover:text-primary hover:bg-primary/10 transition-colors" title="Add Endpoint">
+<span class="material-symbols-outlined">add_link</span>
+</button>
+</div>
+<div class="bg-surface-container-high rounded-xl border border-surface-variant p-1 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+<div class="flex flex-col gap-1">
+<!-- Webhook Item -->
+<div class="p-4 rounded-lg bg-surface-dim/30 hover:bg-surface-dim/70 transition-colors border-l-2 border-primary">
+<div class="flex items-start justify-between gap-2 mb-2">
+<div class="break-all font-mono text-sm text-on-surface line-clamp-2">https://api.myportfolio.com/webhooks/stripe</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-0.5 rounded text-[10px] bg-surface-variant text-on-surface-variant uppercase font-semibold">payment.succeeded</span>
+<span class="px-2 py-0.5 rounded text-[10px] bg-surface-variant text-on-surface-variant uppercase font-semibold">invoice.paid</span>
+</div>
+</div>
+<!-- Webhook Item -->
+<div class="p-4 rounded-lg bg-surface-dim/30 hover:bg-surface-dim/70 transition-colors border-l-2 border-outline-variant">
+<div class="flex items-start justify-between gap-2 mb-2">
+<div class="break-all font-mono text-sm text-on-surface-variant line-clamp-2">https://hooks.slack.com/services/T000/B000/XXX</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex flex-wrap gap-2 opacity-50">
+<span class="px-2 py-0.5 rounded text-[10px] bg-surface-variant text-on-surface-variant uppercase font-semibold">user.created</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Usage Stats Mini Card -->
+<div class="mt-auto bg-gradient-to-br from-surface-container to-surface-container-low rounded-xl border border-surface-variant p-5 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-xl"></div>
+<div class="relative z-10 flex items-center justify-between">
+<div>
+<div class="font-label-caps text-label-caps text-outline mb-1">API Requests (30d)</div>
+<div class="font-headline-md text-headline-md text-on-surface">12,405</div>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">monitoring</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-slate-900/80 backdrop-blur-lg rounded-t-2xl border-t border-slate-800 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">rebase_edit</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">view_kanban</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider">Roadmap</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-500 bg-blue-500/10 rounded-xl px-3 py-1 hover:bg-slate-800/50 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">api</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider">API</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider">Activity</span>
+</a>
+</nav>
+</body></html>

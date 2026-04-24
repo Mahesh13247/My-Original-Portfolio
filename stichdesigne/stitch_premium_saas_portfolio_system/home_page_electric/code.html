@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Electric Portfolio - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#490080",
+                        "surface-container-high": "#242b2d",
+                        "secondary-fixed": "#f0dbff",
+                        "surface-container-lowest": "#090f11",
+                        "on-background": "#dde4e5",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "inverse-surface": "#dde4e5",
+                        "surface-container": "#1a2122",
+                        "on-secondary-container": "#d6a9ff",
+                        "on-tertiary-container": "#6e4600",
+                        "inverse-on-surface": "#2b3233",
+                        "on-error": "#690005",
+                        "on-tertiary": "#462b00",
+                        "surface-bright": "#343a3c",
+                        "surface-dim": "#0e1416",
+                        "background": "#0e1416",
+                        "surface-tint": "#2fd9f4",
+                        "on-tertiary-fixed-variant": "#643f00",
+                        "tertiary-container": "#ffb13b",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#2c0051",
+                        "error": "#ffb4ab",
+                        "primary-container": "#22d3ee",
+                        "on-surface-variant": "#bbc9cd",
+                        "on-primary-container": "#005763",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "outline-variant": "#3c494c",
+                        "tertiary-fixed-dim": "#ffb957",
+                        "primary": "#8aebff",
+                        "surface-container-highest": "#2f3638",
+                        "secondary": "#ddb7ff",
+                        "on-tertiary-fixed": "#2a1800",
+                        "surface-variant": "#2f3638",
+                        "surface-container-low": "#161d1e",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "on-primary-fixed": "#001f25",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "error-container": "#93000a",
+                        "secondary-container": "#6f00be",
+                        "inverse-primary": "#006877",
+                        "outline": "#859397",
+                        "on-surface": "#dde4e5",
+                        "primary-fixed": "#a2eeff",
+                        "on-primary": "#00363e",
+                        "surface": "#0e1416",
+                        "tertiary-fixed": "#ffddb5",
+                        "tertiary": "#ffd6a3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "section-gap": "120px",
+                        "container-max": "1280px",
+                        "margin-page": "48px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "display-xl": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #020617; } /* Deep Obsidian base */
+        
+        .glass-panel {
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(to bottom right, #22d3ee, #a855f7);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            box-shadow: 0 0 4px rgba(34, 211, 238, 0.2), 0 0 4px rgba(168, 85, 247, 0.2);
+        }
+
+        .neon-text-primary {
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="bg-slate-950/70 backdrop-blur-md docked full-width top-0 sticky border-b border-cyan-500/20 shadow-none z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Portrait of a young professional man with short hair, wearing a dark shirt against a neutral background, confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBciLlpMkF8jyRkqqy1DfJO4E85wrt7zOPdI_kgXZj0OVSHRlvTE4vCFel7yq-CpjdqwzW1LlaJ_wg9lg4HO-VWIZK9TSFgOxjJChLYBTKTyTiBY4-5Y6WA3s7_v6OHgsr6JPlMeXewEd1VxkqvO6o0b3OqN9XHC9zoNhz9cByGD1NfXi8iBAt6p9PpqFVOxg3UAOJebCB1cdq0GPIp8UQK_Ehblo7FnT3M7rW97x9sQtuHncKTC46_jF14qAfpAxv9E9X4KwuSsuSG"/>
+</div>
+<h1 class="text-xl font-black text-cyan-400 drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] font-manrope antialiased tracking-tight">Vortex Pro</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-cyan-400 font-bold font-manrope text-sm hover:text-cyan-300 hover:bg-white/5 transition-colors px-3 py-2 rounded-md" href="#">Home</a>
+<a class="text-slate-400 font-manrope text-sm hover:text-cyan-300 hover:bg-white/5 transition-colors px-3 py-2 rounded-md" href="#">Work</a>
+<a class="text-slate-400 font-manrope text-sm hover:text-cyan-300 hover:bg-white/5 transition-colors px-3 py-2 rounded-md" href="#">Insight</a>
+<a class="text-slate-400 font-manrope text-sm hover:text-cyan-300 hover:bg-white/5 transition-colors px-3 py-2 rounded-md" href="#">Profile</a>
+</nav>
+<button class="text-cyan-400 hover:text-cyan-300 hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center">
+<!-- Hero Section -->
+<section class="w-full max-w-container-max mx-auto px-gutter py-section-gap flex flex-col items-center text-center relative">
+<!-- Ambient Glow Behind Hero -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-container/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-cyan-500/30 mb-8">
+<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]"></span>
+<span class="text-cyan-400 font-label-sm text-label-sm uppercase tracking-widest">Available for new projects</span>
+</div>
+<h2 class="font-display-xl text-display-xl text-on-surface mb-6 max-w-4xl">
+                Building the <span class="text-cyan-400 neon-text-primary">Future</span> of Tech
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-12">
+                Elite digital experiences engineered for the modern web. I combine high-velocity design with robust architecture to build platforms that command attention.
+            </p>
+<div class="flex flex-col sm:flex-row gap-6">
+<button class="bg-cyan-400 text-slate-950 font-label-sm text-label-sm px-8 py-4 rounded-lg shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] hover:bg-cyan-300 transition-all active:scale-95">
+                    View Projects
+                </button>
+<button class="glass-panel text-on-surface font-label-sm text-label-sm px-8 py-4 rounded-lg border border-white/10 hover:border-cyan-400/50 transition-all active:scale-95">
+                    Contact Me
+                </button>
+</div>
+</section>
+<!-- Bento Grid Skills Section -->
+<section class="w-full max-w-container-max mx-auto px-gutter py-section-gap">
+<div class="mb-12">
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-4">Core Competencies</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">A curated stack designed for maximum performance and visual impact.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Skill Card 1 (Large) -->
+<div class="glass-panel rounded-xl p-8 col-span-1 md:col-span-2 glow-border hover:bg-surface-container-high/50 transition-colors group relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center mb-6 border border-white/5 group-hover:border-cyan-500/30 transition-colors">
+<span class="material-symbols-outlined text-cyan-400 text-3xl">code</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-3">Front-End Engineering</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Architecting scalable, responsive, and highly interactive user interfaces using modern JavaScript frameworks and utility-first CSS.</p>
+<div class="mt-6 flex gap-2 flex-wrap">
+<span class="px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-md font-label-sm text-label-sm">React</span>
+<span class="px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-md font-label-sm text-label-sm">Next.js</span>
+<span class="px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-md font-label-sm text-label-sm">Tailwind CSS</span>
+</div>
+</div>
+<!-- Skill Card 2 -->
+<div class="glass-panel rounded-xl p-8 col-span-1 hover:bg-surface-container-high/50 transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center mb-6 border border-white/5 group-hover:border-purple-500/30 transition-colors">
+<span class="material-symbols-outlined text-purple-400 text-3xl">design_services</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-3">UI/UX Design</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Crafting intuitive, glassmorphic experiences with an emphasis on visual hierarchy.</p>
+</div>
+<!-- Skill Card 3 -->
+<div class="glass-panel rounded-xl p-8 col-span-1 hover:bg-surface-container-high/50 transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center mb-6 border border-white/5 group-hover:border-cyan-500/30 transition-colors">
+<span class="material-symbols-outlined text-cyan-400 text-3xl">database</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-3">Back-End Systems</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Building robust APIs and managing complex state architectures.</p>
+</div>
+<!-- Skill Card 4 (Wide) -->
+<div class="glass-panel rounded-xl p-8 col-span-1 md:col-span-2 glow-border hover:bg-surface-container-high/50 transition-colors group">
+<div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+<div class="flex-1">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-3">System Architecture</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Designing resilient, cloud-native infrastructures that support high-availability applications and seamless deployments.</p>
+<button class="text-cyan-400 font-label-sm text-label-sm flex items-center gap-2 hover:text-cyan-300 transition-colors">
+                                View Architecture Diagrams <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="w-full md:w-1/3 aspect-video rounded-lg overflow-hidden border border-white/10 relative">
+<img alt="Server room abstract" class="w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" data-alt="Abstract representation of glowing data servers in a dark, high-tech server room with blue and cyan neon lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO8f3fcta__XrzwW82Z7vQKlnivqLq_mt7wwrB0OFbmpMHL6qFrG1-8w1DPT9NgKdlupzfbRkxmY3t-o9M64Qa9suVwLsBMSuCbVLKjGLgUhSaJfi03nUVszLNXZJ5f3LqVk0IZ6YejCFY0ji1TXSdAV1L29TVC9baV2BpNyi2IZdak_8cmRtDlww2wM_YuzhA5UJ2B_sTxCzjXqHqRHLllASwupG3LRRMn3V-PUjUcTSjHcvWcrteDQhDs_otGnJ6R6KWeju2md9n"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-slate-950/80 backdrop-blur-lg fixed bottom-0 w-full z-50 rounded-t-2xl border-t border-purple-500/20 shadow-[0_-4px_20px_rgba(168,85,247,0.1)] border-t border-white/10">
+<div class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 pb-4">
+<a class="flex flex-col items-center justify-center text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)] transition-all transform active:scale-110" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="text-[10px] font-bold uppercase tracking-widest font-manrope">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-purple-400 transition-all transform active:scale-110" href="#">
+<span class="material-symbols-outlined mb-1">layers</span>
+<span class="text-[10px] font-bold uppercase tracking-widest font-manrope">Work</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-purple-400 transition-all transform active:scale-110" href="#">
+<span class="material-symbols-outlined mb-1">auto_graph</span>
+<span class="text-[10px] font-bold uppercase tracking-widest font-manrope">Insight</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-purple-400 transition-all transform active:scale-110" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="text-[10px] font-bold uppercase tracking-widest font-manrope">Profile</span>
+</a>
+</div>
+</nav>
+<!-- Footer -->
+<footer class="bg-slate-950 w-full py-12 border-t border-white/5 pb-24 md:pb-12">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-xs font-manrope text-slate-500">© 2024 Vortex SaaS. All rights reserved.</span>
+<div class="flex gap-6">
+<a class="text-xs font-manrope text-slate-500 hover:text-cyan-400 transition-colors" href="#">Privacy</a>
+<a class="text-xs font-manrope text-slate-500 hover:text-cyan-400 transition-colors" href="#">Terms</a>
+<a class="text-xs font-manrope text-slate-500 hover:text-cyan-400 transition-colors" href="#">API Status</a>
+<a class="text-xs font-manrope text-slate-500 hover:text-cyan-400 transition-colors" href="#">Support</a>
+</div>
+<span class="font-bold text-slate-300 font-manrope">Vortex Pro</span>
+</div>
+</footer>
+</body></html>

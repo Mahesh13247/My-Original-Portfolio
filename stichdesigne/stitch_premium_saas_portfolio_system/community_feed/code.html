@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Community Networking Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#051424",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "on-error": "#690005",
+                        "on-tertiary": "#502400",
+                        "on-tertiary-fixed": "#311400",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#c4abff",
+                        "surface-tint": "#adc6ff",
+                        "surface-container-high": "#1c2b3c",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary-container": "#461f00",
+                        "on-primary-fixed-variant": "#004395",
+                        "secondary-container": "#571bc1",
+                        "inverse-primary": "#005ac2",
+                        "secondary-fixed": "#e9ddff",
+                        "secondary": "#d0bcff",
+                        "surface-bright": "#2c3a4c",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d4e4fa",
+                        "on-primary-container": "#00285d",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-container-low": "#0d1c2d",
+                        "outline": "#8c909f",
+                        "surface-container-lowest": "#010f1f",
+                        "outline-variant": "#424754",
+                        "on-primary-fixed": "#001a42",
+                        "error-container": "#93000a",
+                        "on-surface": "#d4e4fa",
+                        "primary": "#adc6ff",
+                        "inverse-on-surface": "#233143",
+                        "surface-variant": "#273647",
+                        "tertiary": "#ffb786",
+                        "tertiary-container": "#df7412",
+                        "background": "#051424",
+                        "inverse-surface": "#d4e4fa",
+                        "on-secondary-fixed": "#23005c",
+                        "on-primary": "#002e6a",
+                        "surface-container": "#122131",
+                        "surface": "#051424",
+                        "on-secondary": "#3c0091",
+                        "tertiary-fixed": "#ffdcc6",
+                        "primary-container": "#4d8eff",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-highest": "#273647"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "stack-sm": "12px",
+                        "stack-xl": "96px",
+                        "margin-page": "64px",
+                        "unit": "4px",
+                        "container-max": "1200px",
+                        "stack-md": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "display-xl": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-dim text-on-surface min-h-screen flex flex-col md:flex-row font-body-md">
+<!-- TopAppBar (Mobile & Web Header) -->
+<header class="sticky top-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-slate-950/60 backdrop-blur-xl border-b border-slate-800 border-b border-slate-800/50 shadow-none md:hidden">
+<div class="flex items-center gap-4">
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Close up portrait of a young professional woman with dark hair in a modern studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-uB6pNIJGHOZWkhyMLvhlKM-86lQ4jBPaTLG3C6oR2wEXJVRl_FagacBO5AfcCdDzLk02C4-FfVIJxjhI3Yhy_HLS8CHupKO8nsOLAPEEAXWDIEXHS7HxrnGC_hJ9vcBddYWWXPH2Cf42eWbbkKfjbxx_lG8LWKYZNMt5_HrPVO169KYhz_euiJRIVMW0MB4L4DdFocPKUYi5LZUeENjz5pcsVHdV3IajinIMVFMJbZDSTEGCztIxRhCtUn4jGJ8rZ8wiWEL8b1CR"/>
+<h1 class="font-manrope text-slate-50 text-xl font-bold tracking-tight text-slate-50">PortfolioPro</h1>
+</div>
+<button class="text-slate-400 hover:text-blue-400 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-blue-500">notifications</span>
+</button>
+</header>
+<!-- NavigationDrawer (Web) -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full z-40 flex-col p-6 bg-slate-900 rounded-r-2xl border-r border-slate-800 shadow-2xl h-full w-72">
+<div class="flex items-center gap-4 mb-stack-lg border-b border-slate-800/50 pb-4">
+<img alt="Admin user" class="w-12 h-12 rounded-full border-2 border-primary" data-alt="Portrait of a smiling young professional man with short dark hair and a beard, wearing a casual shirt, outdoors with blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0d9mslBzhRyGSofJklF_C_UHaDG_MM1Cxhod_JVns6Cy_rOiB2u_tg0yD5cSrH8aPH2fwoV4iCg-i6KRqWgjsh5IYfubYn-dazVsR8GwUq_yyncy330BN819_jG7in2tu4h2t3MlND2yZSglGFt47w9vvMBwe6uxvgDc6akYGAzGlnx8eU0nH2lvhKlmbvVgU5-1v1KNUXaJXDJV9UzH86BIypL0EDyv2Z-cR5N6LfO501pqio3DdDovjcLY96befmr_9jLCQedC1"/>
+<div class="flex flex-col">
+<span class="font-manrope text-sm font-bold text-on-surface">Alex Rivera</span>
+<span class="font-body-md text-[12px] text-outline">Premium Plan</span>
+<span class="font-label-caps text-[10px] text-primary/60 mt-1">v2.4.0</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-manrope text-sm text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-manrope text-sm bg-gradient-to-r from-blue-600/20 to-purple-600/10 text-blue-400 border-l-4 border-blue-500 font-bold hover:pl-2 transition-all duration-300 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Community</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-manrope text-sm text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span>API Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-manrope text-sm text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">map</span>
+<span>Roadmap</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg font-manrope text-sm text-slate-400 hover:bg-slate-800/50 hover:pl-2 transition-all duration-300 tap-highlight-transparent mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-72 pb-stack-xl md:pb-0 relative">
+<div class="max-w-container-max mx-auto px-6 py-stack-md lg:py-stack-lg">
+<!-- Page Header -->
+<div class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Community Feed</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Discover projects, join discussions, and connect with other members.</p>
+</div>
+<!-- Top Section: Trending / Highlights (Bento-ish) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-stack-xl">
+<!-- Trending Member Card -->
+<div class="bg-surface-container-high rounded-2xl p-6 border border-outline-variant/30 hover:border-primary/50 transition-colors shadow-lg relative overflow-hidden flex flex-col justify-between group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">local_fire_department</span>
+</div>
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-tertiary bg-tertiary/10 px-3 py-1 rounded-full">Trending Member</span>
+</div>
+<div class="flex items-center gap-4 mb-4 z-10 relative">
+<img alt="Trending member" class="w-14 h-14 rounded-full border-2 border-surface-dim shadow-sm" data-alt="Portrait of a young man with glasses and a slight smile, outdoors with natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHqfuE2acqWxOG9H2co9DFExe9R7jya6X5TRL_1tSzLRlwpErC2VETlJKBmrfOj03q5ntOYgE_8shT-typUi4OCol-UaWX_Xty9S4KYVhm809yUdZFc6WlsW3wDqz5TE_T1yYfCp2GvLlqoEzb_h4pK3v6lW3wS6rxve6tvDLWgattVD-bWv4rypqGj-xi1wXJOgiiksFQvQbpqKUfgSQl2-_J4BKKxgKcibUQeTvYDdQVSXWwWnyX4Bu5Yx5WOZkuEGcrQAdP1Yo3"/>
+<div>
+<h3 class="font-headline-md text-[20px] font-bold text-on-surface">David Chen</h3>
+<p class="font-body-md text-sm text-on-surface-variant">UX/UI Designer</p>
+</div>
+</div>
+</div>
+<button class="w-full bg-transparent border border-outline hover:border-primary text-on-surface hover:text-primary transition-colors py-2 rounded-lg font-body-md text-sm font-semibold mt-4 z-10 relative">View Profile</button>
+</div>
+<!-- Spotlight Project Card -->
+<div class="md:col-span-2 bg-surface-container-high rounded-2xl p-0 border border-outline-variant/30 hover:border-secondary/50 transition-colors shadow-lg overflow-hidden flex flex-col sm:flex-row group">
+<div class="sm:w-2/5 h-48 sm:h-auto relative overflow-hidden">
+<img alt="Project Spotlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Abstract minimal geometric design in deep blues and purples with soft lighting, representing a modern digital interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBwoyR2oNTveVLm3jOZDAo534hO8VYi0uwcAkzjQQRdPN8pmmJLQ9_9IUnbcjmghmHRyUZSm4ti3aXILf_J0ijf5xgvaMl6-UcENm-4BYIaREKjBxHCvsIJ9i3V2vudDobRO2wwGcikh0wf_mrxTm7rWYxgEClq26z-3phWUfhtEUmxiRQrv5Y0NStwUUaDZr0ojvhMRwIujzy8QcgvnWWz6qy8GlnzwXyBoRtTRcHENFMGRZgOff1vFJbkLkU9l2BMWxN-fP7fftB"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim/80 to-transparent sm:bg-gradient-to-r"></div>
+<span class="absolute top-4 left-4 font-label-caps text-label-caps text-secondary bg-secondary/20 backdrop-blur-md px-3 py-1 rounded-full border border-secondary/30">Project Spotlight</span>
+</div>
+<div class="p-6 flex flex-col justify-between sm:w-3/5">
+<div>
+<h3 class="font-headline-md text-[24px] font-bold text-on-surface mb-2 group-hover:text-secondary transition-colors">Nova Dashboard Redesign</h3>
+<p class="font-body-md text-on-surface-variant mb-4 line-clamp-2">A complete overhaul of the analytics platform focusing on data visualization clarity and user engagement metrics.</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<img alt="Contributor" class="w-8 h-8 rounded-full border-2 border-surface-container-high" data-alt="Smiling young woman with long wavy hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRZxGJnL2OvCvKCynvqYUOizyrCtKtyp9QDvEwm2iSvJs_kOFBvR-EnQCQDUTw8raOlsJIASfZ6QXW9FyNnuMddWcYTQLiSWCWqvIe8UYI4GJKBFN8niNwAvHFe8Lrk3sy86MKQTi-TYZK2qaEcdnl0ShuI2XNdv9PDFyJgKPrahyW5VUSno7U7ZYoow2NSiRuaPNj9ODSG6mExn0j2GxjiJwNWy3lm_ALCKICg-X6FPlB-8o3cl2Zh9byuAw1yIDIb7zqBDCxpChZ"/>
+<img alt="Contributor" class="w-8 h-8 rounded-full border-2 border-surface-container-high" data-alt="Man with short hair and glasses looking thoughtfully" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL0X4BqNiQ5J1TiC_cZ4rLbWPiWItFfJl1gZZlqaWKxDx8pGx6dbtM6akmDaWeWHxBUWbjufznvVAn3UVQyoYX6XSn-GQo6cZfcA-GcQUFreGdwHhXaqY9FeGQuTfK0BPcq69hxeUgmTQeGOB-ediXrm4IZbDtmVGtQQuybilpDr96thFz2HTvu-ULgU9ywEb_UjisFnzYDaDse4AVhkasrdlozhq678lmeTl30Itt2JVHiMu7boj4xE8rTLeU8CTrPzAtOAaF5cTg"/>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-high bg-surface-variant flex items-center justify-center text-[10px] font-bold text-on-surface-variant">+3</div>
+</div>
+<button class="bg-gradient-to-r from-secondary-container to-on-secondary-fixed-variant text-white px-6 py-2 rounded-lg font-body-md text-sm font-semibold hover:shadow-[0_0_20px_rgba(87,27,193,0.4)] transition-shadow">Explore</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Feed -->
+<div class="max-w-3xl mx-auto space-y-8">
+<!-- Post Compose (Minimal) -->
+<div class="bg-surface-container-high rounded-2xl p-6 border border-outline-variant/20 shadow-md">
+<div class="flex items-start gap-4">
+<img alt="Current user" class="w-10 h-10 rounded-full border border-outline-variant/50" data-alt="Portrait of a smiling young professional man with short dark hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxIGv6KEmRL9pS-AKCvkCpj-uNAGlbsdSAFDQlMpe5UCgHh3dWlFfiJH_ZI4cqPPdvImKU6D-PH4XP-1eomiJM7DrJmyPLqwAJj153hQgka455rvkk1YBctYXz36JO1DAJ_xaKCCqmpMTOHpHjyyhnem3fNJnBQnW9Bom3oyUuquiYE9OLXR4gU_vloJSmo7fy5zniNqG2jQDOJhBsMZRr_FPELU6B68OPCzPIWeKXti06CUn5nrPNSKB7yPfr732TMeanJYc-zM-F"/>
+<div class="flex-grow">
+<textarea class="w-full bg-surface-dim/50 border border-outline-variant/30 rounded-xl p-4 text-on-surface font-body-md placeholder:text-outline focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all resize-none h-24" placeholder="Share a design, ask a question, or start a discussion..."></textarea>
+<div class="flex items-center justify-between mt-3">
+<div class="flex gap-2">
+<button class="p-2 text-outline hover:text-primary hover:bg-primary/10 rounded-full transition-colors" title="Attach Image">
+<span class="material-symbols-outlined text-[20px]">image</span>
+</button>
+<button class="p-2 text-outline hover:text-secondary hover:bg-secondary/10 rounded-full transition-colors" title="Add Link">
+<span class="material-symbols-outlined text-[20px]">link</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-body-md text-sm font-bold hover:bg-primary-container transition-colors">Post</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Divider -->
+<div class="flex items-center gap-4 py-4">
+<div class="h-[1px] bg-outline-variant/30 flex-grow"></div>
+<span class="font-label-caps text-label-caps text-outline">Recent Activity</span>
+<div class="h-[1px] bg-outline-variant/30 flex-grow"></div>
+</div>
+<!-- Feed Item 1: Image Post -->
+<article class="bg-surface-container rounded-2xl p-6 border border-outline-variant/20 shadow-lg hover:border-outline-variant/50 transition-colors">
+<!-- Author Header -->
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<img alt="Author" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a smiling young woman with short hair wearing a red shirt outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxDBcjolflYw9IVNNp-wJR4NnHu5S0taTe_a1WoO3viKfrncf2cc-Us4zF6JUyfEqYjLxYGnF-4voYQJnh2y77CWFCF4I6w5LFUQF4ckLJc62eoYzzxVMariN5x5h7THC1vFERlb19ReGAe6Y_PaBDCfbegfzA1ueIh0_tQ8LewbH2cA_-pr7gaIDwn9zj_FQpWfM9CkFvua4f1XVWT4zNo9lYO373mocS8r4Cf8IxUZ2ehZETDv8jxetAZdjeiq9Rq6G9Rl99BdeI"/>
+<div>
+<h4 class="font-body-md font-bold text-on-surface">Sarah Jenkins</h4>
+<p class="font-body-md text-[12px] text-outline">2 hours ago • Product Designer</p>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<!-- Content -->
+<div class="mb-4">
+<p class="font-body-md text-on-surface-variant mb-4">Just wrapped up the conceptual phase for the new 'Zenith' mobile app interactions. Trying to keep the micro-animations as subtle as possible while providing clear feedback. Thoughts on the glassmorphic modal overlay?</p>
+<div class="rounded-xl overflow-hidden border border-outline-variant/30">
+<img alt="Design mockup" class="w-full h-auto object-cover" data-alt="Sleek modern mobile UI design mockup shown on multiple angled screens floating over a dark gradient background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcBfTgfaGXsoxmpPK9p4Lrr5MJa_anYiAOfcP0wC6Iz73qxLDsZf8XsOF4QZynDLpjxfUCzHp_zSNUw2vxrNQ9ey3NIUaCqiep7zv9sSvdbT_D0pO5vy52msWOWQgJ-RxQwpXcf-kVr9tyMhHfvmS1CzBmuMCnoyKgqgURVtX1e6EGGu31UVtoSJCNLj2CDjOhiguszOsEyq747YG6M7WWQUDoxq6iwDtkf2JhTLPg4Zv8JZghUuCZxsOzwIKbLStQt7A55VTXBFNd"/>
+</div>
+</div>
+<!-- Tags -->
+<div class="flex gap-2 mb-6">
+<span class="font-label-caps text-[10px] text-primary bg-primary/10 px-2 py-1 rounded-full">#UI/UX</span>
+<span class="font-label-caps text-[10px] text-primary bg-primary/10 px-2 py-1 rounded-full">#MobileDesign</span>
+</div>
+<!-- Interactions -->
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+<div class="flex gap-6">
+<button class="flex items-center gap-2 text-outline hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-active:scale-75 transition-transform">favorite</span>
+<span class="font-body-md text-sm">124</span>
+</button>
+<button class="flex items-center gap-2 text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+<span class="font-body-md text-sm">18</span>
+</button>
+</div>
+<button class="flex items-center gap-2 text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span class="font-body-md text-sm hidden sm:inline">Share</span>
+</button>
+</div>
+</article>
+<!-- Feed Item 2: Discussion / Text Post -->
+<article class="bg-surface-container rounded-2xl p-6 border border-outline-variant/20 shadow-lg hover:border-outline-variant/50 transition-colors">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<img alt="Author" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a mature man with a beard looking thoughtful" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOcW8IBv5YGze83OGDk6bljEUZX0a2tTMVmDSKC1eU3zp6X4E74PD8sygSPWK_JFMdpnMOEmEA8xUb5Hmj5hxnZzpGC9tnUi8ORUL3tkF0qfhqxbNSDLAYoCMabhHzoMdxhAvsa6VcayUk513Kk6Di3sHqq9P1fHn1Aaok0RZZD08UgrFLrIJ5Ago9Cb7LpS7OVFlIQY1zRBFxma8S9xGxzFbYA7T2oYoGFoDOIqL940mdohCHsBcwbsFdJqv7A1twGag6OyotgpEp"/>
+<div>
+<h4 class="font-body-md font-bold text-on-surface">Marcus Vance</h4>
+<p class="font-body-md text-[12px] text-outline">5 hours ago • Frontend Developer</p>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="font-headline-md text-[20px] font-bold text-on-surface mb-2">Tailwind vs CSS Modules in 2024?</h3>
+<p class="font-body-md text-on-surface-variant">I'm starting a new enterprise dashboard project next week. For the last two years, I've been strictly in the Tailwind camp for its speed and design system enforcement. However, looking at some of the new CSS features, I'm wondering if CSS Modules + Native CSS Variables might be cleaner for a massive, multi-team codebase. What are you all choosing for large-scale SaaS apps right now?</p>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+<div class="flex gap-6">
+<button class="flex items-center gap-2 text-outline hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-active:scale-75 transition-transform">favorite</span>
+<span class="font-body-md text-sm">45</span>
+</button>
+<button class="flex items-center gap-2 text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-body-md text-sm">32 Comments</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-slate-900/80 backdrop-blur-lg rounded-t-2xl border-t border-slate-800 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">rebase_edit</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider hidden sm:block">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-500 bg-blue-500/10 rounded-xl px-3 py-1 hover:bg-slate-800/50 transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">view_kanban</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider hidden sm:block">Community</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">api</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider hidden sm:block">API</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:bg-slate-800/50 transition-all active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">notifications_active</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-wider hidden sm:block">Activity</span>
+</a>
+</nav>
+</body></html>
