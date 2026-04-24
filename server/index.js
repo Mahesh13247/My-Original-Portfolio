@@ -10,6 +10,15 @@ app.use(express.json());
 app.use(cors());
 
 const sequelize = require('./config/db');
+const User = require('./models/User');
+const Project = require('./models/Project');
+const Payment = require('./models/Payment');
+
+// Define Associations
+User.hasMany(Payment, { foreignKey: 'userId' });
+Payment.belongsTo(User, { foreignKey: 'userId' });
+Project.hasMany(Payment, { foreignKey: 'projectId' });
+Payment.belongsTo(Project, { foreignKey: 'projectId' });
 
 // Database Connection
 const connectDB = async () => {

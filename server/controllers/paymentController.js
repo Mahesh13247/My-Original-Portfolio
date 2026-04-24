@@ -104,3 +104,19 @@ exports.verifyPayment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getUserPayments = async (req, res) => {
+  try {
+    const payments = await Payment.findAll({
+      where: { userId: req.user.id },
+      include: [{ 
+        model: Project,
+        attributes: ['title', 'price']
+      }],
+      order: [['createdAt', 'DESC']]
+    });
+    res.json(payments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
