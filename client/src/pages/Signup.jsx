@@ -33,13 +33,13 @@ const Signup = () => {
             <label className="text-sm font-medium text-slate-400 ml-1">Full Name</label>
             <div className="relative">
               <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-              <input 
-                type="text" 
+              <input
+                type="text"
                 required
                 value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-colors"
-                placeholder="John Doe"
+                placeholder="Please Enter Your Name ❤️"
               />
             </div>
           </div>
@@ -48,13 +48,13 @@ const Signup = () => {
             <label className="text-sm font-medium text-slate-400 ml-1">Email Address</label>
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-              <input 
-                type="email" 
+              <input
+                type="email"
                 required
                 value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-colors"
-                placeholder="name@example.com"
+                placeholder="Please Enter Your Email Address 😁"
               />
             </div>
           </div>
@@ -63,13 +63,13 @@ const Signup = () => {
             <label className="text-sm font-medium text-slate-400 ml-1">Password</label>
             <div className="relative">
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-              <input 
-                type="password" 
+              <input
+                type="password"
                 required
                 value={formData.password}
-                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-colors"
-                placeholder="••••••••"
+                placeholder="Please Enter Your Password 🫣"
               />
             </div>
           </div>
@@ -81,7 +81,7 @@ const Signup = () => {
 
         <p className="text-center text-slate-400 text-sm">
           Already have an account?{' '}
-          <Link to="/login" className="text-primary hover:underline">Sign In</Link>
+          <Link to="/login" className="text-primary hover:underline">Sign In ☠️</Link>
         </p>
       </div>
     </div>

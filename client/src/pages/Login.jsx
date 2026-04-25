@@ -34,13 +34,13 @@ const Login = () => {
             <label className="text-sm font-medium text-slate-400 ml-1">Email Address</label>
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-              <input 
-                type="email" 
+              <input
+                type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-colors"
-                placeholder="name@example.com"
+                placeholder="Please Enter Your Email Address 😁"
               />
             </div>
           </div>
@@ -49,13 +49,13 @@ const Login = () => {
             <label className="text-sm font-medium text-slate-400 ml-1">Password</label>
             <div className="relative">
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-              <input 
-                type="password" 
+              <input
+                type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-colors"
-                placeholder="••••••••"
+                placeholder="Please Enter Your Password 🫣"
               />
             </div>
           </div>
@@ -67,7 +67,7 @@ const Login = () => {
 
         <p className="text-center text-slate-400 text-sm">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-primary hover:underline">Create one</Link>
+          <Link to="/signup" className="text-primary hover:underline">Create one 😅</Link>
         </p>
       </div>
     </div>

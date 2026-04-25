@@ -1,9 +1,32 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Code2, Database, Layout, Smartphone, Globe, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import api from '../services/api';
+import toast from 'react-hot-toast';
 import myPhoto from '../assets/IMG_20250524_235515_332.webp';
 
 const Home = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await api.post('/contact', formData);
+      toast.success('Message sent! I will get back to you soon.');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to send message');
+    } finally {
+      setLoading(false);
+    }
+  };
   const skills = [
     { name: 'React JS', icon: <Layout size={24} />, level: 'Experienced' },
     { name: 'Node JS', icon: <Database size={24} />, level: 'Intermediate' },
@@ -167,11 +190,38 @@ const Home = () => {
               </a>
             </div>
           </div>
-          <form className="flex-1 w-full space-y-4">
-            <input type="text" placeholder="Name" className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 focus:border-primary outline-none transition-colors" />
-            <input type="email" placeholder="Email" className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 focus:border-primary outline-none transition-colors" />
-            <textarea placeholder="Message" rows="4" className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 focus:border-primary outline-none transition-colors resize-none"></textarea>
-            <button className="btn-primary w-full">Send Message</button>
+          <form onSubmit={handleSubmit} className="flex-1 w-full space-y-4">
+            <input 
+              type="text" 
+              placeholder="Name" 
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 focus:border-primary outline-none transition-colors" 
+            />
+            <input 
+              type="email" 
+              placeholder="Email" 
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 focus:border-primary outline-none transition-colors" 
+            />
+            <textarea 
+              placeholder="Message" 
+              rows="4" 
+              required
+              value={formData.message}
+              onChange={(e) => setFormData({...formData, message: e.target.value})}
+              className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 focus:border-primary outline-none transition-colors resize-none"
+            ></textarea>
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Sending...' : 'Send Message'}
+            </button>
           </form>
         </div>
       </section>
