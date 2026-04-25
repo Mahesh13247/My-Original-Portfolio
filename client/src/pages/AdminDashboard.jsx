@@ -55,7 +55,7 @@ const AdminDashboard = () => {
   // Forms
   const [newProject, setNewProject] = useState({
     title: '', description: '', image: '', price: 0, isPremium: false, techStack: [], category: 'Frontend',
-    liveDemoUrl: '', githubUrl: ''
+    liveDemoUrl: '', githubUrl: '', downloadUrl: ''
   });
   const [newCoupon, setNewCoupon] = useState({
     code: '', discount: 0, expiryDate: ''
@@ -145,6 +145,25 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleSourceUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('source', file);
+
+    const load = toast.loading('Uploading source code...');
+    try {
+      const { data } = await api.post('/upload/source', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setNewProject({ ...newProject, downloadUrl: data.url });
+      toast.success('Source code uploaded!', { id: load });
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Upload failed. Max size 1GB.', { id: load });
+    }
+  };
+
   const handleEditClick = (project) => {
     setIsEditingProject(true);
     setEditingProjectId(project.id);
@@ -157,7 +176,8 @@ const AdminDashboard = () => {
       techStack: project.techStack || [],
       category: project.category || 'Frontend',
       liveDemoUrl: project.liveDemoUrl || '',
-      githubUrl: project.githubUrl || ''
+      githubUrl: project.githubUrl || '',
+      downloadUrl: project.downloadUrl || ''
     });
     setShowAddProjectModal(true);
   };
@@ -167,7 +187,7 @@ const AdminDashboard = () => {
     setEditingProjectId(null);
     setNewProject({ 
       title: '', description: '', image: '', price: 0, isPremium: false, techStack: [], category: 'Frontend',
-      liveDemoUrl: '', githubUrl: '' 
+      liveDemoUrl: '', githubUrl: '', downloadUrl: '' 
     });
     setShowAddProjectModal(true);
   };
@@ -949,6 +969,25 @@ const AdminDashboard = () => {
                 <input placeholder="Image URL" value={newProject.image} required className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, image: e.target.value})} />
                 <input placeholder="Live Demo Link (e.g. https://demo.com)" value={newProject.liveDemoUrl} className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, liveDemoUrl: e.target.value})} />
                 <input placeholder="Project Code Link (e.g. https://github.com/...)" value={newProject.githubUrl} className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, githubUrl: e.target.value})} />
+                
+                {/* Source Code Upload Section */}
+                <div className="col-span-full bg-surface-variant/30 border border-outline rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center">
+                  <div className="flex-1 w-full">
+                    <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Direct Download URL</label>
+                    <input placeholder="https://yoursite.com/uploads/..." value={newProject.downloadUrl} className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, downloadUrl: e.target.value})} />
+                  </div>
+                  <div className="text-on-surface-variant font-bold text-sm">OR</div>
+                  <div className="flex-1 w-full relative">
+                    <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Upload Source (.zip)</label>
+                    <input 
+                      type="file" 
+                      accept=".zip,.rar,.7z,.tar,.gz"
+                      onChange={handleSourceUpload}
+                      className="block w-full text-sm text-slate-400 file:mr-4 file:py-3 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition-all cursor-pointer border border-outline rounded-xl bg-surface-variant/50"
+                    />
+                  </div>
+                </div>
+
                 <input placeholder="Price" value={newProject.price} type="number" className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, price: Number(e.target.value)})} />
                 <select value={newProject.isPremium} className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, isPremium: e.target.value === 'true'})}>
                   <option value={false}>Free</option>

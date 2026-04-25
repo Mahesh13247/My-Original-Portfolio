@@ -79,7 +79,7 @@ const ProjectCard = ({ project, onUnlock }) => {
                     <Code2 size={18} /> Code
                   </a>
                 )}
-                {project.downloadUrl && (
+                {project.downloadUrl && user?.role !== 'admin' && (
                   <a href={project.downloadUrl} className="btn-primary py-1 px-4 text-xs ml-auto">Download</a>
                 )}
               </div>

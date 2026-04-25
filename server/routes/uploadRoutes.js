@@ -14,9 +14,9 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({
+const imageUpload = multer({
   storage,
-  limits: { fileSize: 2000000 }, // 2MB
+  limits: { fileSize: 5000000 }, // 5MB for images
   fileFilter: (req, file, cb) => {
     const filetypes = /jpeg|jpg|png|webp/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -29,7 +29,29 @@ const upload = multer({
   }
 });
 
-router.post('/avatar', protect, upload.single('avatar'), (req, res) => {
+const sourceUpload = multer({
+  storage,
+  limits: { fileSize: 1000000000 }, // 1GB for source code
+  fileFilter: (req, file, cb) => {
+    const filetypes = /zip|rar|7z|gz|tar/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    if (extname) {
+      return cb(null, true);
+    } else {
+      cb('Error: Compressed files only (.zip, .rar, etc.)!');
+    }
+  }
+});
+
+router.post('/avatar', protect, imageUpload.single('avatar'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
+  }
+  const url = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  res.json({ url });
+});
+
+router.post('/source', protect, sourceUpload.single('source'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
   }
