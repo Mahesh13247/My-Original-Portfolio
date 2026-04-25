@@ -9,10 +9,10 @@ const PrivacyPolicy = () => {
       <div className="glass-panel p-8 rounded-3xl border border-slate-700/50 space-y-8 leading-relaxed">
         <section className="space-y-4">
           <p>
-            Welcome to <span className="text-blue-400">kmaheshkumarachary.onrender.com</span> ("we", "our", "us"). Your privacy is important to us.
+            Welcome to <span className="text-[#e60000]">My Portfolio Website 🙏 </span> ("we", "our", "us"). Your privacy is important to us.
           </p>
           <p>
-            This Privacy Policy explains how we collect, use, and protect your information when you use our website: 
+            This Privacy Policy explains how we collect, use, and protect your information when you use our website:
             <a href="https://kmaheshkumarachary.onrender.com/" className="text-blue-400 hover:underline ml-1">https://kmaheshkumarachary.onrender.com/</a>.
           </p>
         </section>
