@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
   return (
     <footer className="w-full border-t border-slate-900 bg-slate-950 mt-20">
@@ -5,10 +7,12 @@ const Footer = () => {
         <span className="text-sm font-bold text-slate-400 font-manrope uppercase tracking-widest">
           © {new Date().getFullYear()} K Mahesh Achary. All rights reserved.
         </span>
-        <nav className="flex gap-6">
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-primary transition-colors uppercase tracking-widest text-xs">LinkedIn</a>
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-primary transition-colors uppercase tracking-widest text-xs">GitHub</a>
-          <a href="mailto:kmaheshachary34@gmail.com" className="text-slate-500 hover:text-primary transition-colors uppercase tracking-widest text-xs">Contact</a>
+        <nav className="flex flex-wrap justify-center gap-6">
+          <Link to="/privacy" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">Privacy Policy</Link>
+          <Link to="/terms" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">Terms & Conditions</Link>
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">LinkedIn</a>
+          <a href="https://github.com" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">GitHub</a>
+          <a href="mailto:kmaheshachary34@gmail.com" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">Contact</a>
         </nav>
       </div>
     </footer>
