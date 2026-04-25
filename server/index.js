@@ -13,6 +13,8 @@ const sequelize = require('./config/db');
 const User = require('./models/User');
 const Project = require('./models/Project');
 const Payment = require('./models/Payment');
+const Contact = require('./models/Contact');
+const Coupon = require('./models/Coupon');
 
 // Define Associations
 User.hasMany(Payment, { foreignKey: 'userId' });

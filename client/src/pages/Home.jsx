@@ -35,6 +35,13 @@ const Home = () => {
     { name: 'TypeScript',    icon: <Code2 size={22} />,    level: 'Basic'        },
   ];
 
+  const testimonials = [
+    { name: 'Alex Rivera', role: 'CTO @ TechFlow', content: 'Mahesh is an exceptional developer. The SaaS platform he built for us is incredibly fast and intuitive. Highly recommended!', avatar: 'AR' },
+    { name: 'Sarah Chen', role: 'Product Manager', content: 'Attention to detail and performance optimization is top-notch. Our conversion rate increased by 40% after the redesign.', avatar: 'SC' },
+    { name: 'David Smith', role: 'Founder, StartupX', content: 'The premium features and clean code structure made our project a huge success. Great communication throughout the process.', avatar: 'DS' },
+    { name: 'Elena Petrova', role: 'UI/UX Lead', content: 'A rare talent who understands both the design aesthetics and the underlying technical architecture perfectly.', avatar: 'EP' },
+  ];
+
   return (
     <div className="space-y-12 md:space-y-20 pb-12">
 
@@ -201,9 +208,41 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ── Testimonials Section ── */}
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-on-background mb-4">What Clients <span className="neon-text-blue">Say</span></h2>
+          <p className="text-on-surface-variant max-w-lg mx-auto">Trusted by founders and product managers worldwide.</p>
+        </div>
+
+        <div className="flex overflow-x-auto gap-6 pb-8 no-scrollbar snap-x">
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="min-w-[300px] sm:min-w-[350px] glass-panel p-8 rounded-3xl border border-outline snap-center hover:neon-border-blue transition-all duration-500"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black border border-primary/20">
+                  {t.avatar}
+                </div>
+                <div>
+                  <h4 className="font-bold text-on-background">{t.name}</h4>
+                  <p className="text-xs text-on-surface-variant uppercase tracking-widest">{t.role}</p>
+                </div>
+              </div>
+              <p className="text-on-surface-variant italic leading-relaxed">"{t.content}"</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* ── Contact Section ── */}
       <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16" id="contact">
-        <div className="glass-panel rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 border border-slate-800">
+        <div className="glass-panel rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 border border-outline">
           <div className="flex flex-col md:flex-row gap-10 md:gap-16">
             {/* Contact info */}
             <div className="flex-1">

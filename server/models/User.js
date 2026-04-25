@@ -37,6 +37,10 @@ const User = sequelize.define('User', {
     set(val) {
       this.setDataValue('unlockedProjects', JSON.stringify(val));
     }
+  },
+  avatar: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 }, {
   hooks: {

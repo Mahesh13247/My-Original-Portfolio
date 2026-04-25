@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import ProjectCard from '../components/ProjectCard';
-import { LayoutDashboard, Download, History, CreditCard, CheckCircle2 } from 'lucide-react';
+import { LayoutDashboard, Download, History, CreditCard, CheckCircle2, User as UserIcon, Save } from 'lucide-react';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -68,7 +68,26 @@ const Dashboard = () => {
     { id: 'library', label: 'My Library', icon: LayoutDashboard },
     { id: 'history', label: 'History', icon: History },
     { id: 'billing', label: 'Billing', icon: CreditCard },
+    { id: 'profile', label: 'Profile', icon: UserIcon },
   ];
+
+  const [profileForm, setProfileForm] = useState({
+    name: user?.name || '',
+    email: user?.email || '',
+    avatar: user?.avatar || '',
+    password: ''
+  });
+
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await api.put('/auth/profile', profileForm);
+      toast.success('Profile updated! Please log in again if email changed.');
+      // Update local storage/context if necessary
+    } catch (err) {
+      toast.error('Failed to update profile');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background w-full">
@@ -332,6 +351,70 @@ const Dashboard = () => {
             )}
           </div>
         </div>
+        {/* Profile Tab */}
+        {activeTab === 'profile' && (
+          <div className="flex-1 p-6 md:p-10">
+            <h2 className="text-3xl font-black mb-8">Account <span className="neon-text-blue">Settings</span></h2>
+            <div className="glass-panel p-8 rounded-3xl max-w-2xl border border-outline">
+              <form onSubmit={handleProfileUpdate} className="space-y-6">
+                <div className="flex items-center gap-6 mb-8">
+                  <div className="w-24 h-24 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center overflow-hidden">
+                    {profileForm.avatar ? (
+                      <img src={profileForm.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-4xl font-black text-primary">{user?.name?.charAt(0)?.toUpperCase() || '?'}</span>
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg">Profile Picture</h3>
+                    <p className="text-sm text-on-surface-variant mb-2">Enter an image URL for your avatar</p>
+                    <input 
+                      placeholder="Avatar URL" 
+                      value={profileForm.avatar}
+                      onChange={e => setProfileForm({...profileForm, avatar: e.target.value})}
+                      className="bg-surface border-2 border-outline rounded-xl px-4 py-2 outline-none w-full text-sm focus:border-primary transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Full Name</label>
+                    <input 
+                      value={profileForm.name}
+                      onChange={e => setProfileForm({...profileForm, name: e.target.value})}
+                      className="bg-surface border-2 border-outline rounded-xl px-4 py-3 outline-none w-full focus:border-primary transition-all"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Email Address</label>
+                    <input 
+                      type="email"
+                      value={profileForm.email}
+                      onChange={e => setProfileForm({...profileForm, email: e.target.value})}
+                      className="bg-surface border-2 border-outline rounded-xl px-4 py-3 outline-none w-full focus:border-primary transition-all"
+                    />
+                  </div>
+                  <div className="space-y-2 col-span-full">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">New Password</label>
+                    <input 
+                      type="password"
+                      placeholder="Leave blank to keep current"
+                      value={profileForm.password}
+                      onChange={e => setProfileForm({...profileForm, password: e.target.value})}
+                      className="bg-surface border-2 border-outline rounded-xl px-4 py-3 outline-none w-full focus:border-primary transition-all"
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" className="btn-primary flex items-center gap-2 !px-8 !py-3">
+                  <Save size={18} /> Save Changes
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

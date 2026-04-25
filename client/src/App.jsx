@@ -20,7 +20,10 @@ function App() {
     <AuthProvider>
       <Router>
         <ScrollToTop />
-        <div className="flex flex-col min-h-screen overflow-x-hidden">
+        <div className="flex flex-col min-h-screen overflow-x-hidden relative">
+          <div className="bg-grid fixed inset-0 pointer-events-none z-0 opacity-20" />
+          <div className="bg-mesh" />
+          <div className="relative z-10 flex flex-col min-h-screen">
           <Toaster position="top-right" />
           <Navbar />
           <main className="flex-grow pt-20">
@@ -43,7 +46,8 @@ function App() {
           </main>
           <Footer />
         </div>
-      </Router>
+      </div>
+    </Router>
     </AuthProvider>
   );
 }
