@@ -11,7 +11,7 @@ const ProjectCard = ({ project, onUnlock }) => {
       initial={{ opacity: 0, scale: 0.96 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      className="group relative bg-surface rounded-2xl border border-outline overflow-hidden hover:scale-[1.01] transition-all duration-500 flex flex-col shadow-2xl hover:neon-border-blue"
+      className="group relative bg-surface rounded-2xl border border-outline overflow-hidden transition-all duration-500 flex flex-col shadow-2xl hover:neon-border-blue hover-lift card-shine"
     >
       <div className="relative h-44 sm:h-52 overflow-hidden">
         <img 

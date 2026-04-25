@@ -4,10 +4,18 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
+const fs = require('fs');
+
+// Create uploads directory if it doesn't exist
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)){
+    fs.mkdirSync(uploadDir);
+}
 
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static(uploadDir));
 
 const sequelize = require('./config/db');
 const User = require('./models/User');
@@ -43,6 +51,7 @@ app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/coupons', require('./routes/couponRoutes'));
+app.use('/api/upload', require('./routes/uploadRoutes'));
 
 // Serve Frontend in Production
 if (process.env.NODE_ENV === 'production') {

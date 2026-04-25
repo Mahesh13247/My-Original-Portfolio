@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { toast } from 'react-hot-toast';
-import { Plus, Trash2, Edit, TrendingUp, Users, ShoppingBag, DollarSign, LayoutDashboard, CreditCard, ToggleLeft, ToggleRight, MessageSquare, BarChart as ChartIcon } from 'lucide-react';
+import { Plus, Trash2, Edit, TrendingUp, Users, ShoppingBag, DollarSign, LayoutDashboard, CreditCard, ToggleLeft, ToggleRight, MessageSquare, BarChart as ChartIcon, Search, Filter, Mail, Download, RefreshCw, CheckCircle2 } from 'lucide-react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -38,6 +38,10 @@ const AdminDashboard = () => {
   const [payments, setPayments] = useState([]);
   const [coupons, setCoupons] = useState([]);
   const [messages, setMessages] = useState([]);
+  
+  // Search & Filter
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
   
   // Modals & Editing
   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
@@ -261,6 +265,42 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleDeleteMessage = async (id) => {
+    if (window.confirm('Delete this message?')) {
+      try {
+        await api.delete(`/contact/${id}`);
+        toast.success('Message deleted');
+        fetchMessages();
+      } catch (err) {
+        toast.error('Failed to delete message');
+      }
+    }
+  };
+
+  const handleExportMessages = () => {
+    const headers = ['Sender', 'Email', 'Message', 'Date', 'Status'];
+    const rows = messages.map(m => [
+      `"${m.name}"`,
+      m.email,
+      `"${m.message}"`,
+      new Date(m.createdAt).toLocaleDateString(),
+      m.status
+    ]);
+    const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `messages_${new Date().toLocaleDateString()}.csv`);
+    link.click();
+  };
+
+  const filteredMessages = messages.filter(m => {
+    const matchesSearch = (m.name + m.email + m.message).toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === 'all' || m.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
   const NavButton = ({ tab, icon, label }) => {
     const isActive = activeTab === tab;
     return (
@@ -477,190 +517,424 @@ const AdminDashboard = () => {
 
         {/* Projects Tab */}
         {activeTab === 'projects' && (
-          <div className="glass-panel rounded-2xl border border-outline overflow-hidden">
-            <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead className="bg-surface-variant/50 border-b border-outline">
-                <tr>
-                  <th className="px-6 py-4 font-bold text-sm">Project</th>
-                  <th className="px-6 py-4 font-bold text-sm">Type</th>
-                  <th className="px-6 py-4 font-bold text-sm">Price</th>
-                  <th className="px-6 py-4 font-bold text-sm">Sales</th>
-                  <th className="px-6 py-4 font-bold text-sm">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-outline">
-                {projects.map(p => (
-                  <tr key={p.id} className="hover:bg-surface-variant/30 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <img src={p.image} className="w-10 h-10 rounded-lg object-cover" alt="" />
-                        <span className="font-medium">{p.title}</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${p.isPremium ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-green-400/10 text-green-400 border border-green-400/20'}`}>
+          <div className="space-y-4">
+            {/* Desktop View (Table) */}
+            <div className="hidden md:block glass-panel rounded-2xl border border-outline overflow-hidden">
+              <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead className="bg-surface-variant/50 border-b border-outline">
+                  <tr>
+                    <th className="px-6 py-4 font-bold text-sm">Project</th>
+                    <th className="px-6 py-4 font-bold text-sm">Type</th>
+                    <th className="px-6 py-4 font-bold text-sm">Price</th>
+                    <th className="px-6 py-4 font-bold text-sm">Sales</th>
+                    <th className="px-6 py-4 font-bold text-sm">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-outline">
+                  {projects.map(p => (
+                    <tr key={p.id} className="hover:bg-surface-variant/30 transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <img src={p.image} className="w-10 h-10 rounded-lg object-cover" alt="" />
+                          <span className="font-medium">{p.title}</span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${p.isPremium ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-green-400/10 text-green-400 border border-green-400/20'}`}>
+                          {p.isPremium ? 'Premium' : 'Free'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">₹{p.price}</td>
+                      <td className="px-6 py-4">{p.unlocks}</td>
+                      <td className="px-6 py-4">
+                        <div className="flex gap-3">
+                          <button onClick={() => handleEditClick(p)} className="text-slate-400 hover:text-white transition-colors"><Edit size={18} /></button>
+                          <button onClick={() => handleDeleteProject(p.id)} className="text-slate-400 hover:text-red-400 transition-colors"><Trash2 size={18} /></button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              </div>
+            </div>
+
+            {/* Mobile View (Cards) */}
+            <div className="md:hidden grid grid-cols-1 gap-4">
+              {projects.map(p => (
+                <div key={p.id} className="glass-panel p-5 rounded-3xl border border-outline relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-4 flex gap-3">
+                    <button onClick={() => handleEditClick(p)} className="p-2 rounded-xl bg-surface-variant/50 text-slate-400 hover:text-primary transition-all"><Edit size={18} /></button>
+                    <button onClick={() => handleDeleteProject(p.id)} className="p-2 rounded-xl bg-surface-variant/50 text-slate-400 hover:text-red-400 transition-all"><Trash2 size={18} /></button>
+                  </div>
+                  
+                  <div className="flex gap-4">
+                    <img src={p.image} className="w-20 h-20 rounded-2xl object-cover shadow-lg border border-outline" alt="" />
+                    <div className="flex-1 pr-16">
+                      <span className={`inline-block px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-tighter mb-1.5 ${p.isPremium ? 'bg-primary/20 text-primary' : 'bg-green-400/20 text-green-400'}`}>
                         {p.isPremium ? 'Premium' : 'Free'}
                       </span>
-                    </td>
-                    <td className="px-6 py-4">₹{p.price}</td>
-                    <td className="px-6 py-4">{p.unlocks}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-3">
-                        <button onClick={() => handleEditClick(p)} className="text-slate-400 hover:text-white transition-colors"><Edit size={18} /></button>
-                        <button onClick={() => handleDeleteProject(p.id)} className="text-slate-400 hover:text-red-400 transition-colors"><Trash2 size={18} /></button>
+                      <h3 className="font-bold text-lg leading-tight text-on-background line-clamp-1">{p.title}</h3>
+                      <div className="flex items-center gap-4 mt-2">
+                        <div>
+                          <p className="text-[10px] text-on-surface-variant uppercase font-bold opacity-60">Price</p>
+                          <p className="font-black text-primary">₹{p.price}</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] text-on-surface-variant uppercase font-bold opacity-60">Sales</p>
+                          <p className="font-black text-on-background">{p.unlocks}</p>
+                        </div>
                       </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
         {/* Users Tab */}
         {activeTab === 'users' && (
-          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
-            <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead className="bg-slate-900/50 border-b border-slate-700">
-                <tr>
-                  <th className="px-6 py-4 font-bold text-sm">Name</th>
-                  <th className="px-6 py-4 font-bold text-sm">Email</th>
-                  <th className="px-6 py-4 font-bold text-sm">Role</th>
-                  <th className="px-6 py-4 font-bold text-sm">Unlocked Projects</th>
-                  <th className="px-6 py-4 font-bold text-sm">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800">
-                {users.map(u => (
-                  <tr key={u.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-4 font-medium">{u.name}</td>
-                    <td className="px-6 py-4 text-slate-300">{u.email}</td>
-                    <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${u.role === 'admin' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 'bg-slate-700/50 text-slate-300'}`}>
-                        {u.role}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">{u.unlockedProjects?.length || 0}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-3">
-                        <button onClick={() => handleEditUserClick(u)} className="text-slate-400 hover:text-white transition-colors"><Edit size={18} /></button>
-                        <button onClick={() => handleDeleteUser(u.id)} className="text-slate-400 hover:text-red-400 transition-colors"><Trash2 size={18} /></button>
-                      </div>
-                    </td>
+          <div className="space-y-4">
+            {/* Desktop View */}
+            <div className="hidden md:block glass-panel rounded-2xl border border-outline overflow-hidden">
+              <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead className="bg-surface-variant/50 border-b border-outline">
+                  <tr>
+                    <th className="px-6 py-4 font-bold text-sm">Name</th>
+                    <th className="px-6 py-4 font-bold text-sm">Email</th>
+                    <th className="px-6 py-4 font-bold text-sm">Role</th>
+                    <th className="px-6 py-4 font-bold text-sm">Projects</th>
+                    <th className="px-6 py-4 font-bold text-sm">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-outline">
+                  {users.map(u => (
+                    <tr key={u.id} className="hover:bg-surface-variant/30 transition-colors">
+                      <td className="px-6 py-4 font-bold text-on-background">{u.name}</td>
+                      <td className="px-6 py-4 text-on-surface-variant">{u.email}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${u.role === 'admin' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 'bg-slate-700/50 text-slate-300'}`}>
+                          {u.role}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">{u.unlockedProjects?.length || 0}</td>
+                      <td className="px-6 py-4">
+                        <div className="flex gap-3">
+                          <button onClick={() => handleEditUserClick(u)} className="text-slate-400 hover:text-white transition-colors"><Edit size={18} /></button>
+                          <button onClick={() => handleDeleteUser(u.id)} className="text-slate-400 hover:text-red-400 transition-colors"><Trash2 size={18} /></button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              </div>
+            </div>
+
+            {/* Mobile View */}
+            <div className="md:hidden grid grid-cols-1 gap-4">
+              {users.map(u => (
+                <div key={u.id} className="glass-panel p-5 rounded-3xl border border-outline relative">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg border border-primary/20">
+                        {u.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-on-background">{u.name}</h3>
+                        <p className="text-[10px] text-on-surface-variant font-mono">{u.email}</p>
+                      </div>
+                    </div>
+                    <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-tighter ${u.role === 'admin' ? 'bg-purple-500/20 text-purple-400' : 'bg-slate-700/50 text-slate-300'}`}>
+                      {u.role}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-outline">
+                    <div className="flex items-center gap-2">
+                      <ShoppingBag size={14} className="text-on-surface-variant opacity-60" />
+                      <span className="text-xs font-bold text-on-background">{u.unlockedProjects?.length || 0} Projects</span>
+                    </div>
+                    <div className="flex gap-4">
+                      <button onClick={() => handleEditUserClick(u)} className="p-2 rounded-xl bg-surface-variant/50 text-slate-400 hover:text-white"><Edit size={18} /></button>
+                      <button onClick={() => handleDeleteUser(u.id)} className="p-2 rounded-xl bg-surface-variant/50 text-slate-400 hover:text-red-400"><Trash2 size={18} /></button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
         {/* Payments Tab */}
         {activeTab === 'payments' && (
-          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
-            <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead className="bg-slate-900/50 border-b border-slate-700">
-                <tr>
-                  <th className="px-6 py-4 font-bold text-sm">Order ID</th>
-                  <th className="px-6 py-4 font-bold text-sm">Amount</th>
-                  <th className="px-6 py-4 font-bold text-sm">Status</th>
-                  <th className="px-6 py-4 font-bold text-sm">Date</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800">
-                {payments.map(p => (
-                  <tr key={p.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-4 font-mono text-xs text-on-surface-variant">{p.orderId}</td>
-                    <td className="px-6 py-4 font-bold">₹{p.amount}</td>
-                    <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${p.status === 'completed' ? 'bg-green-400/10 text-green-400 border border-green-400/20' : 'bg-orange-400/10 text-orange-400 border border-orange-400/20'}`}>
-                        {p.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-on-surface-variant">{new Date(p.createdAt).toLocaleDateString()}</td>
+          <div className="space-y-4">
+            {/* Desktop View */}
+            <div className="hidden md:block glass-panel rounded-2xl border border-outline overflow-hidden">
+              <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead className="bg-surface-variant/50 border-b border-outline">
+                  <tr>
+                    <th className="px-6 py-4 font-bold text-sm">Order ID</th>
+                    <th className="px-6 py-4 font-bold text-sm">Amount</th>
+                    <th className="px-6 py-4 font-bold text-sm">Status</th>
+                    <th className="px-6 py-4 font-bold text-sm">Date</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-outline">
+                  {payments.map(p => (
+                    <tr key={p.id} className="hover:bg-surface-variant/30 transition-colors">
+                      <td className="px-6 py-4 font-mono text-xs text-on-surface-variant">{p.orderId}</td>
+                      <td className="px-6 py-4 font-bold">₹{p.amount}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${p.status === 'completed' ? 'bg-green-400/10 text-green-400 border border-green-400/20' : 'bg-orange-400/10 text-orange-400 border border-orange-400/20'}`}>
+                          {p.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-on-surface-variant">{new Date(p.createdAt).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              </div>
+            </div>
+
+            {/* Mobile View */}
+            <div className="md:hidden grid grid-cols-1 gap-4">
+              {payments.map(p => (
+                <div key={p.id} className="glass-panel p-5 rounded-3xl border border-outline relative">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <p className="text-[10px] text-on-surface-variant uppercase font-bold opacity-60">Order ID</p>
+                      <p className="text-xs font-mono text-on-background font-bold">{p.orderId}</p>
+                    </div>
+                    <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-tighter ${p.status === 'completed' ? 'bg-green-400/20 text-green-400' : 'bg-orange-400/20 text-orange-400'}`}>
+                      {p.status}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-end justify-between pt-4 border-t border-outline">
+                    <div>
+                      <p className="text-[10px] text-on-surface-variant uppercase font-bold opacity-60">Date</p>
+                      <p className="text-sm font-bold text-on-background">{new Date(p.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                    </div>
+                    <p className="text-xl font-black text-primary">₹{p.amount}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
         {/* Coupons Tab */}
         {activeTab === 'coupons' && (
-          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
-            <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead className="bg-slate-900/50 border-b border-slate-700">
-                <tr>
-                  <th className="px-6 py-4 font-bold text-sm">Code</th>
-                  <th className="px-6 py-4 font-bold text-sm">Discount</th>
-                  <th className="px-6 py-4 font-bold text-sm">Expiry Date</th>
-                  <th className="px-6 py-4 font-bold text-sm">Status</th>
-                  <th className="px-6 py-4 font-bold text-sm">Toggle</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800">
-                {coupons.map(c => (
-                  <tr key={c.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-4 font-bold text-purple-400">{c.code}</td>
-                    <td className="px-6 py-4">{c.discount}%</td>
-                    <td className="px-6 py-4 text-sm text-slate-400">{new Date(c.expiryDate).toLocaleDateString()}</td>
-                    <td className="px-6 py-4">
-                       <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${c.isActive ? 'bg-green-400/10 text-green-400 border border-green-400/20' : 'bg-red-400/10 text-red-400 border border-red-400/20'}`}>
-                        {c.isActive ? 'Active' : 'Disabled'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <button onClick={() => handleToggleCoupon(c.id)} className="text-slate-400 hover:text-white transition-colors">
-                        {c.isActive ? <ToggleRight size={24} className="text-green-400"/> : <ToggleLeft size={24} className="text-slate-500"/>}
-                      </button>
-                    </td>
+          <div className="space-y-4">
+            {/* Desktop View */}
+            <div className="hidden md:block glass-panel rounded-2xl border border-outline overflow-hidden">
+              <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead className="bg-surface-variant/50 border-b border-outline">
+                  <tr>
+                    <th className="px-6 py-4 font-bold text-sm">Code</th>
+                    <th className="px-6 py-4 font-bold text-sm">Discount</th>
+                    <th className="px-6 py-4 font-bold text-sm">Expiry Date</th>
+                    <th className="px-6 py-4 font-bold text-sm">Status</th>
+                    <th className="px-6 py-4 font-bold text-sm">Toggle</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-outline">
+                  {coupons.map(c => (
+                    <tr key={c.id} className="hover:bg-surface-variant/30 transition-colors">
+                      <td className="px-6 py-4 font-bold text-purple-400">{c.code}</td>
+                      <td className="px-6 py-4">{c.discount}%</td>
+                      <td className="px-6 py-4 text-sm text-on-surface-variant">{new Date(c.expiryDate).toLocaleDateString()}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${c.isActive ? 'bg-green-400/10 text-green-400 border border-green-400/20' : 'bg-red-400/10 text-red-400 border border-red-400/20'}`}>
+                          {c.isActive ? 'Active' : 'Disabled'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <button onClick={() => handleToggleCoupon(c.id)} className="text-slate-400 hover:text-white transition-colors">
+                          {c.isActive ? <ToggleRight size={24} className="text-green-400"/> : <ToggleLeft size={24} className="text-slate-500"/>}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              </div>
+            </div>
+
+            {/* Mobile View */}
+            <div className="md:hidden grid grid-cols-1 gap-4">
+              {coupons.map(c => (
+                <div key={c.id} className="glass-panel p-5 rounded-3xl border border-outline relative">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <p className="text-[10px] text-on-surface-variant uppercase font-bold opacity-60">Coupon Code</p>
+                      <p className="text-lg font-black text-purple-400 tracking-wider">{c.code}</p>
+                    </div>
+                    <button onClick={() => handleToggleCoupon(c.id)} className="transition-transform active:scale-90">
+                      {c.isActive ? <ToggleRight size={32} className="text-green-400"/> : <ToggleLeft size={32} className="text-slate-500"/>}
+                    </button>
+                  </div>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-outline">
+                    <div className="flex items-center gap-3">
+                      <div className="bg-primary/10 px-2 py-1 rounded-lg">
+                        <p className="text-xs font-black text-primary">{c.discount}% OFF</p>
+                      </div>
+                      <p className="text-[10px] text-on-surface-variant font-medium">Expires: {new Date(c.expiryDate).toLocaleDateString()}</p>
+                    </div>
+                    <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-tighter ${c.isActive ? 'bg-green-400/20 text-green-400' : 'bg-red-400/20 text-red-400'}`}>
+                      {c.isActive ? 'Active' : 'Disabled'}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
         {/* Messages Tab */}
         {activeTab === 'messages' && (
-          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
-            <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead className="bg-slate-900/50 border-b border-slate-700">
-                <tr>
-                  <th className="px-6 py-4 font-bold text-sm">Sender</th>
-                  <th className="px-6 py-4 font-bold text-sm">Message</th>
-                  <th className="px-6 py-4 font-bold text-sm">Date</th>
-                  <th className="px-6 py-4 font-bold text-sm">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800">
-                {messages.map(m => (
-                  <tr key={m.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-4">
-                      <p className="font-bold">{m.name}</p>
-                      <p className="text-xs text-slate-400">{m.email}</p>
-                    </td>
-                    <td className="px-6 py-4 max-w-xs truncate text-slate-300" title={m.message}>
-                      {m.message}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-slate-400">{new Date(m.createdAt).toLocaleDateString()}</td>
-                    <td className="px-6 py-4">
-                      <button onClick={() => handleToggleMessageStatus(m.id)} className="text-slate-400 hover:text-white transition-colors" title="Toggle Status">
-                        {m.status === 'read' ? <ToggleRight size={24} className="text-slate-500"/> : <ToggleLeft size={24} className="text-blue-400"/>}
-                      </button>
-                    </td>
+          <div className="space-y-6">
+            <div className="flex flex-col md:flex-row gap-4 items-center justify-between glass-panel p-6 rounded-2xl border border-outline">
+              <div className="flex items-center gap-4 w-full md:w-auto">
+                <div className="relative flex-1 md:w-64">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" size={18} />
+                  <input 
+                    placeholder="Search messages..." 
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="w-full bg-surface border border-outline rounded-xl pl-10 pr-4 py-2 text-sm outline-none focus:border-primary transition-all text-on-background placeholder:text-on-surface-variant/60"
+                  />
+                </div>
+                <div className="relative">
+                  <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" size={16} />
+                  <select 
+                    value={statusFilter}
+                    onChange={e => setStatusFilter(e.target.value)}
+                    className="bg-surface border border-outline rounded-xl pl-10 pr-8 py-2 text-sm outline-none focus:border-primary transition-all appearance-none cursor-pointer text-on-background"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="unread">Unread</option>
+                    <option value="read">Read</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex gap-3 w-full md:w-auto">
+                <button onClick={fetchMessages} className="p-2 rounded-xl bg-surface-variant text-on-surface-variant hover:text-on-background transition-all border border-outline" title="Refresh">
+                  <RefreshCw size={18} />
+                </button>
+                <button onClick={handleExportMessages} className="btn-secondary !py-2 !px-4 flex items-center gap-2 text-xs">
+                  <Download size={14} /> Export CSV
+                </button>
+              </div>
+            </div>
+
+            {/* Desktop View */}
+            <div className="hidden md:block glass-panel rounded-2xl border border-outline overflow-hidden shadow-2xl">
+              <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead className="bg-surface-variant/50 border-b border-outline">
+                  <tr>
+                    <th className="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">Sender</th>
+                    <th className="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">Message</th>
+                    <th className="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">Date</th>
+                    <th className="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">Status</th>
+                    <th className="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-outline">
+                  {filteredMessages.length > 0 ? filteredMessages.map(m => (
+                    <tr key={m.id} className="hover:bg-surface-variant/30 transition-colors group">
+                      <td className="px-6 py-4">
+                        <p className="font-bold text-on-background">{m.name}</p>
+                        <p className="text-[10px] font-mono text-primary/80">{m.email}</p>
+                      </td>
+                      <td className="px-6 py-4 max-w-md">
+                        <p className="text-sm text-on-surface-variant line-clamp-2 leading-relaxed" title={m.message}>
+                          {m.message}
+                        </p>
+                      </td>
+                      <td className="px-6 py-4 text-xs text-on-surface-variant/80 whitespace-nowrap">
+                        {new Date(m.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </td>
+                      <td className="px-6 py-4">
+                        <button 
+                          onClick={() => handleToggleMessageStatus(m.id)} 
+                          className={`flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase transition-all ${m.status === 'read' ? 'bg-surface-variant text-on-surface-variant border border-outline' : 'bg-blue-400/10 text-blue-600 dark:text-blue-400 border border-blue-400/20 shadow-[0_0_10px_rgba(96,165,250,0.1)]'}`}
+                        >
+                          {m.status === 'read' ? <CheckCircle2 size={12}/> : <Mail size={12}/>}
+                          {m.status}
+                        </button>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <a href={`mailto:${m.email}?subject=Reply to your message&body=Hi ${m.name},`} className="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-background transition-all" title="Quick Reply">
+                            <Mail size={16} />
+                          </a>
+                          <button onClick={() => handleDeleteMessage(m.id)} className="p-2 rounded-lg bg-neon-red/10 text-neon-red hover:bg-neon-red hover:text-white transition-all" title="Delete">
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )) : (
+                    <tr>
+                      <td colSpan="5" className="px-6 py-12 text-center text-on-surface-variant italic">No messages found matching your criteria.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+              </div>
+            </div>
+
+            {/* Mobile View */}
+            <div className="md:hidden grid grid-cols-1 gap-4">
+              {filteredMessages.length > 0 ? filteredMessages.map(m => (
+                <div key={m.id} className={`glass-panel p-5 rounded-3xl border transition-all ${m.status === 'unread' ? 'border-primary/30 bg-primary/5' : 'border-outline'}`}>
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg border ${m.status === 'unread' ? 'bg-primary/20 text-primary border-primary/30' : 'bg-surface-variant text-on-surface-variant border-outline'}`}>
+                        {m.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-on-background leading-tight">{m.name}</h3>
+                        <p className="text-[10px] text-on-surface-variant font-mono opacity-70">{m.email}</p>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => handleToggleMessageStatus(m.id)}
+                      className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-tighter ${m.status === 'unread' ? 'bg-blue-500/20 text-blue-400' : 'bg-surface-variant text-on-surface-variant'}`}
+                    >
+                      {m.status}
+                    </button>
+                  </div>
+                  
+                  <div className="bg-surface-variant/30 p-4 rounded-2xl border border-outline/50 mb-4">
+                    <p className="text-sm text-on-surface-variant leading-relaxed italic line-clamp-3">"{m.message}"</p>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-on-surface-variant font-bold opacity-50">
+                      {new Date(m.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </span>
+                    <div className="flex gap-3">
+                      <a href={`mailto:${m.email}?subject=Reply to your message&body=Hi ${m.name},`} className="p-2.5 rounded-xl bg-primary/10 text-primary border border-primary/20"><Mail size={18} /></a>
+                      <button onClick={() => handleDeleteMessage(m.id)} className="p-2.5 rounded-xl bg-neon-red/10 text-neon-red border border-neon-red/20"><Trash2 size={18} /></button>
+                    </div>
+                  </div>
+                </div>
+              )) : (
+                <div className="glass-panel p-10 rounded-3xl border border-outline text-center text-on-surface-variant italic">
+                  No messages found.
+                </div>
+              )}
             </div>
           </div>
         )}

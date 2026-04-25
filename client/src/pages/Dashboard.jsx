@@ -1,14 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import ProjectCard from '../components/ProjectCard';
-import { LayoutDashboard, Download, History, CreditCard, CheckCircle2, User as UserIcon, Save } from 'lucide-react';
+import { LayoutDashboard, Download, History, CreditCard, CheckCircle2, User as UserIcon, Save, Copy, Bell, ShieldAlert, Gift, Check, Upload } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [activeTab, setActiveTab] = useState('library');
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    const load = toast.loading('Uploading photo...');
+    try {
+      const { data } = await api.post('/upload/avatar', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setProfileForm({ ...profileForm, avatar: data.url });
+      // Update global user state immediately
+      setUser(prev => ({ ...prev, avatar: data.url }));
+      toast.success('Photo uploaded!', { id: load });
+    } catch (err) {
+      toast.error('Upload failed. Try a smaller image.', { id: load });
+    }
+  };
   const [unlockedProjects, setUnlockedProjects] = useState([]);
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -78,14 +102,28 @@ const Dashboard = () => {
     password: ''
   });
 
+  const [preferences, setPreferences] = useState({
+    updates: true,
+    marketing: false
+  });
+
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
+    const load = toast.loading('Updating profile...');
     try {
       const { data } = await api.put('/auth/profile', profileForm);
-      toast.success('Profile updated! Please log in again if email changed.');
-      // Update local storage/context if necessary
+      // Synchronize global state
+      setUser(data);
+      toast.success('Profile synchronized successfully!', { id: load });
     } catch (err) {
-      toast.error('Failed to update profile');
+      toast.error('Sync failed. Please try again.', { id: load });
+    }
+  };
+
+  const handleDeleteAccount = () => {
+    const confirmed = window.confirm("🚨 CRITICAL ACTION: Are you sure you want to permanently delete your account? This action cannot be undone and all purchased projects will be lost.");
+    if (confirmed) {
+      toast.error("Account deletion is a restricted action. Please contact support.");
     }
   };
 
@@ -96,12 +134,16 @@ const Dashboard = () => {
         {/* ── Desktop Sidebar ── */}
         <aside className="w-64 border-r border-outline h-full hidden md:flex flex-col bg-surface flex-shrink-0">
           {/* User info */}
-          <div className="p-6 border-b border-outline">
-            <div className="w-16 h-16 bg-primary/10 rounded-full mx-auto mb-3 flex items-center justify-center text-primary text-2xl font-black neon-text-blue">
-              {user?.name?.charAt(0)?.toUpperCase()}
+          <div className="p-6 border-b border-outline text-center">
+            <div className="w-20 h-20 bg-primary/10 rounded-full mx-auto mb-3 flex items-center justify-center text-primary text-2xl font-black neon-text-blue overflow-hidden border border-outline/50 shadow-lg">
+              {user?.avatar ? (
+                <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                user?.name?.charAt(0)?.toUpperCase()
+              )}
             </div>
-            <h2 className="font-black text-on-background text-center truncate">{user?.name}</h2>
-            <p className="text-xs text-on-surface-variant text-center truncate mt-1">{user?.email}</p>
+            <h2 className="font-black text-on-background truncate">{user?.name}</h2>
+            <p className="text-xs text-on-surface-variant truncate mt-1">{user?.email}</p>
           </div>
 
           {/* Nav links */}
@@ -110,13 +152,17 @@ const Dashboard = () => {
               <button
                 key={id}
                 onClick={() => setActiveTab(id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-bold ${
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-bold relative group ${
                   activeTab === id
                     ? 'bg-primary/10 text-primary shadow-[0_0_12px_rgba(57,255,20,0.15)] border border-primary/20'
                     : 'text-on-surface-variant hover:bg-surface-variant hover:text-on-background'
                 }`}
               >
-                <Icon size={18} /> {label}
+                <Icon size={18} className={`${activeTab === id ? 'neon-text-blue' : ''}`} /> 
+                {label}
+                {activeTab === id && (
+                  <motion.div layoutId="sidebar-pill" className="absolute left-0 w-1 h-6 bg-primary rounded-r-full shadow-[0_0_8px_var(--neon-glow)]" />
+                )}
               </button>
             ))}
           </nav>
@@ -151,7 +197,7 @@ const Dashboard = () => {
           </div>
 
           {/* Scrollable Content */}
-          <div className="flex-1 p-4 md:p-8 overflow-y-auto">
+          <div className="flex-1 p-4 md:p-10 overflow-y-auto pb-20">
 
             {/* ── Library Tab ── */}
             {activeTab === 'library' && (
@@ -353,27 +399,44 @@ const Dashboard = () => {
         </div>
         {/* Profile Tab */}
         {activeTab === 'profile' && (
-          <div className="flex-1 p-6 md:p-10">
-            <h2 className="text-3xl font-black mb-8">Account <span className="neon-text-blue">Settings</span></h2>
-            <div className="glass-panel p-8 rounded-3xl max-w-2xl border border-outline">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <h2 className="text-2xl sm:text-4xl font-black mb-6 sm:mb-10 neon-text-blue">Account <span className="text-on-background">Settings</span></h2>
+            <div className="glass-panel p-5 sm:p-10 rounded-3xl max-w-2xl border border-outline shadow-2xl">
               <form onSubmit={handleProfileUpdate} className="space-y-6">
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="w-24 h-24 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center overflow-hidden">
+                <div className="flex flex-col sm:flex-row items-center gap-6 mb-10 text-center sm:text-left">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(57,255,20,0.1)]">
                     {profileForm.avatar ? (
                       <img src={profileForm.avatar} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
-                      <span className="text-4xl font-black text-primary">{user?.name?.charAt(0)?.toUpperCase() || '?'}</span>
+                      <span className="text-4xl sm:text-6xl font-black text-primary drop-shadow-sm">{user?.name?.charAt(0)?.toUpperCase() || '?'}</span>
                     )}
                   </div>
-                  <div>
-                    <h3 className="font-bold text-lg">Profile Picture</h3>
-                    <p className="text-sm text-on-surface-variant mb-2">Enter an image URL for your avatar</p>
-                    <input 
-                      placeholder="Avatar URL" 
-                      value={profileForm.avatar}
-                      onChange={e => setProfileForm({...profileForm, avatar: e.target.value})}
-                      className="bg-surface border-2 border-outline rounded-xl px-4 py-2 outline-none w-full text-sm focus:border-primary transition-all"
-                    />
+                  <div className="flex-1 w-full space-y-2">
+                    <h3 className="font-black text-xl text-on-background tracking-tight">Profile Picture</h3>
+                    <p className="text-sm text-on-surface-variant leading-relaxed">Customize your digital identity with an image URL.</p>
+                    <div className="flex gap-2">
+                      <input 
+                        placeholder="Avatar URL (https://...)" 
+                        value={profileForm.avatar}
+                        onChange={e => setProfileForm({...profileForm, avatar: e.target.value})}
+                        className="bg-surface border-2 border-outline rounded-xl px-4 py-3 outline-none flex-1 text-sm focus:border-primary transition-all shadow-inner"
+                      />
+                      <input 
+                        type="file" 
+                        ref={fileInputRef} 
+                        onChange={handleFileChange} 
+                        className="hidden" 
+                        accept="image/*"
+                      />
+                      <button 
+                        type="button"
+                        onClick={() => fileInputRef.current.click()}
+                        className="p-3 rounded-xl bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-background transition-all"
+                        title="Upload from device"
+                      >
+                        <Upload size={18} />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -407,10 +470,103 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <button type="submit" className="btn-primary flex items-center gap-2 !px-8 !py-3">
-                  <Save size={18} /> Save Changes
+                <button 
+                  type="submit" 
+                  className="btn-primary w-full py-4 flex items-center justify-center gap-3 group/save mt-4"
+                >
+                  <Save size={20} className="group-hover/save:scale-125 transition-transform" />
+                  <span className="tracking-widest font-black uppercase">Save Changes</span>
                 </button>
               </form>
+            </div>
+
+            {/* ── Unique Features Grid ── */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-2xl">
+              
+              {/* Referral Section */}
+              <div className="glass-panel p-6 rounded-3xl border border-outline hover:border-primary/30 transition-all group">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                    <Gift size={20} />
+                  </div>
+                  <h3 className="font-black text-on-background">Invite & Earn</h3>
+                </div>
+                <p className="text-xs text-on-surface-variant mb-4 leading-relaxed">
+                  Share your unique code and get 20% commission on every premium project unlocked.
+                </p>
+                <div className="flex gap-2">
+                  <code className="flex-1 bg-surface border border-outline rounded-xl px-3 py-2 text-[10px] font-mono text-primary flex items-center">
+                    PORTFOLIO-{user?.id?.substring(0,6).toUpperCase() || 'REFER'}
+                  </code>
+                  <button 
+                    onClick={() => {
+                      navigator.clipboard.writeText(`PORTFOLIO-${user?.id?.substring(0,6).toUpperCase()}`);
+                      toast.success('Referral code copied!');
+                    }}
+                    className="p-2 rounded-xl bg-primary text-background hover:scale-110 transition-transform"
+                  >
+                    <Copy size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Notification Toggles */}
+              <div className="glass-panel p-6 rounded-3xl border border-outline hover:border-primary/30 transition-all">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+                    <Bell size={20} />
+                  </div>
+                  <h3 className="font-black text-on-background">Preferences</h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-on-surface-variant">Project Updates</span>
+                    <button 
+                      onClick={() => setPreferences({...preferences, updates: !preferences.updates})}
+                      className={`w-10 h-5 rounded-full relative transition-all duration-300 ${preferences.updates ? 'bg-primary/40' : 'bg-outline'}`}
+                    >
+                      <motion.div 
+                        animate={{ x: preferences.updates ? 20 : 4 }}
+                        className={`absolute top-1 w-3 h-3 rounded-full shadow-lg ${preferences.updates ? 'bg-primary shadow-[0_0_8px_var(--neon-glow)]' : 'bg-on-surface-variant'}`} 
+                      />
+                    </button>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-on-surface-variant">Marketing Emails</span>
+                    <button 
+                      onClick={() => setPreferences({...preferences, marketing: !preferences.marketing})}
+                      className={`w-10 h-5 rounded-full relative transition-all duration-300 ${preferences.marketing ? 'bg-primary/40' : 'bg-outline'}`}
+                    >
+                      <motion.div 
+                        animate={{ x: preferences.marketing ? 20 : 4 }}
+                        className={`absolute top-1 w-3 h-3 rounded-full shadow-lg ${preferences.marketing ? 'bg-primary shadow-[0_0_8px_var(--neon-glow)]' : 'bg-on-surface-variant'}`} 
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Danger Zone */}
+              <div className="glass-panel p-6 rounded-3xl border border-neon-red/20 hover:border-neon-red/40 transition-all col-span-full group">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-neon-red/10 flex items-center justify-center text-neon-red">
+                      <ShieldAlert size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-black text-on-background">Account Safety</h3>
+                      <p className="text-[10px] text-on-surface-variant">Permanently delete your account and data.</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={handleDeleteAccount}
+                    className="px-4 py-2 rounded-xl border border-neon-red/30 text-neon-red text-[10px] font-black uppercase tracking-widest hover:bg-neon-red hover:text-white transition-all"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+
             </div>
           </div>
         )}

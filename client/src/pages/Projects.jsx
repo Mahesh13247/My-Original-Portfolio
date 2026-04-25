@@ -77,39 +77,45 @@ const Projects = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-12">
+    <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 md:py-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 md:mb-12 gap-5">
-        <div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-on-background mb-1">
-            Projects <span className="neon-text-blue">⚡</span>
+      <div className="flex flex-col gap-6 mb-10 md:mb-16">
+        <div className="text-center md:text-left">
+          <h1 className="text-3xl sm:text-5xl font-black text-on-background mb-3 tracking-tight">
+            Premium <span className="neon-text-blue">Solutions</span>
           </h1>
-          <p className="text-on-surface-variant text-sm">Explore my recent work and premium solutions.</p>
+          <p className="text-on-surface-variant max-w-xl mx-auto md:mx-0 text-sm sm:text-base leading-relaxed">
+            Discover high-performance web applications and creative experiments.
+          </p>
         </div>
 
-        {/* Search & Filter */}
-        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60" size={16} />
+        {/* Search & Filter - Responsive Grouping */}
+        <div className="flex flex-col sm:flex-row gap-3 bg-surface/50 p-2 rounded-2xl border border-outline/50 backdrop-blur-sm">
+          <div className="relative flex-1">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={18} />
             <input
               type="text"
-              placeholder="Search projects..."
+              placeholder="Search by title or tech..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-surface border-2 border-outline text-on-background placeholder:text-on-surface-variant/40 rounded-xl pl-9 pr-4 py-2.5 focus:border-primary outline-none transition-all duration-300 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] w-full sm:w-56 text-sm"
+              className="bg-transparent text-on-background placeholder:text-on-surface-variant/40 rounded-xl pl-12 pr-4 py-3 focus:bg-surface outline-none transition-all duration-300 w-full text-sm font-medium"
             />
           </div>
-          <select
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            className="bg-surface border-2 border-outline text-on-surface-variant rounded-xl px-4 py-2.5 focus:border-primary outline-none transition-all duration-300 text-sm cursor-pointer w-full sm:w-auto"
-          >
-            <option value="All">All Categories</option>
-            <option value="Frontend">Frontend</option>
-            <option value="Backend">Backend</option>
-            <option value="Full Stack">Full Stack</option>
-            <option value="App">App</option>
-          </select>
+          <div className="h-px sm:h-auto sm:w-px bg-outline/50 mx-2 sm:my-2" />
+          <div className="flex items-center px-2">
+            <Filter className="text-primary mr-3 hidden sm:block" size={18} />
+            <select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="bg-surface/50 text-on-background font-bold text-sm outline-none cursor-pointer w-full sm:w-auto py-2 px-4 rounded-xl border border-outline/30 focus:border-primary/50 transition-all"
+            >
+              <option value="All">All Categories</option>
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend</option>
+              <option value="Full Stack">Full Stack</option>
+              <option value="App">Mobile App</option>
+            </select>
+          </div>
         </div>
       </div>
 

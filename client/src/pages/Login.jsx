@@ -39,7 +39,7 @@ const Login = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-slate-600 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)]"
+                className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-[#ffffff] focus:shadow-[0_0_10px_rgba(57,255,20,0.15)]"
                 placeholder="Please Enter Your Email Address 😁"
               />
             </div>
@@ -54,7 +54,7 @@ const Login = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-slate-600 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)]"
+                className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-[#ffffff] focus:shadow-[0_0_10px_rgba(57,255,20,0.15)]"
                 placeholder="Please Enter Your Password 🫣"
               />
             </div>

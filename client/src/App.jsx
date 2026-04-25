@@ -14,13 +14,39 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
+import { useScroll, useSpring, motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import Loader from './components/Loader';
 
 function App() {
+  const [isInitializing, setIsInitializing] = useState(true);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitializing(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <AuthProvider>
+      <AnimatePresence mode="wait">
+        {isInitializing && <Loader key="loader" />}
+      </AnimatePresence>
+
       <Router>
         <ScrollToTop />
         <div className="flex flex-col min-h-screen overflow-x-hidden relative">
+          <motion.div
+            className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left shadow-[0_0_10px_var(--neon-glow)]"
+            style={{ scaleX }}
+          />
           <div className="bg-grid fixed inset-0 pointer-events-none z-0 opacity-20" />
           <div className="bg-mesh" />
           <div className="relative z-10 flex flex-col min-h-screen">
