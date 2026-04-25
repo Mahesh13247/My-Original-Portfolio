@@ -75,14 +75,14 @@ const Dashboard = () => {
       <div className="flex min-h-[calc(100dvh-80px)] max-w-[1400px] mx-auto">
 
         {/* ── Desktop Sidebar ── */}
-        <aside className="w-64 border-r border-slate-800 h-full hidden md:flex flex-col bg-slate-950 flex-shrink-0">
+        <aside className="w-64 border-r border-outline h-full hidden md:flex flex-col bg-surface flex-shrink-0">
           {/* User info */}
-          <div className="p-6 border-b border-slate-800">
+          <div className="p-6 border-b border-outline">
             <div className="w-16 h-16 bg-primary/10 rounded-full mx-auto mb-3 flex items-center justify-center text-primary text-2xl font-black neon-text-blue">
               {user?.name?.charAt(0)?.toUpperCase()}
             </div>
-            <h2 className="font-black text-slate-50 text-center truncate">{user?.name}</h2>
-            <p className="text-xs text-slate-500 text-center truncate mt-1">{user?.email}</p>
+            <h2 className="font-black text-on-background text-center truncate">{user?.name}</h2>
+            <p className="text-xs text-on-surface-variant text-center truncate mt-1">{user?.email}</p>
           </div>
 
           {/* Nav links */}
@@ -94,7 +94,7 @@ const Dashboard = () => {
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-bold ${
                   activeTab === id
                     ? 'bg-primary/10 text-primary shadow-[0_0_12px_rgba(57,255,20,0.15)] border border-primary/20'
-                    : 'text-slate-400 hover:bg-slate-900 hover:text-slate-50'
+                    : 'text-on-surface-variant hover:bg-surface-variant hover:text-on-background'
                 }`}
               >
                 <Icon size={18} /> {label}
@@ -114,7 +114,7 @@ const Dashboard = () => {
         <div className="flex-1 flex flex-col overflow-hidden">
 
           {/* Mobile Tab Bar */}
-          <div className="md:hidden sticky top-0 z-20 flex border-b border-slate-800 bg-slate-950 shrink-0">
+          <div className="md:hidden sticky top-0 z-20 flex border-b border-outline bg-surface shrink-0">
             {tabs.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}

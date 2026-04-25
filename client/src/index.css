@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+:root {
   --color-primary: #39FF14;
   --color-secondary: #BF00FF;
   --color-neon-blue: #7DF9FF;
@@ -9,14 +9,52 @@
   --color-neon-purple: #BF00FF;
   --color-neon-pink: #FF00FF;
   --color-neon-yellow: #FFFF00;
-  --color-background: #020617;
-  --color-on-background: #f8fafc;
-  --color-surface: #0f172a;
-  --color-on-surface: #f8fafc;
-  --color-surface-variant: #1e293b;
-  --color-on-surface-variant: #94a3b8;
-  --color-outline: #334155;
-  --color-outline-variant: #1e293b;
+  --neon-glow: rgba(57, 255, 20, 0.85);
+  
+  /* Dark Mode (Default) */
+  --background: #000000;
+  --on-background: #f8fafc;
+  --surface: #000000;
+  --on-surface: #f8fafc;
+  --surface-variant: #1e293b;
+  --on-surface-variant: #94a3b8;
+  --outline: #ffffff1a; /* white/10 */
+  --grid-color: rgba(57, 255, 20, 0.02);
+  --glass-bg: rgba(0, 0, 0, 0.8);
+}
+
+:root.light {
+  --color-primary: #059669; 
+  --color-electric: #39FF14;
+  --background: #f8fafc;
+  --on-background: #0f172a;
+  --surface: #ffffff;
+  --on-surface: #0f172a;
+  --surface-variant: #f1f5f9;
+  --on-surface-variant: #64748b;
+  --outline: #0000001a; 
+  --grid-color: rgba(57, 255, 20, 0.08); /* More visible grid in light mode */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --neon-glow: rgba(57, 255, 20, 0.4);
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-neon-blue: var(--color-neon-blue);
+  --color-neon-red: var(--color-neon-red);
+  --color-neon-green: var(--color-neon-green);
+  --color-neon-purple: var(--color-neon-purple);
+  --color-neon-pink: var(--color-neon-pink);
+  --color-neon-yellow: var(--color-neon-yellow);
+  
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
+  --color-surface: var(--surface);
+  --color-on-surface: var(--on-surface);
+  --color-surface-variant: var(--surface-variant);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline: var(--outline);
 
   --font-manrope: "Manrope", sans-serif;
   --font-inter: "Inter", sans-serif;
@@ -47,35 +85,31 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   body {
     @apply bg-background text-on-background font-inter selection:bg-primary/20 selection:text-primary overflow-x-hidden;
     /* Subtle neon grid background */
     background-image:
-      linear-gradient(rgba(57,255,20,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(57,255,20,0.02) 1px, transparent 1px);
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
   /* Cross-browser select fix */
   select {
-    color-scheme: dark;
-    color: #cbd5e1;
-    background-color: #020617;
-  }
-
-  select option {
-    background-color: #0f172a;
-    color: #f8fafc;
+    color: var(--on-surface-variant);
+    background-color: var(--background);
+    border-color: var(--outline);
   }
 
   /* Remove blue autofill background */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
-    -webkit-text-fill-color: #f8fafc;
-    -webkit-box-shadow: 0 0 0px 1000px #020617 inset;
+    -webkit-text-fill-color: var(--on-background);
+    -webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
 }
@@ -83,11 +117,13 @@
 /* ── Components ── */
 @layer components {
   .glass-panel {
-    @apply bg-slate-950/80 border border-slate-800 backdrop-blur-xl transition-all duration-500;
+    background-color: var(--glass-bg);
+    @apply border border-outline backdrop-blur-xl transition-all duration-500;
   }
 
   .glass-panel:hover {
-    border-color: rgba(57, 255, 20, 0.15);
+    border-color: var(--color-electric);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
   }
 
   .btn-primary {
@@ -104,9 +140,9 @@
   }
 
   /* Neon text glows */
-  .neon-text-blue   { @apply text-primary   drop-shadow-[0_0_8px_rgba(57,255,20,0.85)];  }
+  .neon-text-blue   { @apply text-primary   drop-shadow-[0_0_8px_var(--neon-glow)];  }
   .neon-text-red    { @apply text-neon-red   drop-shadow-[0_0_8px_rgba(230,0,0,0.85)];    }
-  .neon-text-green  { @apply text-primary   drop-shadow-[0_0_8px_rgba(57,255,20,0.85)];  }
+  .neon-text-green  { @apply text-primary   drop-shadow-[0_0_8px_var(--neon-glow)];  }
   .neon-text-purple { @apply text-secondary drop-shadow-[0_0_8px_rgba(191,0,255,0.85)]; }
 
   /* Neon border glows */
@@ -129,11 +165,11 @@
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar       { width: 8px; }
-::-webkit-scrollbar-track { background: #020617; }
+::-webkit-scrollbar-track { background: var(--background); }
 ::-webkit-scrollbar-thumb {
   background: rgba(57, 255, 20, 0.15);
   border-radius: 9999px;
-  border: 2px solid #020617;
+  border: 2px solid var(--background);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(57, 255, 20, 0.4);

@@ -90,19 +90,19 @@ const Projects = () => {
         {/* Search & Filter */}
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60" size={16} />
             <input
               type="text"
               placeholder="Search projects..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-slate-950 border-2 border-slate-800 text-slate-50 placeholder:text-slate-600 rounded-xl pl-9 pr-4 py-2.5 focus:border-primary outline-none transition-all duration-300 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] w-full sm:w-56 text-sm"
+              className="bg-surface border-2 border-outline text-on-background placeholder:text-on-surface-variant/40 rounded-xl pl-9 pr-4 py-2.5 focus:border-primary outline-none transition-all duration-300 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] w-full sm:w-56 text-sm"
             />
           </div>
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="bg-slate-950 border-2 border-slate-800 text-slate-300 rounded-xl px-4 py-2.5 focus:border-primary outline-none transition-all duration-300 text-sm cursor-pointer w-full sm:w-auto"
+            className="bg-surface border-2 border-outline text-on-surface-variant rounded-xl px-4 py-2.5 focus:border-primary outline-none transition-all duration-300 text-sm cursor-pointer w-full sm:w-auto"
           >
             <option value="All">All Categories</option>
             <option value="Frontend">Frontend</option>
@@ -117,7 +117,7 @@ const Projects = () => {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[1, 2, 3, 4, 5, 6].map(i => (
-            <div key={i} className="bg-slate-950 border border-slate-800 h-[420px] rounded-2xl animate-pulse" />
+            <div key={i} className="bg-surface border border-outline h-[420px] rounded-2xl animate-pulse" />
           ))}
         </div>
       ) : (
@@ -130,7 +130,7 @@ const Projects = () => {
 
       {/* Empty State */}
       {!loading && filteredProjects.length === 0 && (
-        <div className="text-center py-24 glass-panel rounded-3xl border border-slate-800 space-y-4">
+        <div className="text-center py-24 glass-panel rounded-3xl border border-outline space-y-4">
           <div className="text-5xl">🔍</div>
           <h3 className="text-xl font-black text-on-background">No projects found</h3>
           <p className="text-on-surface-variant text-sm">Try adjusting your search or filter.</p>

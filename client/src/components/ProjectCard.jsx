@@ -11,7 +11,7 @@ const ProjectCard = ({ project, onUnlock }) => {
       initial={{ opacity: 0, scale: 0.96 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      className="group relative bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden hover:scale-[1.01] transition-all duration-500 flex flex-col shadow-2xl hover:neon-border-blue"
+      className="group relative bg-surface rounded-2xl border border-outline overflow-hidden hover:scale-[1.01] transition-all duration-500 flex flex-col shadow-2xl hover:neon-border-blue"
     >
       <div className="relative h-44 sm:h-52 overflow-hidden">
         <img 
@@ -19,11 +19,11 @@ const ProjectCard = ({ project, onUnlock }) => {
           alt={project.title} 
           className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
         
         {project.isPremium && !isUnlocked && (
-          <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px] flex items-center justify-center transition-opacity duration-300">
-            <div className="bg-slate-950/80 p-4 rounded-2xl border border-primary/20 flex flex-col items-center gap-2 shadow-2xl">
+          <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px] flex items-center justify-center transition-opacity duration-300">
+            <div className="bg-surface/80 p-4 rounded-2xl border border-primary/20 flex flex-col items-center gap-2 shadow-2xl">
               <Lock className="text-primary neon-text-blue" size={24} />
               <span className="text-xs font-bold uppercase tracking-widest text-primary neon-text-blue">Premium</span>
             </div>
@@ -31,7 +31,7 @@ const ProjectCard = ({ project, onUnlock }) => {
         )}
 
         <div className="absolute top-4 right-4 flex gap-2">
-          <div className="bg-slate-900/80 px-3 py-1 rounded-full border border-slate-700 text-xs flex items-center gap-1">
+          <div className="bg-surface-variant/80 px-3 py-1 rounded-full border border-outline text-xs flex items-center gap-1">
             <Eye size={12} /> {project.views}
           </div>
         </div>
@@ -59,7 +59,7 @@ const ProjectCard = ({ project, onUnlock }) => {
               href={project.liveDemoUrl} 
               target="_blank" 
               rel="noreferrer" 
-              className="flex items-center justify-center gap-2 text-sm font-medium text-slate-400 hover:text-primary transition-all group/demo"
+              className="flex items-center justify-center gap-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-all group/demo"
             >
               <Eye size={16} className="group-hover/demo:scale-110 transition-transform" />
               View Live Demo

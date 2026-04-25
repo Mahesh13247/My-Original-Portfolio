@@ -58,7 +58,7 @@ const Home = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-50 mb-5 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-on-background mb-5 leading-tight"
             >
               Crafting digital experiences with{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-neon-pink">
@@ -70,7 +70,7 @@ const Home = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-base sm:text-lg text-slate-400 max-w-lg mb-7 leading-relaxed"
+              className="text-base sm:text-lg text-on-surface-variant max-w-lg mb-7 leading-relaxed"
             >
               I am Mahesh, a developer dedicated to building fast, accessible, and beautiful web applications.
               Specializing in user-centric design and high-performance SaaS solutions.
@@ -97,7 +97,7 @@ const Home = () => {
             className="relative hidden md:block"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 blur-3xl -z-10 rounded-full" />
-            <div className="aspect-square rounded-2xl border border-slate-800 bg-slate-950 p-2 overflow-hidden shadow-2xl hover:scale-[1.02] transition-transform duration-500 group">
+            <div className="aspect-square rounded-2xl border border-outline bg-surface p-2 overflow-hidden shadow-2xl hover:scale-[1.02] transition-transform duration-500 group">
               <img
                 src="/Gemini_Generated_Image_db2ykdb2ykdb2ykd.png"
                 alt="Hacker Style Interface"
@@ -114,7 +114,7 @@ const Home = () => {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="block md:hidden mt-8"
         >
-          <div className="w-full max-w-sm mx-auto aspect-square rounded-2xl border border-slate-800 bg-slate-950 p-2 overflow-hidden shadow-2xl">
+          <div className="w-full max-w-sm mx-auto aspect-square rounded-2xl border border-outline bg-surface p-2 overflow-hidden shadow-2xl">
             <img
               src="/Gemini_Generated_Image_db2ykdb2ykdb2ykd.png"
               alt="Hacker Style Interface"
@@ -141,11 +141,11 @@ const Home = () => {
               I focus on creating scalable architectures and intuitive user interfaces.
             </p>
             <div className="grid grid-cols-2 gap-4">
-              <div className="glass-panel p-5 rounded-2xl text-center border border-slate-800">
+              <div className="glass-panel p-5 rounded-2xl text-center border border-outline">
                 <span className="block text-2xl sm:text-3xl font-black text-primary mb-1 neon-text-blue">1+</span>
                 <span className="text-[10px] sm:text-xs uppercase tracking-widest text-on-surface-variant">Year Exp</span>
               </div>
-              <div className="glass-panel p-5 rounded-2xl text-center border border-slate-800">
+              <div className="glass-panel p-5 rounded-2xl text-center border border-outline">
                 <span className="block text-2xl sm:text-3xl font-black text-primary mb-1 neon-text-blue">10+</span>
                 <span className="text-[10px] sm:text-xs uppercase tracking-widest text-on-surface-variant">Projects</span>
               </div>
@@ -243,7 +243,7 @@ const Home = () => {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full bg-slate-950 border-2 border-slate-800 rounded-xl px-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-slate-600 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] text-sm"
+                className="w-full bg-surface border-2 border-outline rounded-xl px-4 py-3 focus:border-primary outline-none transition-all duration-300 text-on-background placeholder:text-on-surface-variant/40 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] text-sm"
               />
               <input
                 type="email"
@@ -251,7 +251,7 @@ const Home = () => {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-slate-950 border-2 border-slate-800 rounded-xl px-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-slate-600 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] text-sm"
+                className="w-full bg-surface border-2 border-outline rounded-xl px-4 py-3 focus:border-primary outline-none transition-all duration-300 text-on-background placeholder:text-on-surface-variant/40 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] text-sm"
               />
               <textarea
                 placeholder="Your Message"
@@ -259,7 +259,7 @@ const Home = () => {
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-slate-950 border-2 border-slate-800 rounded-xl px-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-slate-600 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] resize-none text-sm"
+                className="w-full bg-surface border-2 border-outline rounded-xl px-4 py-3 focus:border-primary outline-none transition-all duration-300 text-on-background placeholder:text-on-surface-variant/40 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)] resize-none text-sm"
               />
               <button
                 type="submit"

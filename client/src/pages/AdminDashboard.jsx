@@ -260,13 +260,13 @@ const AdminDashboard = () => {
       <div className="flex min-h-[calc(100dvh-80px)] max-w-[1400px] mx-auto">
 
         {/* ── Desktop Sidebar ── */}
-        <aside className="w-64 border-r border-slate-800 h-full hidden md:flex flex-col bg-slate-950 flex-shrink-0">
-          <div className="p-6 border-b border-slate-800 text-center">
+        <aside className="w-64 border-r border-outline h-full hidden md:flex flex-col bg-surface flex-shrink-0">
+          <div className="p-6 border-b border-outline text-center">
             <div className="w-14 h-14 bg-primary/10 border border-primary/20 rounded-full mx-auto mb-3 flex items-center justify-center text-primary text-xl font-black neon-text-blue">
               A
             </div>
-            <h2 className="font-black text-slate-50">Admin Console</h2>
-            <p className="text-xs text-slate-500 mt-0.5">System Management</p>
+            <h2 className="font-black text-on-background">Admin Console</h2>
+            <p className="text-xs text-on-surface-variant mt-0.5">System Management</p>
           </div>
           <nav className="flex-1 p-4 space-y-1">
             {adminTabs.map(({ id, icon, label }) => (
@@ -279,7 +279,7 @@ const AdminDashboard = () => {
         <div className="flex-1 flex flex-col overflow-hidden">
 
           {/* Mobile Tab Bar */}
-          <div className="md:hidden sticky top-0 z-20 flex overflow-x-auto border-b border-slate-800 bg-slate-950 shrink-0 scrollbar-none">
+          <div className="md:hidden sticky top-0 z-20 flex overflow-x-auto border-b border-outline bg-surface shrink-0 scrollbar-none">
             {adminTabs.map(({ id, icon, label }) => (
               <button
                 key={id}
@@ -301,7 +301,7 @@ const AdminDashboard = () => {
         
             {/* Header */}
             <div className="flex flex-wrap justify-between items-center gap-3">
-              <h1 className="text-2xl md:text-3xl font-black text-slate-50 capitalize">{activeTab}</h1>
+              <h1 className="text-2xl md:text-3xl font-black text-on-background capitalize">{activeTab}</h1>
               {activeTab === 'projects' && (
                 <button onClick={openNewProjectModal} className="btn-primary flex items-center gap-2 !py-2 !px-4 text-xs">
                   <Plus size={16} /> Add Project
@@ -329,10 +329,10 @@ const AdminDashboard = () => {
               { label: 'Total Projects', value: stats?.totalProjects || 0, icon: <TrendingUp />, color: 'text-orange-400' },
             ].map((stat, i) => (
               <div key={i} className="glass-panel p-6 rounded-3xl">
-                <div className={`p-3 rounded-2xl bg-slate-900 w-fit mb-4 ${stat.color}`}>
+                <div className={`p-3 rounded-2xl bg-surface-variant w-fit mb-4 ${stat.color}`}>
                   {stat.icon}
                 </div>
-                <p className="text-slate-400 text-sm font-medium">{stat.label}</p>
+                <p className="text-on-surface-variant text-sm font-medium">{stat.label}</p>
                 <p className="text-2xl font-bold mt-1">{stat.value}</p>
               </div>
             ))}
@@ -341,10 +341,10 @@ const AdminDashboard = () => {
 
         {/* Projects Tab */}
         {activeTab === 'projects' && (
-          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+          <div className="glass-panel rounded-2xl border border-outline overflow-hidden">
             <div className="overflow-x-auto">
             <table className="w-full text-left">
-              <thead className="bg-slate-900/50 border-b border-slate-700">
+              <thead className="bg-surface-variant/50 border-b border-outline">
                 <tr>
                   <th className="px-6 py-4 font-bold text-sm">Project</th>
                   <th className="px-6 py-4 font-bold text-sm">Type</th>
@@ -353,9 +353,9 @@ const AdminDashboard = () => {
                   <th className="px-6 py-4 font-bold text-sm">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-outline">
                 {projects.map(p => (
-                  <tr key={p.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={p.id} className="hover:bg-surface-variant/30 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <img src={p.image} className="w-10 h-10 rounded-lg object-cover" alt="" />
@@ -438,14 +438,14 @@ const AdminDashboard = () => {
               <tbody className="divide-y divide-slate-800">
                 {payments.map(p => (
                   <tr key={p.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-4 font-mono text-xs text-slate-400">{p.orderId}</td>
+                    <td className="px-6 py-4 font-mono text-xs text-on-surface-variant">{p.orderId}</td>
                     <td className="px-6 py-4 font-bold">₹{p.amount}</td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${p.status === 'completed' ? 'bg-green-400/10 text-green-400 border border-green-400/20' : 'bg-orange-400/10 text-orange-400 border border-orange-400/20'}`}>
                         {p.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm text-slate-400">{new Date(p.createdAt).toLocaleDateString()}</td>
+                    <td className="px-6 py-4 text-sm text-on-surface-variant">{new Date(p.createdAt).toLocaleDateString()}</td>
                   </tr>
                 ))}
               </tbody>
