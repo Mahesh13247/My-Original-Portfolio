@@ -20,17 +20,17 @@ const Home = () => {
       {/* Hero Section */}
       <section className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh] relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-500/10 via-slate-900 to-slate-900 -z-10 pointer-events-none"></div>
-        
+
         <div>
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="font-inter text-xs text-blue-400 tracking-[0.2em] mb-6 inline-block px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/10 uppercase"
           >
             Senior Frontend Engineer
           </motion.span>
-          
-          <motion.h1 
+
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -38,18 +38,18 @@ const Home = () => {
           >
             Crafting digital experiences with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">precision</span>.
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-xl text-slate-400 max-w-lg mb-10"
           >
-            I am Mahesh, a developer dedicated to building fast, accessible, and beautiful web applications. 
+            I am Mahesh, a developer dedicated to building fast, accessible, and beautiful web applications.
             Specializing in user-centric design and high-performance SaaS solutions.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -70,9 +70,9 @@ const Home = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-600/20 blur-3xl -z-10 rounded-full"></div>
           <div className="aspect-square rounded-2xl border border-slate-700/50 bg-slate-800 p-2 overflow-hidden shadow-2xl hover:scale-[1.02] transition-transform duration-300 group">
-            <img 
-              src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1000" 
-              alt="Code and Design" 
+            <img
+              src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1000"
+              alt="Code and Design"
               className="w-full h-full object-cover rounded-xl opacity-80 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110"
             />
           </div>
@@ -89,7 +89,7 @@ const Home = () => {
           >
             <h2 className="font-manrope text-4xl font-bold text-on-background mb-6">Engineering seamless user journeys.</h2>
             <p className="text-on-surface-variant mb-6 leading-relaxed">
-              With 1+ years of experience in Frontend Development and a background in Computer Science Engineering, 
+              With 1+ years of experience in Frontend Development and a background in Computer Science Engineering,
               I focus on creating scalable architectures and intuitive user interfaces.
             </p>
             <div className="grid grid-cols-2 gap-4">
@@ -103,16 +103,16 @@ const Home = () => {
               </div>
             </div>
           </motion.div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="relative"
           >
             <div className="aspect-square rounded-3xl overflow-hidden glass-panel p-2">
-              <img 
-                src={myPhoto} 
-                alt="Mahesh" 
+              <img
+                src={myPhoto}
+                alt="Mahesh"
                 className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-all duration-700"
               />
             </div>
@@ -155,14 +155,14 @@ const Home = () => {
           <div className="flex-1">
             <h2 className="font-manrope text-4xl font-bold mb-6">Let's build something <span className="gradient-text">amazing</span>.</h2>
             <p className="text-on-surface-variant mb-8">
-              Available for freelance projects and full-time opportunities. 
+              Available for freelance projects and full-time opportunities.
               Let's connect and discuss your vision.
             </p>
             <div className="space-y-4">
               <a href="mailto:kmaheshachary34@gmail.com" className="flex items-center gap-4 text-on-background hover:text-primary transition-colors">
                 <Mail size={20} className="text-primary" /> kmaheshachary34@gmail.com
               </a>
-              <a href="https://linkedin.com" className="flex items-center gap-4 text-on-background hover:text-primary transition-colors">
+              <a href="https://www.linkedin.com/in/k-mahesh-kumar-achary-4a438b286/" className="flex items-center gap-4 text-on-background hover:text-primary transition-colors">
                 <Globe size={20} className="text-primary" /> LinkedIn Profile
               </a>
             </div>

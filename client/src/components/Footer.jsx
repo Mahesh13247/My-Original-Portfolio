@@ -10,8 +10,8 @@ const Footer = () => {
         <nav className="flex flex-wrap justify-center gap-6">
           <Link to="/privacy" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">Privacy Policy</Link>
           <Link to="/terms" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">Terms & Conditions</Link>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">LinkedIn</a>
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">GitHub</a>
+          <a href="https://www.linkedin.com/in/k-mahesh-kumar-achary-4a438b286/" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">LinkedIn</a>
+          <a href="https://github.com/Mahesh13247" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">GitHub</a>
           <a href="mailto:kmaheshachary34@gmail.com" className="text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest text-[10px] font-bold">Contact</a>
         </nav>
       </div>
