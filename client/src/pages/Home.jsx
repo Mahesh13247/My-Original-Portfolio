@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Code2, Database, Layout, Smartphone, Globe, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import myPhoto from '../assets/IMG_20250524_235515_332.webp';
 
 const Home = () => {
   const skills = [
@@ -110,7 +111,7 @@ const Home = () => {
           >
             <div className="aspect-square rounded-3xl overflow-hidden glass-panel p-2">
               <img 
-                src="/src/assets/IMG_20250524_235515_332.webp" 
+                src={myPhoto} 
                 alt="Mahesh" 
                 className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-all duration-700"
               />
