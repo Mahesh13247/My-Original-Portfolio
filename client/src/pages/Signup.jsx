@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import { Mail, Lock, User, ArrowRight } from 'lucide-react';
+import BackButton from '../components/BackButton';
 
 const Signup = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
@@ -21,7 +22,13 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-6 py-12">
+    <div className="min-h-[80vh] flex flex-col items-center justify-center px-6 py-12 relative">
+      <div className="absolute top-8 left-8 hidden sm:block">
+        <BackButton text="Home" to="/" />
+      </div>
+      <div className="mb-6 sm:hidden">
+        <BackButton text="Home" to="/" />
+      </div>
       <div className="glass-panel max-w-md w-full p-6 sm:p-10 rounded-3xl space-y-6 sm:space-y-8 border border-slate-800 shadow-[0_0_40px_rgba(57,255,20,0.05)]">
         <div className="text-center">
           <h2 className="text-3xl font-bold font-manrope">Join the Platform</h2>

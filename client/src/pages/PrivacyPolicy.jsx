@@ -1,8 +1,12 @@
 import React from 'react';
+import BackButton from '../components/BackButton';
 
 const PrivacyPolicy = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 md:py-12 text-on-surface-variant">
+      <div className="mb-8">
+        <BackButton text="Go Back" />
+      </div>
       <h1 className="text-3xl sm:text-4xl font-bold text-on-background mb-3">Privacy Policy</h1>
       <p className="text-sm text-on-surface-variant opacity-70 mb-8 font-mono italic">Last Updated: April 25, 2026</p>
 

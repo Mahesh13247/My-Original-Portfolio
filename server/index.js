@@ -30,11 +30,35 @@ Payment.belongsTo(User, { foreignKey: 'userId' });
 Project.hasMany(Payment, { foreignKey: 'projectId' });
 Payment.belongsTo(Project, { foreignKey: 'projectId' });
 
+const { DataTypes } = require('sequelize');
+
+// Safely add a column if it doesn't already exist
+const addColumnSafe = async (table, column, definition) => {
+  try {
+    await sequelize.getQueryInterface().addColumn(table, column, definition);
+    console.log(`  ✅ Migrated: ${table}.${column}`);
+  } catch {
+    // Column already exists — safe to ignore
+  }
+};
+
+// Run all pending schema migrations
+const runMigrations = async () => {
+  console.log('🔄 Running schema migrations...');
+  await addColumnSafe('Projects', 'downloadUrl',          { type: DataTypes.STRING, allowNull: true });
+  await addColumnSafe('Projects', 'detailedDescription',  { type: DataTypes.TEXT,   allowNull: true });
+  await addColumnSafe('Projects', 'features',             { type: DataTypes.TEXT,   defaultValue: '[]' });
+  await addColumnSafe('Projects', 'screenshots',          { type: DataTypes.TEXT,   defaultValue: '[]' });
+  await addColumnSafe('Projects', 'videoUrl',             { type: DataTypes.STRING, allowNull: true });
+  console.log('✅ Migrations complete');
+};
+
 // Database Connection
 const connectDB = async () => {
   try {
     await sequelize.sync();
     console.log('✅ SQLite Database Synced');
+    await runMigrations();
   } catch (err) {
     console.error('❌ Could not sync SQLite Database');
     console.error('   Error:', err.message);

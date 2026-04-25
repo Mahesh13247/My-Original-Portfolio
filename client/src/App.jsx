@@ -12,11 +12,13 @@ import Signup from './pages/Signup';
 import AdminDashboard from './pages/AdminDashboard';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
+import ProjectDetail from './pages/ProjectDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import { useScroll, useSpring, motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Loader from './components/Loader';
+import FloatingScrollToTop from './components/FloatingScrollToTop';
 
 function App() {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -42,6 +44,7 @@ function App() {
 
       <Router>
         <ScrollToTop />
+        <FloatingScrollToTop />
         <div className="flex flex-col min-h-screen overflow-x-hidden relative">
           <motion.div
             className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left shadow-[0_0_10px_var(--neon-glow)]"
@@ -56,6 +59,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />

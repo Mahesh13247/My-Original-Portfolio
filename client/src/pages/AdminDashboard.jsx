@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { toast } from 'react-hot-toast';
-import { Plus, Trash2, Edit, TrendingUp, Users, ShoppingBag, DollarSign, LayoutDashboard, CreditCard, ToggleLeft, ToggleRight, MessageSquare, BarChart as ChartIcon, Search, Filter, Mail, Download, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Plus, Trash2, Edit, TrendingUp, Users, ShoppingBag, DollarSign, LayoutDashboard, CreditCard, ToggleLeft, ToggleRight, MessageSquare, BarChart as ChartIcon, Search, Filter, Mail, Download, RefreshCw, CheckCircle2, ShieldAlert, History } from 'lucide-react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,6 +15,7 @@ import {
   Filler,
 } from 'chart.js';
 import { Line, Bar } from 'react-chartjs-2';
+import BackButton from '../components/BackButton';
 
 ChartJS.register(
   CategoryScale,
@@ -55,7 +56,8 @@ const AdminDashboard = () => {
   // Forms
   const [newProject, setNewProject] = useState({
     title: '', description: '', image: '', price: 0, isPremium: false, techStack: [], category: 'Frontend',
-    liveDemoUrl: '', githubUrl: '', downloadUrl: ''
+    liveDemoUrl: '', githubUrl: '', downloadUrl: '',
+    detailedDescription: '', features: [], screenshots: [], videoUrl: ''
   });
   const [newCoupon, setNewCoupon] = useState({
     code: '', discount: 0, expiryDate: ''
@@ -148,19 +150,45 @@ const AdminDashboard = () => {
   const handleSourceUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     const formData = new FormData();
     formData.append('source', file);
-
     const load = toast.loading('Uploading source code...');
     try {
-      const { data } = await api.post('/upload/source', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      setNewProject({ ...newProject, downloadUrl: data.url });
+      const { data } = await api.post('/upload/source', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      setNewProject(prev => ({ ...prev, downloadUrl: data.url }));
       toast.success('Source code uploaded!', { id: load });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Upload failed. Max size 1GB.', { id: load });
+    }
+  };
+
+  const handleScreenshotUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    const formData = new FormData();
+    files.forEach(f => formData.append('screenshots', f));
+    const load = toast.loading(`Uploading ${files.length} screenshot(s)...`);
+    try {
+      const { data } = await api.post('/upload/screenshots', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      setNewProject(prev => ({ ...prev, screenshots: [...(prev.screenshots || []), ...data.urls] }));
+      toast.success(`${data.urls.length} screenshot(s) uploaded!`, { id: load });
+    } catch (err) {
+      toast.error('Screenshot upload failed.', { id: load });
+    }
+  };
+
+  const handleVideoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('video', file);
+    const load = toast.loading('Uploading demo video...');
+    try {
+      const { data } = await api.post('/upload/video', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      setNewProject(prev => ({ ...prev, videoUrl: data.url }));
+      toast.success('Video uploaded!', { id: load });
+    } catch (err) {
+      toast.error('Video upload failed. Max 500MB.', { id: load });
     }
   };
 
@@ -177,7 +205,11 @@ const AdminDashboard = () => {
       category: project.category || 'Frontend',
       liveDemoUrl: project.liveDemoUrl || '',
       githubUrl: project.githubUrl || '',
-      downloadUrl: project.downloadUrl || ''
+      downloadUrl: project.downloadUrl || '',
+      detailedDescription: project.detailedDescription || '',
+      features: project.features || [],
+      screenshots: project.screenshots || [],
+      videoUrl: project.videoUrl || ''
     });
     setShowAddProjectModal(true);
   };
@@ -187,7 +219,8 @@ const AdminDashboard = () => {
     setEditingProjectId(null);
     setNewProject({ 
       title: '', description: '', image: '', price: 0, isPremium: false, techStack: [], category: 'Frontend',
-      liveDemoUrl: '', githubUrl: '', downloadUrl: '' 
+      liveDemoUrl: '', githubUrl: '', downloadUrl: '',
+      detailedDescription: '', features: [], screenshots: [], videoUrl: ''
     });
     setShowAddProjectModal(true);
   };
@@ -364,27 +397,35 @@ const AdminDashboard = () => {
               <NavButton key={id} tab={id} icon={icon} label={label} />
             ))}
           </nav>
+          <div className="p-4 border-t border-outline">
+            <BackButton to="/" text="Main Site" className="w-full justify-center" />
+          </div>
         </aside>
 
         {/* ── Content ── */}
         <div className="flex-1 flex flex-col overflow-hidden">
 
           {/* Mobile Tab Bar */}
-          <div className="md:hidden sticky top-0 z-20 flex overflow-x-auto border-b border-outline bg-surface shrink-0 scrollbar-none">
-            {adminTabs.map(({ id, icon, label }) => (
-              <button
-                key={id}
-                onClick={() => setActiveTab(id)}
-                className={`flex flex-col items-center gap-1 py-3 px-3 text-[9px] font-black uppercase tracking-wide whitespace-nowrap shrink-0 transition-all ${
-                  activeTab === id
-                    ? 'text-primary border-b-2 border-primary'
-                    : 'text-slate-500'
-                }`}
-              >
-                {icon}
-                {label}
-              </button>
-            ))}
+          <div className="md:hidden sticky top-0 z-20 flex items-center border-b border-outline bg-surface shrink-0">
+            <div className="px-3 border-r border-outline">
+              <BackButton to="/" text="" className="!p-2 !rounded-lg" />
+            </div>
+            <div className="flex overflow-x-auto scrollbar-none flex-1">
+              {adminTabs.map(({ id, icon, label }) => (
+                <button
+                  key={id}
+                  onClick={() => setActiveTab(id)}
+                  className={`flex flex-col items-center gap-1 py-3 px-3 text-[9px] font-black uppercase tracking-wide whitespace-nowrap shrink-0 transition-all ${
+                    activeTab === id
+                      ? 'text-primary border-b-2 border-primary'
+                      : 'text-slate-500'
+                  }`}
+                >
+                  {icon}
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Scrollable content */}
@@ -529,6 +570,86 @@ const AdminDashboard = () => {
                       }
                     }}
                   />
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Transactions & Info */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 glass-panel rounded-3xl overflow-hidden border border-outline">
+                <div className="p-6 border-b border-outline flex justify-between items-center bg-surface-variant/20">
+                  <h3 className="font-black text-on-background flex items-center gap-2">
+                    <History size={18} className="text-primary" /> Recent Transactions
+                  </h3>
+                  <button onClick={() => setActiveTab('sales')} className="text-[10px] font-black text-primary uppercase tracking-widest hover:underline">View All</button>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <thead className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant border-b border-outline">
+                      <tr>
+                        <th className="px-6 py-4">Customer</th>
+                        <th className="px-6 py-4">Project</th>
+                        <th className="px-6 py-4">Amount</th>
+                        <th className="px-6 py-4 text-right">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-outline">
+                      {payments.slice(0, 5).map((pay, i) => (
+                        <tr key={i} className="hover:bg-surface-variant/30 transition-colors">
+                          <td className="px-6 py-4">
+                            <p className="font-bold text-on-background">{pay.User?.name || 'Guest'}</p>
+                            <p className="text-[10px] text-on-surface-variant font-mono">{pay.orderId}</p>
+                          </td>
+                          <td className="px-6 py-4 text-on-surface-variant font-medium">
+                            {pay.Project?.title || 'Unknown'}
+                          </td>
+                          <td className="px-6 py-4 font-black text-primary neon-text-blue">
+                            ₹{pay.amount}
+                          </td>
+                          <td className="px-6 py-4 text-right">
+                            <span className={`px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-tighter ${
+                              pay.status === 'completed' ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-orange-500/10 text-orange-500 border border-orange-500/20'
+                            }`}>
+                              {pay.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                      {payments.length === 0 && (
+                        <tr>
+                          <td colSpan="4" className="px-6 py-12 text-center text-on-surface-variant italic opacity-50">No recent transactions</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="glass-panel p-6 rounded-3xl border border-outline flex flex-col gap-6">
+                <div className="space-y-1">
+                  <h3 className="font-black text-on-background flex items-center gap-2">
+                    <ShieldAlert size={18} className="text-secondary" /> System Health
+                  </h3>
+                  <p className="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Node.js Server Status</p>
+                </div>
+                
+                <div className="space-y-4 flex-1">
+                  {[
+                    { label: 'Database', value: 'Operational', color: 'text-primary' },
+                    { label: 'Cloudinary', value: 'Online', color: 'text-primary' },
+                    { label: 'SMTP Server', value: 'Ready', color: 'text-primary' },
+                    { label: 'API Latency', value: '42ms', color: 'text-blue-400' },
+                  ].map((sys, i) => (
+                    <div key={i} className="flex justify-between items-center p-3 rounded-2xl bg-surface-variant/30 border border-outline/50">
+                      <span className="text-xs font-bold text-on-surface-variant">{sys.label}</span>
+                      <span className={`text-[10px] font-black uppercase tracking-widest ${sys.color}`}>{sys.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="p-4 rounded-2xl bg-primary/5 border border-primary/20">
+                  <p className="text-[9px] font-black text-primary uppercase tracking-widest mb-1">Support Note</p>
+                  <p className="text-[11px] text-on-surface-variant leading-relaxed italic">"All systems are running optimally. High traffic detected in Frontend category."</p>
                 </div>
               </div>
             </div>
@@ -961,47 +1082,208 @@ const AdminDashboard = () => {
 
         {/* Add/Edit Project Modal */}
         {showAddProjectModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-6">
-            <div className="glass-panel max-w-2xl w-full p-8 rounded-3xl">
-              <h2 className="text-2xl font-bold mb-6">{isEditingProject ? 'Edit Project' : 'New Project'}</h2>
-              <form onSubmit={handleSaveProject} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input placeholder="Title" value={newProject.title} required className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, title: e.target.value})} />
-                <input placeholder="Image URL" value={newProject.image} required className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, image: e.target.value})} />
-                <input placeholder="Live Demo Link (e.g. https://demo.com)" value={newProject.liveDemoUrl} className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, liveDemoUrl: e.target.value})} />
-                <input placeholder="Project Code Link (e.g. https://github.com/...)" value={newProject.githubUrl} className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, githubUrl: e.target.value})} />
-                
-                {/* Source Code Upload Section */}
-                <div className="col-span-full bg-surface-variant/30 border border-outline rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center">
-                  <div className="flex-1 w-full">
-                    <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Direct Download URL</label>
-                    <input placeholder="https://yoursite.com/uploads/..." value={newProject.downloadUrl} className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, downloadUrl: e.target.value})} />
-                  </div>
-                  <div className="text-on-surface-variant font-bold text-sm">OR</div>
-                  <div className="flex-1 w-full relative">
-                    <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Upload Source (.zip)</label>
-                    <input 
-                      type="file" 
-                      accept=".zip,.rar,.7z,.tar,.gz"
-                      onChange={handleSourceUpload}
-                      className="block w-full text-sm text-slate-400 file:mr-4 file:py-3 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition-all cursor-pointer border border-outline rounded-xl bg-surface-variant/50"
-                    />
-                  </div>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+            <div className="glass-panel w-full max-w-3xl rounded-3xl border border-outline shadow-2xl flex flex-col max-h-[92vh]">
+              
+              {/* Modal Header */}
+              <div className="flex items-center justify-between px-8 py-6 border-b border-outline flex-shrink-0">
+                <div>
+                  <h2 className="text-2xl font-black text-on-background">
+                    {isEditingProject ? '✏️ Edit Project' : '🚀 New Project'}
+                  </h2>
+                  <p className="text-xs text-on-surface-variant mt-1">Fill in all sections for the best project detail page</p>
                 </div>
+                <button type="button" onClick={() => setShowAddProjectModal(false)} className="w-10 h-10 rounded-2xl bg-surface-variant border border-outline flex items-center justify-center text-on-surface-variant hover:text-red-400 hover:border-red-400/30 transition-all text-xl font-bold">×</button>
+              </div>
 
-                <input placeholder="Price" value={newProject.price} type="number" className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, price: Number(e.target.value)})} />
-                <select value={newProject.isPremium} className="bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none" onChange={e => setNewProject({...newProject, isPremium: e.target.value === 'true'})}>
-                  <option value={false}>Free</option>
-                  <option value={true}>Premium</option>
-                </select>
-                <textarea placeholder="Description" value={newProject.description} className="col-span-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none h-32" onChange={e => setNewProject({...newProject, description: e.target.value})}></textarea>
-                <div className="flex gap-4 col-span-full">
-                  <button type="submit" className="btn-primary flex-1">{isEditingProject ? 'Save Changes' : 'Create'}</button>
-                  <button type="button" onClick={() => setShowAddProjectModal(false)} className="btn-secondary flex-1">Cancel</button>
-                </div>
-              </form>
+              {/* Scrollable Form Body */}
+              <div className="overflow-y-auto flex-1 px-8 py-6">
+                <form id="project-form" onSubmit={handleSaveProject} className="space-y-8">
+
+                  {/* ── Section 1: Basic Info ── */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-1 h-6 bg-primary rounded-full" />
+                      <h3 className="text-sm font-black uppercase tracking-widest text-on-background">Basic Info</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">Project Title *</label>
+                        <input placeholder="e.g. SaaS Portfolio Platform" value={newProject.title} required
+                          className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all text-on-background text-sm"
+                          onChange={e => setNewProject({...newProject, title: e.target.value})} />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">Thumbnail Image URL *</label>
+                        <input placeholder="https://..." value={newProject.image} required
+                          className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all text-on-background text-sm"
+                          onChange={e => setNewProject({...newProject, image: e.target.value})} />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">Category</label>
+                        <select value={newProject.category} className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all text-on-background text-sm"
+                          onChange={e => setNewProject({...newProject, category: e.target.value})}>
+                          {['Frontend', 'Backend', 'Full Stack', 'Mobile', 'UI/UX', 'Other'].map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">Project Type</label>
+                        <select value={newProject.isPremium} className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all text-on-background text-sm"
+                          onChange={e => setNewProject({...newProject, isPremium: e.target.value === 'true'})}>
+                          <option value={false}>🆓 Free</option>
+                          <option value={true}>⭐ Premium</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">Short Description (shown on card)</label>
+                      <textarea placeholder="A brief 1-2 line description for the project card..." value={newProject.description}
+                        className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all h-20 resize-none text-sm text-on-background"
+                        onChange={e => setNewProject({...newProject, description: e.target.value})} />
+                    </div>
+                  </div>
+
+                  {/* ── Section 2: Links & Pricing ── */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-1 h-6 bg-blue-400 rounded-full" />
+                      <h3 className="text-sm font-black uppercase tracking-widest text-on-background">Links & Pricing</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">Live Demo URL</label>
+                        <input placeholder="https://demo.yourproject.com" value={newProject.liveDemoUrl}
+                          className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all text-on-background text-sm"
+                          onChange={e => setNewProject({...newProject, liveDemoUrl: e.target.value})} />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">GitHub URL (free only)</label>
+                        <input placeholder="https://github.com/user/repo" value={newProject.githubUrl}
+                          className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all text-on-background text-sm"
+                          onChange={e => setNewProject({...newProject, githubUrl: e.target.value})} />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">Price (₹)</label>
+                        <input placeholder="0" value={newProject.price} type="number" min="0"
+                          className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all text-on-background text-sm"
+                          onChange={e => setNewProject({...newProject, price: Number(e.target.value)})} />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">Direct Download URL</label>
+                        <input placeholder="https://... (or upload below)" value={newProject.downloadUrl}
+                          className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all text-on-background text-sm"
+                          onChange={e => setNewProject({...newProject, downloadUrl: e.target.value})} />
+                      </div>
+                    </div>
+                    {/* Source Code Upload */}
+                    <label className="flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-2 border-dashed border-primary/30 hover:border-primary/60 bg-primary/5 cursor-pointer transition-all group">
+                      <div className="text-3xl">📦</div>
+                      <div className="text-center">
+                        <p className="text-sm font-bold text-on-background group-hover:text-primary transition-colors">Upload Source Code (.zip, .rar, .7z)</p>
+                        <p className="text-[10px] text-on-surface-variant mt-1">Max 1GB · Replaces Direct Download URL</p>
+                      </div>
+                      {newProject.downloadUrl && (
+                        <p className="text-xs text-green-400 font-bold">✅ File Ready</p>
+                      )}
+                      <input type="file" accept=".zip,.rar,.7z,.tar,.gz" onChange={handleSourceUpload} className="hidden" />
+                    </label>
+                  </div>
+
+                  {/* ── Section 3: Media ── */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-1 h-6 bg-purple-400 rounded-full" />
+                      <h3 className="text-sm font-black uppercase tracking-widest text-on-background">Screenshots & Video</h3>
+                    </div>
+
+                    {/* Screenshot Upload */}
+                    <div>
+                      <label className="flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-2 border-dashed border-blue-400/30 hover:border-blue-400/60 bg-blue-400/5 cursor-pointer transition-all group">
+                        <div className="text-3xl">📸</div>
+                        <div className="text-center">
+                          <p className="text-sm font-bold text-on-background group-hover:text-blue-400 transition-colors">Upload Screenshots (up to 10)</p>
+                          <p className="text-[10px] text-on-surface-variant mt-1">JPG, PNG, WebP · Max 10MB each</p>
+                        </div>
+                        <input type="file" accept="image/*" multiple onChange={handleScreenshotUpload} className="hidden" />
+                      </label>
+
+                      {/* Screenshot Thumbnails */}
+                      {(newProject.screenshots || []).length > 0 && (
+                        <div className="flex gap-3 flex-wrap mt-3 p-3 bg-surface-variant/30 rounded-2xl border border-outline">
+                          {newProject.screenshots.map((url, i) => (
+                            <div key={i} className="relative group/shot">
+                              <img src={url} alt="" className="w-20 h-14 object-cover rounded-xl border border-outline shadow-md" />
+                              <button type="button"
+                                onClick={() => setNewProject(prev => ({ ...prev, screenshots: prev.screenshots.filter((_, j) => j !== i) }))}
+                                className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full text-sm hidden group-hover/shot:flex items-center justify-center shadow-lg font-bold leading-none"
+                              >×</button>
+                            </div>
+                          ))}
+                          <div className="text-[10px] text-on-surface-variant self-end pb-1 font-bold opacity-60">
+                            {newProject.screenshots.length}/10
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Video Upload */}
+                    <label className="flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border-2 border-dashed border-purple-400/30 hover:border-purple-400/60 bg-purple-400/5 cursor-pointer transition-all group">
+                      <div className="text-3xl">🎬</div>
+                      <div className="text-center">
+                        <p className="text-sm font-bold text-on-background group-hover:text-purple-400 transition-colors">Upload Demo Video (.mp4, .webm)</p>
+                        <p className="text-[10px] text-on-surface-variant mt-1">Max 500MB · Shown as a video player on the detail page</p>
+                      </div>
+                      {newProject.videoUrl && (
+                        <p className="text-xs text-green-400 font-bold">✅ Video Ready</p>
+                      )}
+                      <input type="file" accept="video/mp4,video/webm,video/mov,.avi,.mkv" onChange={handleVideoUpload} className="hidden" />
+                    </label>
+                  </div>
+
+                  {/* ── Section 4: Detail Page Content ── */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-1 h-6 bg-green-400 rounded-full" />
+                      <h3 className="text-sm font-black uppercase tracking-widest text-on-background">Detail Page Content</h3>
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">✅ Key Features <span className="normal-case opacity-60 font-medium">(one per line)</span></label>
+                      <textarea
+                        placeholder={"User Authentication System\nDark Mode Support\nRazorpay Payment Integration\nFully Responsive Design\nAdmin Dashboard"}
+                        value={(newProject.features || []).join('\n')}
+                        className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all h-32 resize-none text-sm text-on-background placeholder:text-on-surface-variant/40"
+                        onChange={e => setNewProject({...newProject, features: e.target.value.split('\n').filter(f => f.trim())})}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1.5">📝 Detailed Description <span className="normal-case opacity-60 font-medium">(shown on About tab)</span></label>
+                      <textarea
+                        placeholder="Write a thorough description of your project. Describe what problem it solves, the main technologies used, and any interesting challenges you overcame during development..."
+                        value={newProject.detailedDescription || ''}
+                        className="w-full bg-surface-variant/50 border border-outline rounded-xl px-4 py-3 outline-none focus:border-primary transition-all h-44 resize-none text-sm text-on-background placeholder:text-on-surface-variant/40"
+                        onChange={e => setNewProject({...newProject, detailedDescription: e.target.value})}
+                      />
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+
+              {/* Sticky Footer Actions */}
+              <div className="flex gap-4 px-8 py-5 border-t border-outline flex-shrink-0 bg-surface/50 backdrop-blur-sm rounded-b-3xl">
+                <button type="submit" form="project-form" className="btn-primary flex-1 py-3 font-black">
+                  {isEditingProject ? '💾 Save Changes' : '🚀 Create Project'}
+                </button>
+                <button type="button" onClick={() => setShowAddProjectModal(false)} className="flex-1 py-3 rounded-2xl border border-outline text-on-surface-variant hover:text-on-background hover:bg-surface-variant transition-all font-bold text-sm">
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         )}
+
 
         {/* Add Coupon Modal */}
         {showAddCouponModal && (

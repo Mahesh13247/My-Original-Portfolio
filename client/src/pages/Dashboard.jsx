@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import ProjectCard from '../components/ProjectCard';
+import SkeletonCard from '../components/SkeletonCard';
 import { LayoutDashboard, Download, History, CreditCard, CheckCircle2, User as UserIcon, Save, Copy, Bell, ShieldAlert, Gift, Check, Upload } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -211,7 +212,7 @@ const Dashboard = () => {
 
                 {loading ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {[1, 2].map(i => <div key={i} className="glass-panel h-[300px] animate-pulse rounded-2xl" />)}
+                    {[1, 2, 3, 4].map(i => <SkeletonCard key={i} />)}
                   </div>
                 ) : unlockedProjects.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

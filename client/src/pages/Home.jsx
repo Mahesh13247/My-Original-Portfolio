@@ -70,7 +70,7 @@ const Home = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter text-on-background mb-6 leading-[0.9]"
             >
-              Frontend <br />
+              Frontend { }
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-neon-blue to-secondary">
                 Innovator
               </span>.
@@ -82,7 +82,7 @@ const Home = () => {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="text-lg sm:text-xl text-on-surface-variant max-w-lg mx-auto md:mx-0 mb-10 leading-relaxed font-medium"
             >
-              I am Mahesh, architecting high-performance SaaS platforms with 
+              I am Mahesh, architecting high-performance SaaS platforms with
               <span className="text-on-background font-bold px-1 underline decoration-primary/40">cutting-edge</span> React technology.
             </motion.p>
 
@@ -110,7 +110,7 @@ const Home = () => {
               {/* Spinning borders */}
               <div className="absolute inset-[-10px] rounded-full border border-dashed border-primary/20 animate-[spin_20s_linear_infinite]" />
               <div className="absolute inset-[-20px] rounded-full border border-dotted border-secondary/20 animate-[spin_30s_linear_infinite_reverse]" />
-              
+
               <div className="w-full h-full rounded-full border-[8px] border-surface p-2 bg-surface overflow-hidden shadow-2xl relative z-10 transition-transform duration-700 group-hover:rotate-3">
                 <img
                   src={heroPhoto}
@@ -128,7 +128,7 @@ const Home = () => {
       <section className="py-12 border-y border-outline bg-surface-variant/10 relative">
         <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-background to-transparent z-10" />
         <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-background to-transparent z-10" />
-        
+
         <div className="flex overflow-hidden group">
           <div className="flex animate-scroll whitespace-nowrap py-4">
             {[...skills, ...skills].map((skill, i) => (
@@ -239,11 +239,11 @@ const Home = () => {
               <span className="text-primary italic">simplicity</span>.
             </h2>
             <p className="text-lg text-on-surface-variant mb-10 leading-relaxed font-medium">
-              As a Computer Science Engineer, I don't just write code. I build 
-              systems that are as scalable as they are beautiful. My approach 
+              As a Computer Science Engineer, I don't just write code. I build
+              systems that are as scalable as they are beautiful. My approach
               combines mathematical logic with creative user-centric design.
             </p>
-            
+
             <div className="space-y-6">
               {[
                 { label: 'Pixel Perfect UI', desc: 'Meticulous attention to every layout detail.' },
@@ -306,13 +306,13 @@ const Home = () => {
               Stay in the <span className="text-primary italic">loop</span>.
             </h2>
             <p className="text-on-surface-variant mb-10 text-lg font-medium">
-              Subscribe to my newsletter for the latest tech insights, 
+              Subscribe to my newsletter for the latest tech insights,
               project updates, and SaaS engineering tips.
             </p>
             <form onSubmit={(e) => { e.preventDefault(); toast.success('Thanks for subscribing!'); }} className="flex flex-col sm:flex-row gap-4">
-              <input 
-                type="email" 
-                placeholder="Enter your email address..." 
+              <input
+                type="email"
+                placeholder="Enter your email address..."
                 required
                 className="flex-1 bg-surface border-2 border-outline/50 rounded-2xl px-6 py-4 focus:border-primary focus:bg-surface/90 outline-none transition-all text-on-background font-bold placeholder:text-on-surface-variant/60 shadow-inner"
               />

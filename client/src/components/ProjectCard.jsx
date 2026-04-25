@@ -1,98 +1,150 @@
-import { Lock, Unlock, ExternalLink, Code2, Eye } from 'lucide-react';
+import { Lock, Unlock, ExternalLink, Code2, Eye, ArrowRight, Star } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const ProjectCard = ({ project, onUnlock }) => {
   const { user } = useAuth();
-  const isUnlocked = user?.role === 'admin' || user?.unlockedProjects?.includes(project.id) || !project.isPremium;
+  const isUnlocked =
+    user?.role === 'admin' ||
+    user?.unlockedProjects?.includes(project.id) ||
+    !project.isPremium;
 
   return (
     <motion.article
-      initial={{ opacity: 0, scale: 0.96 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      className="group relative bg-surface rounded-2xl border border-outline overflow-hidden transition-all duration-500 flex flex-col shadow-2xl hover:neon-border-blue hover-lift card-shine"
+      whileHover={{ y: -5 }}
+      transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+      className="group relative bg-surface rounded-2xl border border-outline overflow-hidden flex flex-col shadow-lg hover:shadow-2xl hover:border-primary/30 transition-shadow duration-300"
     >
-      <div className="relative h-44 sm:h-52 overflow-hidden">
-        <img 
-          src={project.image} 
-          alt={project.title} 
-          className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-110"
+      {/* ── Thumbnail ── */}
+      <div className="relative h-48 overflow-hidden flex-shrink-0">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
-        
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+
+        {/* Top-left: Category */}
+        <span className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white/80 text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border border-white/10">
+          {project.category || 'Project'}
+        </span>
+
+        {/* Top-right: Premium / Free */}
+        <div className="absolute top-3 right-3">
+          {project.isPremium ? (
+            <span className="flex items-center gap-1 bg-primary text-background text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg">
+              <Star size={9} fill="currentColor" /> Premium
+            </span>
+          ) : (
+            <span className="bg-green-500 text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg">
+              Free
+            </span>
+          )}
+        </div>
+
+        {/* Bottom-left: Price tag */}
+        {project.isPremium && (
+          <span className="absolute bottom-3 left-3 text-xl font-black text-white drop-shadow-lg" style={{ textShadow: '0 0 20px rgba(57,255,20,0.7)' }}>
+            ₹{project.price}
+          </span>
+        )}
+
+        {/* Lock overlay */}
         {project.isPremium && !isUnlocked && (
-          <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px] flex items-center justify-center transition-opacity duration-300">
-            <div className="bg-surface/80 p-4 rounded-2xl border border-primary/20 flex flex-col items-center gap-2 shadow-2xl">
-              <Lock className="text-primary neon-text-blue" size={24} />
-              <span className="text-xs font-bold uppercase tracking-widest text-primary neon-text-blue">Premium</span>
+          <div className="absolute inset-0 backdrop-blur-[2px] bg-black/25 flex items-center justify-center">
+            <div className="bg-black/70 border border-primary/40 rounded-2xl px-4 py-3 flex flex-col items-center gap-1.5 shadow-2xl">
+              <Lock size={20} className="text-primary" />
+              <span className="text-[9px] font-black uppercase tracking-widest text-primary">Locked</span>
             </div>
           </div>
         )}
-
-        <div className="absolute top-4 right-4 flex gap-2">
-          <div className="bg-surface-variant/80 px-3 py-1 rounded-full border border-outline text-xs flex items-center gap-1">
-            <Eye size={12} /> {project.views}
-          </div>
-        </div>
       </div>
 
-      <div className="p-6 flex-grow flex flex-col">
-        <div className="flex gap-2 mb-4 flex-wrap">
-          {project.techStack.map(tech => (
-            <span key={tech} className="bg-primary/5 text-primary text-[9px] sm:text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-md border border-primary/10">
+      {/* ── Body ── */}
+      <div className="p-5 flex-grow flex flex-col">
+
+        {/* Tech pills */}
+        <div className="flex gap-1.5 mb-3 flex-wrap">
+          {(project.techStack || []).slice(0, 4).map(tech => (
+            <span key={tech} className="bg-surface-variant text-on-surface-variant text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-md border border-outline">
               {tech}
             </span>
           ))}
+          {(project.techStack || []).length > 4 && (
+            <span className="text-[9px] text-on-surface-variant/60 font-bold self-center">
+              +{project.techStack.length - 4} more
+            </span>
+          )}
         </div>
 
-        <h3 className="text-xl font-bold text-on-background mb-2 group-hover:text-primary transition-colors">
+        {/* Title */}
+        <h3 className="text-base font-black text-on-background mb-1.5 leading-snug group-hover:text-primary transition-colors line-clamp-1">
           {project.title}
         </h3>
-        <p className="text-sm text-on-surface-variant mb-6 flex-grow line-clamp-2">
+
+        {/* Description */}
+        <p className="text-xs text-on-surface-variant leading-relaxed line-clamp-2 flex-grow mb-4">
           {project.description}
         </p>
 
-        <div className="flex flex-col gap-4 mt-auto">
-          {project.liveDemoUrl && !isUnlocked && (
-            <a 
-              href={project.liveDemoUrl} 
-              target="_blank" 
-              rel="noreferrer" 
-              className="flex items-center justify-center gap-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-all group/demo"
+        {/* ── Action Buttons ── */}
+        <div className="space-y-2 mt-auto">
+
+          {/* View Details — always visible */}
+          <Link
+            to={`/projects/${project.id}`}
+            className="flex items-center justify-between w-full bg-surface-variant/60 hover:bg-primary/10 border border-outline hover:border-primary/50 text-on-surface-variant hover:text-primary text-xs font-black px-4 py-2.5 rounded-xl transition-all duration-200 group/link"
+          >
+            <span className="flex items-center gap-2">
+              <Eye size={13} />
+              View Full Details
+            </span>
+            <ArrowRight size={13} className="group-hover/link:translate-x-1 transition-transform" />
+          </Link>
+
+          {/* Unlock or action links */}
+          {isUnlocked ? (
+            <div className="flex gap-2">
+              {project.liveDemoUrl && (
+                <a
+                  href={project.liveDemoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-outline text-on-surface-variant hover:text-primary hover:border-primary/40 text-xs font-bold transition-all"
+                >
+                  <ExternalLink size={11} /> Demo
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-outline text-on-surface-variant hover:text-primary hover:border-primary/40 text-xs font-bold transition-all"
+                >
+                  <Code2 size={11} /> Code
+                </a>
+              )}
+              {project.downloadUrl && user?.role !== 'admin' && (
+                <a
+                  href={project.downloadUrl}
+                  className="flex-1 btn-primary py-2 text-xs text-center"
+                >
+                  Download
+                </a>
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={() => onUnlock(project)}
+              className="btn-primary w-full flex items-center justify-center gap-2 py-2.5 text-sm font-black group/unlock"
             >
-              <Eye size={16} className="group-hover/demo:scale-110 transition-transform" />
-              View Live Demo
-            </a>
+              <Unlock size={14} className="group-hover/unlock:rotate-12 transition-transform" />
+              Unlock — ₹{project.price}
+            </button>
           )}
-          
-          <div className="flex items-center justify-between">
-            {isUnlocked ? (
-              <div className="flex gap-4 items-center w-full">
-                {project.liveDemoUrl && (
-                  <a href={project.liveDemoUrl} target="_blank" rel="noreferrer" className="text-on-background hover:text-primary transition-colors flex items-center gap-2 text-sm">
-                    <ExternalLink size={18} /> Demo
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noreferrer" className="text-on-background hover:text-primary transition-colors flex items-center gap-2 text-sm">
-                    <Code2 size={18} /> Code
-                  </a>
-                )}
-                {project.downloadUrl && user?.role !== 'admin' && (
-                  <a href={project.downloadUrl} className="btn-primary py-1 px-4 text-xs ml-auto">Download</a>
-                )}
-              </div>
-            ) : (
-              <button 
-                onClick={() => onUnlock(project)}
-                className="btn-primary w-full flex items-center justify-center gap-2 group/unlock"
-              >
-                <Unlock size={18} className="group-hover/unlock:rotate-12 transition-transform" />
-                Unlock for ₹{project.price}
-              </button>
-            )}
-          </div>
         </div>
       </div>
     </motion.article>

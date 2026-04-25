@@ -57,6 +57,34 @@ const Project = sequelize.define('Project', {
   unlocks: {
     type: DataTypes.INTEGER,
     defaultValue: 0
+  },
+  detailedDescription: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
+  features: {
+    type: DataTypes.TEXT,
+    defaultValue: '[]',
+    get() {
+      try { return JSON.parse(this.getDataValue('features')); } catch { return []; }
+    },
+    set(val) {
+      this.setDataValue('features', JSON.stringify(val));
+    }
+  },
+  screenshots: {
+    type: DataTypes.TEXT,
+    defaultValue: '[]',
+    get() {
+      try { return JSON.parse(this.getDataValue('screenshots')); } catch { return []; }
+    },
+    set(val) {
+      this.setDataValue('screenshots', JSON.stringify(val));
+    }
+  },
+  videoUrl: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 });
 
