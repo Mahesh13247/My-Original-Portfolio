@@ -17,11 +17,13 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Projects', path: '/projects' },
+    { name: 'About', path: '/#about' },
+    { name: 'Contact', path: '/#contact' },
   ];
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
-      <div className="flex justify-between items-center px-6 py-4 max-w-[1200px] mx-auto w-full">
+    <header className="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-primary/10">
+      <div className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-[1200px] mx-auto w-full">
         <Link to="/" className="flex items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
           <Grid className="text-primary group-hover:rotate-90 transition-transform duration-500 neon-text-blue" size={24} />
           <span className="text-lg font-bold tracking-tighter text-slate-50 uppercase font-manrope neon-text-blue">PORTFOLIO</span>
@@ -30,19 +32,19 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-8 items-center">
           {navLinks.map(link => (
-            <Link key={link.name} to={link.path} className="text-slate-400 hover:text-[#e60000] transition-colors font-medium text-sm">
+            <Link key={link.name} to={link.path} className="text-slate-400 hover:text-primary transition-colors font-medium text-sm">
               {link.name}
             </Link>
           ))}
 
           {user ? (
             <div className="flex items-center gap-6">
-              <Link to="/dashboard" className="text-slate-400 hover:text-[#7DF9FF] transition-colors font-medium flex items-center gap-2 text-sm">
-                <LayoutDashboard size={18} /> Dashboard
+              <Link to="/dashboard" className="text-slate-400 hover:text-primary transition-colors font-medium flex items-center gap-2 text-sm">
+                <LayoutDashboard size={18} className="text-primary" /> Dashboard
               </Link>
               {user.role === 'admin' && (
-                <Link to="/admin" className="text-slate-400 hover:text-[#7DF9FF] transition-colors font-medium flex items-center gap-2 text-sm">
-                  <Settings size={18} /> Admin
+                <Link to="/admin" className="text-slate-400 hover:text-primary transition-colors font-medium flex items-center gap-2 text-sm">
+                  <Settings size={18} className="text-primary" /> Admin
                 </Link>
               )}
               <button
@@ -62,22 +64,22 @@ const Navbar = () => {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-slate-300 hover:text-white transition-colors"
+          className="md:hidden text-primary hover:text-white transition-colors p-1"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMenuOpen ? <X size={30} /> : <Menu size={30} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-[73px] left-0 w-full bg-slate-900 border-b border-slate-700/50 p-6 flex flex-col gap-6 animate-in slide-in-from-top duration-300">
+        <div className="md:hidden absolute top-[73px] left-0 w-full bg-slate-950 border-b border-slate-800 p-6 flex flex-col gap-5 shadow-xl">
           {navLinks.map(link => (
             <Link
               key={link.name}
               to={link.path}
               onClick={() => setIsMenuOpen(false)}
-              className="text-xl font-bold text-slate-300 hover:text-blue-400 transition-colors"
+              className="text-xl font-black text-slate-300 hover:text-primary transition-colors"
             >
               {link.name}
             </Link>
@@ -88,17 +90,17 @@ const Navbar = () => {
               <Link
                 to="/dashboard"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-3 text-xl font-bold text-slate-300"
+                className="flex items-center gap-3 text-xl font-black text-slate-300 hover:text-primary transition-colors"
               >
-                <LayoutDashboard size={24} className="text-blue-500" /> Dashboard
+                <LayoutDashboard size={24} className="text-primary" /> Dashboard
               </Link>
               {user.role === 'admin' && (
                 <Link
                   to="/admin"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 text-xl font-bold text-slate-300"
+                  className="flex items-center gap-3 text-xl font-black text-slate-300 hover:text-primary transition-colors"
                 >
-                  <Settings size={24} className="text-blue-500" /> Admin
+                  <Settings size={24} className="text-primary" /> Admin
                 </Link>
               )}
               <button

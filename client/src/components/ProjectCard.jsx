@@ -7,12 +7,13 @@ const ProjectCard = ({ project, onUnlock }) => {
   const isUnlocked = user?.role === 'admin' || user?.unlockedProjects?.includes(project.id) || !project.isPremium;
 
   return (
-    <motion.article 
-      initial={{ opacity: 0, scale: 0.95 }}
+    <motion.article
+      initial={{ opacity: 0, scale: 0.96 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      className="group relative bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden hover:scale-[1.02] transition-all duration-500 flex flex-col shadow-2xl hover:neon-border-blue"
+      viewport={{ once: true }}
+      className="group relative bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden hover:scale-[1.01] transition-all duration-500 flex flex-col shadow-2xl hover:neon-border-blue"
     >
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-44 sm:h-52 overflow-hidden">
         <img 
           src={project.image} 
           alt={project.title} 
@@ -39,7 +40,7 @@ const ProjectCard = ({ project, onUnlock }) => {
       <div className="p-6 flex-grow flex flex-col">
         <div className="flex gap-2 mb-4 flex-wrap">
           {project.techStack.map(tech => (
-            <span key={tech} className="bg-primary/5 text-primary text-[10px] uppercase tracking-widest font-bold px-2 py-1 rounded-md border border-primary/10">
+            <span key={tech} className="bg-primary/5 text-primary text-[9px] sm:text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-md border border-primary/10">
               {tech}
             </span>
           ))}

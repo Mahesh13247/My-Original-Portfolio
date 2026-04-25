@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Dashboard from './pages/Dashboard';
@@ -18,7 +19,8 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="flex flex-col min-h-screen">
+        <ScrollToTop />
+        <div className="flex flex-col min-h-screen overflow-x-hidden">
           <Toaster position="top-right" />
           <Navbar />
           <main className="flex-grow pt-20">

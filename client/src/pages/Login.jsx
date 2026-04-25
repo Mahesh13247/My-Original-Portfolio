@@ -22,8 +22,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-6">
-      <div className="glass-panel max-w-md w-full p-10 rounded-3xl space-y-8">
+    <div className="min-h-[80vh] flex items-center justify-center px-6 py-12">
+      <div className="glass-panel max-w-md w-full p-6 sm:p-10 rounded-3xl space-y-6 sm:space-y-8 border border-slate-800 shadow-[0_0_40px_rgba(57,255,20,0.05)]">
         <div className="text-center">
           <h2 className="text-3xl font-bold font-manrope">Welcome Back</h2>
           <p className="text-on-surface-variant mt-2">Login to access your premium content.</p>
@@ -39,7 +39,7 @@ const Login = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-colors"
+                className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-slate-600 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)]"
                 placeholder="Please Enter Your Email Address 😁"
               />
             </div>
@@ -54,7 +54,7 @@ const Login = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-colors"
+                className="w-full bg-slate-950 border-2 border-slate-800 rounded-2xl pl-12 pr-4 py-3 focus:border-primary outline-none transition-all duration-300 text-slate-50 placeholder:text-slate-600 focus:shadow-[0_0_10px_rgba(57,255,20,0.15)]"
                 placeholder="Please Enter Your Password 🫣"
               />
             </div>

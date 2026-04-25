@@ -2,11 +2,11 @@ import React from 'react';
 
 const TermsConditions = () => {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12 text-slate-300">
-      <h1 className="text-4xl font-bold text-white mb-4">Terms & Conditions</h1>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 md:py-12 text-slate-300">
+      <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">Terms & Conditions</h1>
       <p className="text-sm text-slate-500 mb-8 font-mono italic">Last Updated: April 25, 2026</p>
 
-      <div className="glass-panel p-8 rounded-3xl border border-slate-700/50 space-y-8 leading-relaxed">
+      <div className="glass-panel p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-slate-800 space-y-7 leading-relaxed">
         <section className="space-y-4">
           <p>
             Welcome to <span className="text-blue-400">kmaheshkumarachary.onrender.com</span>. By accessing this website, you agree to the following terms.

@@ -233,12 +233,12 @@ const AdminDashboard = () => {
   const NavButton = ({ tab, icon, label }) => {
     const isActive = activeTab === tab;
     return (
-      <button 
+      <button
         onClick={() => setActiveTab(tab)}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-          isActive 
-            ? 'bg-purple-500/10 text-purple-400' 
-            : 'text-slate-400 hover:bg-slate-800 hover:text-slate-50'
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
+          isActive
+            ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_10px_rgba(57,255,20,0.1)]'
+            : 'text-slate-400 hover:bg-slate-900 hover:text-slate-50'
         }`}
       >
         {icon} {label}
@@ -246,50 +246,78 @@ const AdminDashboard = () => {
     );
   };
 
-  return (
-    <div className="flex h-[calc(100vh-80px)] overflow-hidden bg-slate-900 w-full max-w-[1200px] mx-auto">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-slate-700/50 h-full hidden md:block bg-slate-900 p-6 space-y-6 flex-shrink-0">
-        <div className="text-center pb-6 border-b border-slate-700/50">
-          <div className="w-16 h-16 bg-purple-500/10 rounded-full mx-auto mb-4 flex items-center justify-center text-purple-400 text-2xl font-bold">
-            A
-          </div>
-          <h2 className="font-bold text-slate-50">Admin Console</h2>
-          <p className="text-xs text-slate-400 truncate">System Management</p>
-        </div>
-        
-        <nav className="space-y-2">
-          <NavButton tab="overview" icon={<LayoutDashboard size={18} />} label="Overview" />
-          <NavButton tab="projects" icon={<ShoppingBag size={18} />} label="Projects" />
-          <NavButton tab="users" icon={<Users size={18} />} label="Users" />
-          <NavButton tab="payments" icon={<DollarSign size={18} />} label="Payments" />
-          <NavButton tab="coupons" icon={<CreditCard size={18} />} label="Coupons" />
-          <NavButton tab="messages" icon={<MessageSquare size={18} />} label="Messages" />
-        </nav>
-      </aside>
+  const adminTabs = [
+    { id: 'overview',  icon: <LayoutDashboard size={18} />, label: 'Overview'  },
+    { id: 'projects',  icon: <ShoppingBag size={18} />,    label: 'Projects'  },
+    { id: 'users',     icon: <Users size={18} />,           label: 'Users'     },
+    { id: 'payments',  icon: <DollarSign size={18} />,     label: 'Payments'  },
+    { id: 'coupons',   icon: <CreditCard size={18} />,     label: 'Coupons'   },
+    { id: 'messages',  icon: <MessageSquare size={18} />,  label: 'Messages'  },
+  ];
 
-      {/* Content */}
-      <div className="flex-1 p-8 overflow-y-auto w-full space-y-8">
+  return (
+    <div className="min-h-screen bg-background w-full">
+      <div className="flex min-h-[calc(100dvh-80px)] max-w-[1400px] mx-auto">
+
+        {/* ── Desktop Sidebar ── */}
+        <aside className="w-64 border-r border-slate-800 h-full hidden md:flex flex-col bg-slate-950 flex-shrink-0">
+          <div className="p-6 border-b border-slate-800 text-center">
+            <div className="w-14 h-14 bg-primary/10 border border-primary/20 rounded-full mx-auto mb-3 flex items-center justify-center text-primary text-xl font-black neon-text-blue">
+              A
+            </div>
+            <h2 className="font-black text-slate-50">Admin Console</h2>
+            <p className="text-xs text-slate-500 mt-0.5">System Management</p>
+          </div>
+          <nav className="flex-1 p-4 space-y-1">
+            {adminTabs.map(({ id, icon, label }) => (
+              <NavButton key={id} tab={id} icon={icon} label={label} />
+            ))}
+          </nav>
+        </aside>
+
+        {/* ── Content ── */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+
+          {/* Mobile Tab Bar */}
+          <div className="md:hidden sticky top-0 z-20 flex overflow-x-auto border-b border-slate-800 bg-slate-950 shrink-0 scrollbar-none">
+            {adminTabs.map(({ id, icon, label }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={`flex flex-col items-center gap-1 py-3 px-3 text-[9px] font-black uppercase tracking-wide whitespace-nowrap shrink-0 transition-all ${
+                  activeTab === id
+                    ? 'text-primary border-b-2 border-primary'
+                    : 'text-slate-500'
+                }`}
+              >
+                {icon}
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {/* Scrollable content */}
+          <div className="flex-1 p-4 md:p-8 overflow-y-auto space-y-6">
         
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold text-slate-50 capitalize">{activeTab}</h1>
-          {activeTab === 'projects' && (
-            <button onClick={openNewProjectModal} className="btn-primary flex items-center gap-2">
-              <Plus size={18} /> Add Project
-            </button>
-          )}
-          {activeTab === 'coupons' && (
-            <button onClick={() => setShowAddCouponModal(true)} className="btn-primary flex items-center gap-2">
-              <Plus size={18} /> Add Coupon
-            </button>
-          )}
-          {activeTab === 'users' && (
-            <button onClick={openNewUserModal} className="btn-primary flex items-center gap-2">
-              <Plus size={18} /> Add User
-            </button>
-          )}
-        </div>
+            {/* Header */}
+            <div className="flex flex-wrap justify-between items-center gap-3">
+              <h1 className="text-2xl md:text-3xl font-black text-slate-50 capitalize">{activeTab}</h1>
+              {activeTab === 'projects' && (
+                <button onClick={openNewProjectModal} className="btn-primary flex items-center gap-2 !py-2 !px-4 text-xs">
+                  <Plus size={16} /> Add Project
+                </button>
+              )}
+              {activeTab === 'coupons' && (
+                <button onClick={() => setShowAddCouponModal(true)} className="btn-primary flex items-center gap-2 !py-2 !px-4 text-xs">
+                  <Plus size={16} /> Add Coupon
+                </button>
+              )}
+              {activeTab === 'users' && (
+                <button onClick={openNewUserModal} className="btn-primary flex items-center gap-2 !py-2 !px-4 text-xs">
+                  <Plus size={16} /> Add User
+                </button>
+              )}
+            </div>
 
         {/* Overview Tab */}
         {activeTab === 'overview' && (
@@ -313,7 +341,8 @@ const AdminDashboard = () => {
 
         {/* Projects Tab */}
         {activeTab === 'projects' && (
-          <div className="glass-panel rounded-3xl overflow-hidden">
+          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+            <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead className="bg-slate-900/50 border-b border-slate-700">
                 <tr>
@@ -350,12 +379,14 @@ const AdminDashboard = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
 
         {/* Users Tab */}
         {activeTab === 'users' && (
-          <div className="glass-panel rounded-3xl overflow-hidden">
+          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+            <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead className="bg-slate-900/50 border-b border-slate-700">
                 <tr>
@@ -387,12 +418,14 @@ const AdminDashboard = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
 
         {/* Payments Tab */}
         {activeTab === 'payments' && (
-          <div className="glass-panel rounded-3xl overflow-hidden">
+          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+            <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead className="bg-slate-900/50 border-b border-slate-700">
                 <tr>
@@ -417,12 +450,14 @@ const AdminDashboard = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
 
         {/* Coupons Tab */}
         {activeTab === 'coupons' && (
-          <div className="glass-panel rounded-3xl overflow-hidden">
+          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+            <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead className="bg-slate-900/50 border-b border-slate-700">
                 <tr>
@@ -453,12 +488,14 @@ const AdminDashboard = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
 
         {/* Messages Tab */}
         {activeTab === 'messages' && (
-          <div className="glass-panel rounded-3xl overflow-hidden">
+          <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+            <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead className="bg-slate-900/50 border-b border-slate-700">
                 <tr>
@@ -488,6 +525,7 @@ const AdminDashboard = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
 
@@ -554,6 +592,8 @@ const AdminDashboard = () => {
           </div>
         )}
 
+          </div>
+        </div>
       </div>
     </div>
   );
