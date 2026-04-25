@@ -110,9 +110,9 @@ const Home = () => {
           >
             <div className="aspect-square rounded-3xl overflow-hidden glass-panel p-2">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=1000" 
+                src="/src/assets/IMG_20250524_235515_332.webp" 
                 alt="Mahesh" 
-                className="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-all duration-700"
               />
             </div>
             <div className="absolute -bottom-6 -right-6 glass-panel p-4 rounded-2xl shadow-2xl">
