@@ -10,7 +10,7 @@ const ProjectCard = ({ project, onUnlock }) => {
     <motion.article 
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      className="group relative bg-slate-800 rounded-2xl border border-slate-700/50 overflow-hidden hover:scale-[1.02] transition-all duration-300 flex flex-col shadow-xl"
+      className="group relative bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden hover:scale-[1.02] transition-all duration-500 flex flex-col shadow-2xl hover:neon-border-blue"
     >
       <div className="relative h-56 overflow-hidden">
         <img 
@@ -21,10 +21,10 @@ const ProjectCard = ({ project, onUnlock }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60"></div>
         
         {project.isPremium && !isUnlocked && (
-          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] flex items-center justify-center transition-opacity duration-300">
-            <div className="bg-slate-900/80 p-4 rounded-2xl border border-blue-500/20 flex flex-col items-center gap-2 shadow-2xl">
-              <Lock className="text-blue-500" size={24} />
-              <span className="text-xs font-bold uppercase tracking-widest text-blue-500">Premium</span>
+          <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px] flex items-center justify-center transition-opacity duration-300">
+            <div className="bg-slate-950/80 p-4 rounded-2xl border border-primary/20 flex flex-col items-center gap-2 shadow-2xl">
+              <Lock className="text-primary neon-text-blue" size={24} />
+              <span className="text-xs font-bold uppercase tracking-widest text-primary neon-text-blue">Premium</span>
             </div>
           </div>
         )}

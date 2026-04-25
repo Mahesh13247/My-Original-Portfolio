@@ -23,29 +23,29 @@ const Navbar = () => {
     <header className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
       <div className="flex justify-between items-center px-6 py-4 max-w-[1200px] mx-auto w-full">
         <Link to="/" className="flex items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
-          <Grid className="text-blue-500 group-hover:rotate-90 transition-transform duration-500" size={24} />
-          <span className="text-lg font-bold tracking-tighter text-slate-50 uppercase font-manrope">PORTFOLIO</span>
+          <Grid className="text-primary group-hover:rotate-90 transition-transform duration-500 neon-text-blue" size={24} />
+          <span className="text-lg font-bold tracking-tighter text-slate-50 uppercase font-manrope neon-text-blue">PORTFOLIO</span>
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-8 items-center">
           {navLinks.map(link => (
-            <Link key={link.name} to={link.path} className="text-slate-400 hover:text-blue-400 transition-colors font-medium text-sm">
+            <Link key={link.name} to={link.path} className="text-slate-400 hover:text-[#e60000] transition-colors font-medium text-sm">
               {link.name}
             </Link>
           ))}
-          
+
           {user ? (
             <div className="flex items-center gap-6">
-              <Link to="/dashboard" className="text-slate-400 hover:text-blue-400 transition-colors font-medium flex items-center gap-2 text-sm">
+              <Link to="/dashboard" className="text-slate-400 hover:text-[#7DF9FF] transition-colors font-medium flex items-center gap-2 text-sm">
                 <LayoutDashboard size={18} /> Dashboard
               </Link>
               {user.role === 'admin' && (
-                <Link to="/admin" className="text-slate-400 hover:text-blue-400 transition-colors font-medium flex items-center gap-2 text-sm">
+                <Link to="/admin" className="text-slate-400 hover:text-[#7DF9FF] transition-colors font-medium flex items-center gap-2 text-sm">
                   <Settings size={18} /> Admin
                 </Link>
               )}
-              <button 
+              <button
                 onClick={handleLogout}
                 className="text-slate-400 hover:text-red-400 transition-colors flex items-center gap-2"
               >
@@ -61,7 +61,7 @@ const Navbar = () => {
         </nav>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           className="md:hidden text-slate-300 hover:text-white transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
@@ -73,35 +73,35 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden absolute top-[73px] left-0 w-full bg-slate-900 border-b border-slate-700/50 p-6 flex flex-col gap-6 animate-in slide-in-from-top duration-300">
           {navLinks.map(link => (
-            <Link 
-              key={link.name} 
-              to={link.path} 
+            <Link
+              key={link.name}
+              to={link.path}
               onClick={() => setIsMenuOpen(false)}
               className="text-xl font-bold text-slate-300 hover:text-blue-400 transition-colors"
             >
               {link.name}
             </Link>
           ))}
-          
+
           {user ? (
             <div className="flex flex-col gap-6 pt-6 border-t border-slate-800">
-              <Link 
-                to="/dashboard" 
+              <Link
+                to="/dashboard"
                 onClick={() => setIsMenuOpen(false)}
                 className="flex items-center gap-3 text-xl font-bold text-slate-300"
               >
                 <LayoutDashboard size={24} className="text-blue-500" /> Dashboard
               </Link>
               {user.role === 'admin' && (
-                <Link 
-                  to="/admin" 
+                <Link
+                  to="/admin"
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-3 text-xl font-bold text-slate-300"
                 >
                   <Settings size={24} className="text-blue-500" /> Admin
                 </Link>
               )}
-              <button 
+              <button
                 onClick={handleLogout}
                 className="flex items-center gap-3 text-xl font-bold text-red-400"
               >
