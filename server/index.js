@@ -94,13 +94,16 @@ app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/coupons', require('./routes/couponRoutes'));
 app.use('/api/upload', require('./routes/uploadRoutes'));
 
-// Serve Frontend in Production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-
+// Serve Frontend (always serve if dist folder exists)
+const clientDistPath = path.join(__dirname, '../client/dist');
+if (fs.existsSync(clientDistPath)) {
+  console.log('✅ Serving React frontend from:', clientDistPath);
+  app.use(express.static(clientDistPath));
   app.get(/.*/, (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
+    res.sendFile(path.resolve(clientDistPath, 'index.html'));
   });
+} else {
+  console.log('⚠️  client/dist not found — frontend not served (dev mode)');
 }
 
 // Error Handling Middleware
