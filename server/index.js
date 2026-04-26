@@ -89,11 +89,12 @@ const runMigrations = async () => {
 // Database Connection
 const connectDB = async () => {
   try {
-    await sequelize.sync();
-    console.log('✅ SQLite Database Synced');
+    // alter: true updates existing tables to match models without dropping data
+    await sequelize.sync({ alter: true });
+    console.log('✅ Database Synced (schema updated)');
     await runMigrations();
   } catch (err) {
-    console.error('❌ Could not sync SQLite Database');
+    console.error('❌ Could not sync Database');
     console.error('   Error:', err.message);
     process.exit(1);
   }
