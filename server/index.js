@@ -101,6 +101,27 @@ const connectDB = async () => {
 
 connectDB();
 
+// ── Health Check (diagnostic endpoint) ──────────────────────────────────────
+app.get('/api/health', async (req, res) => {
+  const status = {
+    server: 'running',
+    env: {
+      NODE_ENV: process.env.NODE_ENV || 'not set',
+      JWT_SECRET: process.env.JWT_SECRET ? '✅ set' : '❌ MISSING',
+      PORT: process.env.PORT || '5000 (default)',
+    },
+    database: 'unknown',
+  };
+  try {
+    await sequelize.authenticate();
+    status.database = '✅ connected';
+  } catch (e) {
+    status.database = '❌ error: ' + e.message;
+  }
+  res.json(status);
+});
+// ────────────────────────────────────────────────────────────────────────────
+
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/projects', require('./routes/projectRoutes'));
