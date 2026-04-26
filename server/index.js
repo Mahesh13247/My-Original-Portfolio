@@ -1,4 +1,15 @@
 require('dotenv').config();
+
+// ── Startup env var validation ──────────────────────────────────────────────
+const REQUIRED_ENV = ['JWT_SECRET'];
+const missing = REQUIRED_ENV.filter(k => !process.env[k]);
+if (missing.length) {
+  console.error('❌ FATAL: Missing required environment variables:', missing.join(', '));
+  console.error('   Set these in the Render dashboard under Environment Variables.');
+  process.exit(1);
+}
+// ────────────────────────────────────────────────────────────────────────────
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
