@@ -17,13 +17,11 @@ if (process.env.DATABASE_URL) {
     logging: false
   });
 } else {
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error('❌ CRITICAL ERROR: DATABASE_URL is missing in production environment!');
-  }
-  console.log('💻 Development Mode: Connecting to SQLite...');
+  console.log('💻 Mode: Connecting to SQLite...');
   sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: path.join(__dirname, 'database.sqlite'),
+    // Path fixed to be in the server root
+    storage: path.join(__dirname, '..', 'database.sqlite'),
     logging: false
   });
 }
