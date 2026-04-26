@@ -29,145 +29,145 @@ const Navbar = () => {
   return (
     <>
       <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline">
-      <div className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-[1200px] mx-auto w-full">
-        <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
-            <Grid className="text-primary group-hover:rotate-90 transition-transform duration-500 neon-text-blue" size={24} />
-            <span className="text-lg font-bold tracking-tighter text-on-background uppercase font-manrope neon-text-blue">PORTFOLIO</span>
-          </Link>
-          
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-primary">Available for hire</span>
-          </div>
-        </div>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-8 items-center">
-          {navLinks.map(link => (
-            <Link 
-              key={link.name} 
-              to={link.path} 
-              className={`relative text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-on-surface-variant'}`}
-            >
-              {link.name}
-              {location.pathname === link.path && (
-                <motion.div layoutId="nav-glow" className="absolute -bottom-[21px] left-0 right-0 h-[2px] bg-primary shadow-[0_0_10px_var(--neon-glow)]" />
-              )}
+        <div className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-[1200px] mx-auto w-full">
+          <div className="flex items-center gap-6">
+            <Link to="/" className="flex items-center gap-3 group" onClick={() => setIsMenuOpen(false)}>
+              <Grid className="text-primary group-hover:rotate-90 transition-transform duration-500 neon-text-blue" size={24} />
+              <span className="text-lg font-bold tracking-tighter text-on-background uppercase font-manrope neon-text-blue">PORTFOLIO</span>
             </Link>
-          ))}
 
-          {user ? (
-            <div className="flex items-center gap-6">
-              <ThemeToggle />
-              
-              {/* Premium Profile Widget with Dropdown */}
-              <div className="relative">
-                <button 
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center gap-3 group focus:outline-none"
-                >
-                  <div className="relative p-0.5 rounded-full bg-gradient-to-tr from-primary/50 to-secondary/50 group-hover:shadow-[0_0_20px_rgba(57,255,20,0.3)] transition-all duration-500">
-                    <div className="w-9 h-9 rounded-full bg-background flex items-center justify-center overflow-hidden border border-background">
-                      {user.avatar ? (
-                        <img src={user.avatar} alt="Profile" className="w-full h-full object-cover transition-transform group-hover:scale-110" />
-                      ) : (
-                        <span className="text-xs font-black text-primary uppercase">{user.name?.charAt(0)}</span>
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-primary">Available for hire</span>
+            </div>
+          </div>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex gap-8 items-center">
+            {navLinks.map(link => (
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`relative text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-on-surface-variant'}`}
+              >
+                {link.name}
+                {location.pathname === link.path && (
+                  <motion.div layoutId="nav-glow" className="absolute -bottom-[21px] left-0 right-0 h-[2px] bg-primary shadow-[0_0_10px_var(--neon-glow)]" />
+                )}
+              </Link>
+            ))}
+
+            {user ? (
+              <div className="flex items-center gap-6">
+                <ThemeToggle />
+
+                {/* Premium Profile Widget with Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                    className="flex items-center gap-3 group focus:outline-none"
+                  >
+                    <div className="relative p-0.5 rounded-full bg-gradient-to-tr from-primary/50 to-secondary/50 group-hover:shadow-[0_0_20px_rgba(57,255,20,0.3)] transition-all duration-500">
+                      <div className="w-9 h-9 rounded-full bg-background flex items-center justify-center overflow-hidden border border-background">
+                        {user.avatar ? (
+                          <img src={user.avatar} alt="Profile" className="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                        ) : (
+                          <span className="text-xs font-black text-primary uppercase">{user.name?.charAt(0)}</span>
+                        )}
+                      </div>
+                      {user.role === 'admin' && (
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full border-2 border-background flex items-center justify-center shadow-lg">
+                          <span className="text-[6px] font-black text-background">AD</span>
+                        </div>
                       )}
                     </div>
-                    {user.role === 'admin' && (
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full border-2 border-background flex items-center justify-center shadow-lg">
-                        <span className="text-[6px] font-black text-background">AD</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="hidden lg:block text-left">
-                    <p className="text-[9px] font-black uppercase tracking-widest text-primary leading-none mb-1 opacity-70">Member</p>
-                    <p className="text-xs font-black text-on-background group-hover:text-primary transition-colors flex items-center gap-1">
-                      {user.name?.split(' ')[0]}
-                      <motion.span animate={{ rotate: isProfileOpen ? 180 : 0 }}>
-                        <Grid size={10} className="opacity-40" />
-                      </motion.span>
-                    </p>
-                  </div>
-                </button>
+                    <div className="hidden lg:block text-left">
+                      <p className="text-[9px] font-black uppercase tracking-widest text-primary leading-none mb-1 opacity-70">Member</p>
+                      <p className="text-xs font-black text-on-background group-hover:text-primary transition-colors flex items-center gap-1">
+                        {user.name?.split(' ')[0]}
+                        <motion.span animate={{ rotate: isProfileOpen ? 180 : 0 }}>
+                          <Grid size={10} className="opacity-40" />
+                        </motion.span>
+                      </p>
+                    </div>
+                  </button>
 
-                {/* Dropdown Menu */}
-                <AnimatePresence>
-                  {isProfileOpen && (
-                    <>
-                      <div className="fixed inset-0 z-0" onClick={() => setIsProfileOpen(false)} />
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        className="absolute right-0 mt-4 w-64 glass-panel border border-outline rounded-3xl p-3 shadow-2xl z-10 backdrop-blur-2xl"
-                      >
-                        <div className="p-4 border-b border-outline/50 mb-2">
-                          <p className="text-xs font-black text-on-background truncate">{user.name}</p>
-                          <p className="text-[10px] text-on-surface-variant truncate font-medium">{user.email}</p>
-                        </div>
-                        
-                        <div className="space-y-1">
-                          <Link 
-                            to="/dashboard" 
-                            onClick={() => setIsProfileOpen(false)}
-                            className="flex items-center gap-3 p-3 rounded-2xl hover:bg-primary/10 text-on-surface-variant hover:text-primary transition-all group/item"
-                          >
-                            <LayoutDashboard size={18} className="group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm font-bold">My Dashboard</span>
-                          </Link>
+                  {/* Dropdown Menu */}
+                  <AnimatePresence>
+                    {isProfileOpen && (
+                      <>
+                        <div className="fixed inset-0 z-0" onClick={() => setIsProfileOpen(false)} />
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          className="absolute right-0 mt-4 w-64 glass-panel p-3 z-10 rounded-[40px]"
+                        >
+                          <div className="p-4 border-b border-outline/50 mb-2">
+                            <p className="text-xs font-black text-on-background truncate">{user.name}</p>
+                            <p className="text-[10px] text-on-surface-variant truncate font-medium">{user.email}</p>
+                          </div>
 
-                          {user.role === 'admin' && (
-                            <Link 
-                              to="/admin" 
+                          <div className="space-y-1">
+                            <Link
+                              to="/dashboard"
                               onClick={() => setIsProfileOpen(false)}
                               className="flex items-center gap-3 p-3 rounded-2xl hover:bg-primary/10 text-on-surface-variant hover:text-primary transition-all group/item"
                             >
-                              <Settings size={18} className="group-hover/item:scale-110 transition-transform" />
-                              <span className="text-sm font-bold">Admin Panel</span>
+                              <LayoutDashboard size={18} className="group-hover/item:scale-110 transition-transform" />
+                              <span className="text-sm font-bold">My Dashboard</span>
                             </Link>
-                          )}
 
-                          <button
-                            onClick={handleLogout}
-                            className="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-red-500/10 text-on-surface-variant hover:text-red-500 transition-all group/item"
-                          >
-                            <LogOut size={18} className="group-hover/item:translate-x-1 transition-transform" />
-                            <span className="text-sm font-bold">Logout</span>
-                          </button>
-                        </div>
-                      </motion.div>
-                    </>
-                  )}
-                </AnimatePresence>
+                            {user.role === 'admin' && (
+                              <Link
+                                to="/admin"
+                                onClick={() => setIsProfileOpen(false)}
+                                className="flex items-center gap-3 p-3 rounded-2xl hover:bg-primary/10 text-on-surface-variant hover:text-primary transition-all group/item"
+                              >
+                                <Settings size={18} className="group-hover/item:scale-110 transition-transform" />
+                                <span className="text-sm font-bold">Admin Panel</span>
+                              </Link>
+                            )}
+
+                            <button
+                              onClick={handleLogout}
+                              className="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-red-500/10 text-on-surface-variant hover:text-red-500 transition-all group/item"
+                            >
+                              <LogOut size={18} className="group-hover/item:translate-x-1 transition-transform" />
+                              <span className="text-sm font-bold">Logout</span>
+                            </button>
+                          </div>
+                        </motion.div>
+                      </>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="flex items-center gap-4">
-              <ThemeToggle />
-              <Link to="/login" className="text-on-surface-variant hover:text-on-background transition-colors text-sm">Login</Link>
-              <Link to="/signup" className="btn-primary py-2 px-6 text-sm">Get Started</Link>
-            </div>
-          )}
-        </nav>
+            ) : (
+              <div className="flex items-center gap-4">
+                <ThemeToggle />
+                <Link to="/login" className="text-on-surface-variant hover:text-on-background transition-colors text-sm">Login</Link>
+                <Link to="/signup" className="btn-primary py-2 px-6 text-sm">Get Started</Link>
+              </div>
+            )}
+          </nav>
 
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center gap-4">
-          <ThemeToggle />
-          <button
-            className="text-primary hover:text-white transition-colors p-1"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* Mobile Toggle */}
+          <div className="md:hidden flex items-center gap-4">
+            <ThemeToggle />
+            <button
+              className="text-primary hover:text-white transition-colors p-1"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
-      </div>
 
-    </header>
-    <AnimatePresence>
+      </header>
+      <AnimatePresence>
         {isMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
@@ -180,7 +180,7 @@ const Navbar = () => {
                 <Grid className="text-primary neon-text-blue" size={24} />
                 <span className="text-lg font-black tracking-tighter text-on-background uppercase neon-text-blue">PORTFOLIO</span>
               </div>
-              <button 
+              <button
                 onClick={() => setIsMenuOpen(false)}
                 className="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-on-background border border-outline shadow-xl"
               >
@@ -217,7 +217,7 @@ const Navbar = () => {
               {/* Action Section */}
               <div className="space-y-8 pb-10">
                 <div className="h-px bg-outline opacity-30" />
-                
+
                 {user ? (
                   <div className="grid grid-cols-1 gap-4">
                     <Link

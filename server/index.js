@@ -6,16 +6,22 @@ const path = require('path');
 const app = express();
 const fs = require('fs');
 
-// Create uploads directory if it doesn't exist
+// Create uploads directories if they don't exist
 const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)){
-    fs.mkdirSync(uploadDir);
-}
+const privateUploadDir = path.join(__dirname, 'private_uploads');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+if (!fs.existsSync(privateUploadDir)) fs.mkdirSync(privateUploadDir, { recursive: true });
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use('/uploads', express.static(uploadDir));
+app.use('/private-uploads', express.static(privateUploadDir));
 
 const sequelize = require('./config/db');
 const User = require('./models/User');
