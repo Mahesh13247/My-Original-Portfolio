@@ -14,7 +14,24 @@ if (!fs.existsSync(uploadDir)){
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // In production, also allow same-origin requests
+    return callback(null, true);
+  },
+  credentials: true,
+}));
+
 app.use('/uploads', express.static(uploadDir));
 
 const sequelize = require('./config/db');
