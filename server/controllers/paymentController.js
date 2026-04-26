@@ -78,24 +78,25 @@ exports.verifyPayment = async (req, res) => {
         return res.status(400).json({ message: 'Payment already verified' });
       }
 
-      payment.status = 'completed';
-      payment.paymentId = razorpay_payment_id;
-      await payment.save();
+      if (payment) {
+        payment.status = 'completed';
+        payment.paymentId = razorpay_payment_id;
+        await payment.save();
 
-      const user = await User.findByPk(payment.userId);
-      const unlocked = user.unlockedProjects;
-      const projectIdStr = String(payment.projectId);
-      if (!unlocked.map(String).includes(projectIdStr)) {
-        unlocked.push(payment.projectId);
-        user.unlockedProjects = unlocked;
-        await user.save();
+        const user = await User.findByPk(payment.userId);
+        const unlocked = user.unlockedProjects;
+        if (!unlocked.includes(payment.projectId)) {
+          unlocked.push(payment.projectId);
+          user.unlockedProjects = unlocked;
+          await user.save();
+        }
+
+        const project = await Project.findByPk(payment.projectId);
+        project.unlocks += 1;
+        await project.save();
+
+        res.json({ message: 'Payment verified and project unlocked', payment });
       }
-
-      const project = await Project.findByPk(payment.projectId);
-      project.unlocks += 1;
-      await project.save();
-
-      res.json({ message: 'Payment verified and project unlocked', payment });
     } else {
       res.status(400).json({ message: 'Invalid signature' });
     }

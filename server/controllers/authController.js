@@ -1,6 +1,5 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -31,7 +30,6 @@ exports.signupUser = async (req, res) => {
         email: user.email,
         role: user.role,
         avatar: user.avatar,
-        createdAt: user.createdAt,
         token: generateToken(user.id),
       });
     }
@@ -54,7 +52,6 @@ exports.loginUser = async (req, res) => {
         email: user.email,
         role: user.role,
         avatar: user.avatar,
-        createdAt: user.createdAt,
         token: generateToken(user.id),
       });
     } else {
@@ -77,7 +74,6 @@ exports.getUserProfile = async (req, res) => {
         email: user.email,
         role: user.role,
         avatar: user.avatar,
-        createdAt: user.createdAt,
         unlockedProjects: user.unlockedProjects,
       });
     } else {
@@ -97,9 +93,8 @@ exports.updateUserProfile = async (req, res) => {
       user.email = req.body.email || user.email;
       user.avatar = req.body.avatar !== undefined ? req.body.avatar : user.avatar;
 
-      if (req.body.password && req.body.password.trim() !== '') {
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(req.body.password, salt);
+      if (req.body.password) {
+        user.password = req.body.password;
       }
 
       const updatedUser = await user.save();
@@ -110,8 +105,6 @@ exports.updateUserProfile = async (req, res) => {
         email: updatedUser.email,
         role: updatedUser.role,
         avatar: updatedUser.avatar,
-        createdAt: updatedUser.createdAt,
-        unlockedProjects: updatedUser.unlockedProjects,
         token: generateToken(updatedUser.id),
       });
     } else {

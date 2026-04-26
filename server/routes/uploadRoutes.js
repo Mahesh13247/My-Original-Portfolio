@@ -24,7 +24,7 @@ const imageUpload = multer({
     if (extname && mimetype) {
       return cb(null, true);
     } else {
-      cb(new Error('Only image files (jpeg, jpg, png, webp) are allowed!'));
+      cb('Error: Images only!');
     }
   }
 });
@@ -38,7 +38,7 @@ const sourceUpload = multer({
     if (extname) {
       return cb(null, true);
     } else {
-      cb(new Error('Only compressed files (.zip, .rar, .7z, .gz, .tar) are allowed!'));
+      cb('Error: Compressed files only (.zip, .rar, etc.)!');
     }
   }
 });
@@ -51,7 +51,7 @@ const screenshotUpload = multer({
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = filetypes.test(file.mimetype);
     if (extname && mimetype) return cb(null, true);
-    cb(new Error('Only image files (jpeg, jpg, png, webp, gif) are allowed!'));
+    cb('Error: Images only!');
   }
 });
 
@@ -62,7 +62,7 @@ const videoUpload = multer({
     const filetypes = /mp4|webm|mov|avi|mkv/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     if (extname) return cb(null, true);
-    cb(new Error('Only video files (.mp4, .webm, .mov, .avi, .mkv) are allowed!'));
+    cb('Error: Video files only (.mp4, .webm, etc.)!');
   }
 });
 
@@ -90,18 +90,6 @@ router.post('/video', protect, videoUpload.single('video'), (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
   const url = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
   res.json({ url });
-});
-
-// Multer error handler — catches file type / size errors from all upload routes above
-// eslint-disable-next-line no-unused-vars
-router.use((err, req, res, next) => {
-  if (err) {
-    const status = err.code === 'LIMIT_FILE_SIZE' ? 413 : 400;
-    return res.status(status).json({
-      message: err.message || 'File upload error'
-    });
-  }
-  next();
 });
 
 module.exports = router;

@@ -381,7 +381,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background w-full">
-      <div className="flex min-h-[calc(100dvh-80px)] max-w-[1200px] mx-auto border-x border-outline/5">
+      <div className="flex min-h-[calc(100dvh-80px)] max-w-[1400px] mx-auto">
 
         {/* ── Desktop Sidebar ── */}
         <aside className="w-64 border-r border-outline h-full hidden md:flex flex-col bg-surface flex-shrink-0">
@@ -429,7 +429,7 @@ const AdminDashboard = () => {
           </div>
 
           {/* Scrollable content */}
-          <div className="flex-1 p-4 md:px-12 md:py-10 overflow-y-auto space-y-6">
+          <div className="flex-1 p-4 md:p-8 overflow-y-auto space-y-6">
         
             {/* Header */}
             <div className="flex flex-wrap justify-between items-center gap-3">

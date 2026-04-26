@@ -115,17 +115,9 @@ const Dashboard = () => {
       const { data } = await api.put('/auth/profile', profileForm);
       // Synchronize global state
       setUser(data);
-      // Re-sync the form with the returned data so it's never stale
-      setProfileForm(prev => ({
-        ...prev,
-        name: data.name || prev.name,
-        email: data.email || prev.email,
-        avatar: data.avatar || prev.avatar,
-        password: '',
-      }));
-      toast.success('Profile updated successfully!', { id: load });
+      toast.success('Profile synchronized successfully!', { id: load });
     } catch (err) {
-      toast.error('Update failed. Please try again.', { id: load });
+      toast.error('Sync failed. Please try again.', { id: load });
     }
   };
 
@@ -138,7 +130,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background w-full">
-      <div className="flex min-h-[calc(100dvh-80px)] max-w-[1200px] mx-auto border-x border-outline/5">
+      <div className="flex min-h-[calc(100dvh-80px)] max-w-[1400px] mx-auto">
 
         {/* ── Desktop Sidebar ── */}
         <aside className="w-64 border-r border-outline h-full hidden md:flex flex-col bg-surface flex-shrink-0">
@@ -206,12 +198,12 @@ const Dashboard = () => {
           </div>
 
           {/* Scrollable Content */}
-          <div className="flex-1 p-4 md:px-16 md:py-10 overflow-y-auto pb-20">
+          <div className="flex-1 p-4 md:p-10 overflow-y-auto pb-20">
 
             {/* ── Library Tab ── */}
             {activeTab === 'library' && (
-              <div className="space-y-8 max-w-5xl mx-auto">
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+              <div className="space-y-8">
+                <div className="flex flex-wrap justify-between items-center gap-4">
                   <h1 className="text-2xl md:text-3xl font-black text-on-background">My Library</h1>
                   <span className="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border border-primary/20 neon-text-blue">
                     {unlockedProjects.length} Unlocked
@@ -252,13 +244,13 @@ const Dashboard = () => {
 
             {/* ── History Tab ── */}
             {activeTab === 'history' && (
-              <div className="space-y-8 max-w-5xl mx-auto">
-                <h1 className="text-2xl md:text-3xl font-black text-on-background text-center sm:text-left">Purchase History</h1>
+              <div className="space-y-8">
+                <h1 className="text-2xl md:text-3xl font-black text-on-background">Purchase History</h1>
 
-                <div className="glass-panel overflow-hidden rounded-2xl border border-slate-800 shadow-xl">
+                <div className="glass-panel overflow-hidden rounded-2xl border border-slate-800">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                      <thead className="bg-slate-900/80">
+                      <thead className="bg-slate-900">
                         <tr>
                           {['Project', 'Date', 'Amount', 'Status'].map(h => (
                             <th key={h} className="px-6 py-4 text-xs font-black uppercase tracking-wider text-slate-500">{h}</th>
@@ -301,13 +293,13 @@ const Dashboard = () => {
                 </div>
 
                 {payments.filter(p => p.status === 'pending').length > 0 && (
-                  <div className="space-y-4 pt-4">
-                    <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest text-center sm:text-left">Incomplete Attempts</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 opacity-50">
-                      {payments.filter(p => p.status === 'pending').slice(0, 4).map(payment => (
+                  <div className="space-y-3">
+                    <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest">Incomplete Attempts</h3>
+                    <div className="space-y-2 opacity-50">
+                      {payments.filter(p => p.status === 'pending').slice(0, 3).map(payment => (
                         <div key={payment.id} className="flex justify-between items-center p-4 rounded-xl border border-dashed border-slate-800 bg-slate-950">
-                          <span className="text-sm text-slate-400 font-medium truncate pr-4">{payment.Project?.title || 'Unknown'}</span>
-                          <span className="text-[10px] text-slate-600 font-mono whitespace-nowrap">{new Date(payment.createdAt).toLocaleDateString()}</span>
+                          <span className="text-sm text-slate-400">{payment.Project?.title || 'Unknown'}</span>
+                          <span className="text-xs text-slate-600">{new Date(payment.createdAt).toLocaleDateString()}</span>
                         </div>
                       ))}
                     </div>
@@ -318,10 +310,10 @@ const Dashboard = () => {
 
             {/* ── Billing Tab ── */}
             {activeTab === 'billing' && (
-              <div className="space-y-8 max-w-5xl mx-auto">
-                <h1 className="text-2xl md:text-3xl font-black text-on-background text-center sm:text-left">Billing</h1>
+              <div className="space-y-8">
+                <h1 className="text-2xl md:text-3xl font-black text-on-background">Billing</h1>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Neon Green Investment Card */}
                   <div className="relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-primary/20 via-slate-950 to-secondary/20 border border-primary/30 shadow-[0_0_30px_rgba(57,255,20,0.1)]">
                     <div className="relative z-10 space-y-6">
@@ -377,7 +369,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Security assurance */}
-                <div className="glass-panel p-8 rounded-3xl border border-slate-800 space-y-5 shadow-lg">
+                <div className="glass-panel p-8 rounded-3xl border border-slate-800 space-y-5">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-center">
                       <CheckCircle2 size={22} className="text-primary neon-text-blue" />
@@ -405,12 +397,12 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-
-            {/* ── Profile Tab ── */}
-            {activeTab === 'profile' && (
+        </div>
+        {/* Profile Tab */}
+        {activeTab === 'profile' && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h2 className="text-2xl sm:text-4xl font-black mb-6 sm:mb-10 neon-text-blue text-center">Account <span className="text-on-background">Settings</span></h2>
-            <div className="glass-panel p-5 sm:p-10 rounded-3xl max-w-2xl mx-auto border border-outline shadow-2xl">
+            <h2 className="text-2xl sm:text-4xl font-black mb-6 sm:mb-10 neon-text-blue">Account <span className="text-on-background">Settings</span></h2>
+            <div className="glass-panel p-5 sm:p-10 rounded-3xl max-w-2xl border border-outline shadow-2xl">
               <form onSubmit={handleProfileUpdate} className="space-y-6">
                 <div className="flex flex-col sm:flex-row items-center gap-6 mb-10 text-center sm:text-left">
                   <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(57,255,20,0.1)]">
@@ -490,7 +482,7 @@ const Dashboard = () => {
             </div>
 
             {/* ── Unique Features Grid ── */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-2xl">
               
               {/* Referral Section */}
               <div className="glass-panel p-6 rounded-3xl border border-outline hover:border-primary/30 transition-all group">
@@ -578,9 +570,7 @@ const Dashboard = () => {
 
             </div>
           </div>
-            )}
-
-        </div>
+        )}
 
       </div>
     </div>
@@ -588,4 +578,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

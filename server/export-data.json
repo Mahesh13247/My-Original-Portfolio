@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": "75c0f279-9935-4490-9616-ce9c8342e2c3",
+      "name": "K Mahesh Kumar Achary",
+      "email": "kmaheshachary34@gmail.com",
+      "password": "$2b$10$Zt8OQwnCHUhLLHMla5T/gOikOo7dRVGH2iM6QDv6Otq5ERAj4K0pi",
+      "role": "user",
+      "avatar": null,
+      "unlockedProjects": "[]",
+      "createdAt": "2026-04-26 18:36:36.367 +00:00",
+      "updatedAt": "2026-04-26 18:36:36.367 +00:00"
+    }
+  ],
+  "projects": [],
+  "payments": [],
+  "coupons": [],
+  "contacts": []
+}
