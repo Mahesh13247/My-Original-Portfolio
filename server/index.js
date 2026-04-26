@@ -25,9 +25,8 @@ if (!fs.existsSync(uploadDir)){
 
 // Middleware
 app.use(express.json());
-<<<<<<< HEAD
 
-// Enhanced CORS Configuration
+// Enhanced CORS — allows local dev + Render production
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
@@ -36,11 +35,9 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
-      var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+      return callback(new Error('Not allowed by CORS'), false);
     }
     return callback(null, true);
   },
@@ -48,9 +45,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-=======
-app.use(cors());
->>>>>>> parent of c4f4c3b (update)
+
 app.use('/uploads', express.static(uploadDir));
 
 const sequelize = require('./config/db');
