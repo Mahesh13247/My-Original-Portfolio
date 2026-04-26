@@ -1,4 +1,15 @@
 require('dotenv').config();
+
+// ── Startup env var validation ──────────────────────────────────────────────
+const REQUIRED_ENV = ['JWT_SECRET'];
+const missing = REQUIRED_ENV.filter(k => !process.env[k]);
+if (missing.length) {
+  console.error('❌ FATAL: Missing required environment variables:', missing.join(', '));
+  console.error('   Set these in the Render dashboard under Environment Variables.');
+  process.exit(1);
+}
+// ────────────────────────────────────────────────────────────────────────────
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -14,7 +25,27 @@ if (!fs.existsSync(uploadDir)){
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+// Enhanced CORS — allows local dev + Render production
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://kmaheshkumarachary.onrender.com'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('Not allowed by CORS'), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use('/uploads', express.static(uploadDir));
 
 const sequelize = require('./config/db');
@@ -56,17 +87,39 @@ const runMigrations = async () => {
 // Database Connection
 const connectDB = async () => {
   try {
-    await sequelize.sync();
-    console.log('✅ SQLite Database Synced');
+    // alter: true updates existing tables to match models without dropping data
+    await sequelize.sync({ alter: true });
+    console.log('✅ Database Synced (schema updated)');
     await runMigrations();
   } catch (err) {
-    console.error('❌ Could not sync SQLite Database');
+    console.error('❌ Could not sync Database');
     console.error('   Error:', err.message);
     process.exit(1);
   }
 };
 
 connectDB();
+
+// ── Health Check (diagnostic endpoint) ──────────────────────────────────────
+app.get('/api/health', async (req, res) => {
+  const status = {
+    server: 'running',
+    env: {
+      NODE_ENV: process.env.NODE_ENV || 'not set',
+      JWT_SECRET: process.env.JWT_SECRET ? '✅ set' : '❌ MISSING',
+      PORT: process.env.PORT || '5000 (default)',
+    },
+    database: 'unknown',
+  };
+  try {
+    await sequelize.authenticate();
+    status.database = '✅ connected';
+  } catch (e) {
+    status.database = '❌ error: ' + e.message;
+  }
+  res.json(status);
+});
+// ────────────────────────────────────────────────────────────────────────────
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
