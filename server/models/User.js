@@ -25,11 +25,8 @@ const User = sequelize.define('User', {
     allowNull: false
   },
   role: {
-    type: DataTypes.STRING,
-    defaultValue: 'user',
-    validate: {
-      isIn: [['user', 'admin']]
-    }
+    type: DataTypes.ENUM('user', 'admin'),
+    defaultValue: 'user'
   },
   unlockedProjects: {
     type: DataTypes.TEXT,
